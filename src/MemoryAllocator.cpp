@@ -3,7 +3,6 @@
 //
 
 #include "../h/MemoryAllocator.hpp"
-
 #include "../h/print.hpp"
 
 void* MemoryAllocator::memStart = nullptr;
@@ -38,11 +37,13 @@ void MemoryAllocator::initialise()
 
 void *MemoryAllocator::mem_alloc(size_t size)
 {
+    if (size == 0)
+        return nullptr;
+
     // Calculate number of blocks
     // In front of every allocated block needs to be a struct
     size_t totalSize = size + sizeof(AllocatedMem);
     size_t blockNum = 0;
-
 
     if (totalSize % MEM_BLOCK_SIZE != 0)
         blockNum = totalSize / MEM_BLOCK_SIZE + 1; // mozda ne treba hardkovoati jedinicu
@@ -88,11 +89,23 @@ void *MemoryAllocator::mem_alloc(size_t size)
 
             // Address of the allocated memory
             // Behind the beginning address we must allocate AllocatedMem
-            // void* ptr = (size_t)curr + curr->size * MEM_BLOCK_SIZE - blockNum * MEM_BLOCK_SIZE;
-            // AllocatedMem* allocatedMem = (AllocatedMem*)((size_t)ptr - sizeof(AllocatedMem);
-            AllocatedMem* allocatedMem = (AllocatedMem*)((size_t)curr + curr->size * MEM_BLOCK_SIZE - blockNum * MEM_BLOCK_SIZE);
+            AllocatedMem* allocatedMem = (AllocatedMem*)((size_t)curr + curr->size  * MEM_BLOCK_SIZE);
             allocatedMem->blockNum = blockNum;
             void* ptr = (void*)((size_t)allocatedMem + sizeof(AllocatedMem));
+
+            /*
+            printString("malloc-------------------");
+            printString("\n");
+            printString("blockNum: ");
+            printInteger((size_t)blockNum);
+            printString("\n");
+            printString("allocatedMem addr: ");
+            printInteger((size_t)allocatedMem);
+            printString("\n");
+            printString("ptr addr: ");
+            printInteger((size_t)ptr);
+            printString("\n");
+            */
 
             return ptr;
         }
@@ -108,17 +121,9 @@ void *MemoryAllocator::mem_alloc(size_t size)
 
 int MemoryAllocator::mem_free(void* ptr)
 {
-    AllocatedMem* allocatedMem = (AllocatedMem*)(size_t)ptr - sizeof(AllocatedMem);
+    AllocatedMem* allocatedMem = (AllocatedMem*)((size_t)ptr - sizeof(AllocatedMem));
 
     size_t blockNum = allocatedMem->blockNum;
-
-    /*
-    // Create new FreeMem segment
-    FreeMem* newFreeMem = (FreeMem*) (allocatedMem);
-    newFreeMem->size = blockNum;
-    newFreeMem->prev = nullptr;
-    newFreeMem->next = nullptr;
-    */
 
     // Get the FreeMem head and iterate to put the new FreeMem Segment
     size_t addr = (size_t)allocatedMem;
@@ -142,6 +147,18 @@ int MemoryAllocator::mem_free(void* ptr)
     else MemoryAllocator::head = newSeg;
 
     // Try to merge with previous and next segment
+
+    /*
+    printString("free-------------------");
+    printString("\n");
+    printString("ptr addr: ");
+    printInteger((size_t)ptr);
+    printString("\n");
+    printString("allocatedMem blockNum: ");
+    printInteger((size_t)allocatedMem->blockNum);
+    printString("\n");
+    */
+
     MemoryAllocator::tryToJoin(newSeg);
     MemoryAllocator::tryToJoin(curr);
 
