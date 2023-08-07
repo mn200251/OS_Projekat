@@ -4,6 +4,11 @@
 
 #include "../h/MemoryAllocator.hpp"
 
+#include "../h/print.hpp"
+
+void* MemoryAllocator::memStart = nullptr;
+void* MemoryAllocator::memEnd = nullptr;
+FreeMem* MemoryAllocator::head = nullptr;
 
 void MemoryAllocator::initialise()
 {
@@ -21,6 +26,14 @@ void MemoryAllocator::initialise()
     MemoryAllocator::head->next = nullptr;
     MemoryAllocator::head->prev = nullptr;
     MemoryAllocator::head->size = ((size_t)MemoryAllocator::memEnd - (size_t)MemoryAllocator::memStart) / MEM_BLOCK_SIZE;
+
+    /*
+    printInteger((size_t)MemoryAllocator::memStart);
+    printString("\n");
+    printInteger((size_t)MemoryAllocator::memEnd);
+    printString("\n");
+    printInteger((size_t)MemoryAllocator::head->size);
+     */
 }
 
 void *MemoryAllocator::mem_alloc(size_t size)
@@ -29,6 +42,7 @@ void *MemoryAllocator::mem_alloc(size_t size)
     // In front of every allocated block needs to be a struct
     size_t totalSize = size + sizeof(AllocatedMem);
     size_t blockNum = 0;
+
 
     if (totalSize % MEM_BLOCK_SIZE != 0)
         blockNum = totalSize / MEM_BLOCK_SIZE + 1; // mozda ne treba hardkovoati jedinicu
