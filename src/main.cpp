@@ -8,39 +8,9 @@
 
 void userMain()
 {
-    Riscv::w_stvec((uint64) &Riscv::supervisorTrap);
-
     __putc('1');
     __putc('\n');
 
-    TCB *threads[5];
-
-    threads[0] = TCB::createThread(nullptr);
-    TCB::running = threads[0];
-
-    threads[1] = TCB::createThread(workerBodyA);
-    printString("ThreadA created\n");
-    threads[2] = TCB::createThread(workerBodyB);
-    printString("ThreadB created\n");
-    threads[3] = TCB::createThread(workerBodyC);
-    printString("ThreadC created\n");
-    threads[4] = TCB::createThread(workerBodyD);
-    printString("ThreadD created\n");
-
-    Riscv::ms_sstatus(Riscv::SSTATUS_SIE);
-
-    while (!(threads[1]->isFinished() &&
-             threads[2]->isFinished() &&
-             threads[3]->isFinished() &&
-             threads[4]->isFinished()))
-    {
-        TCB::yield();
-    }
-
-    for (auto &thread: threads)
-    {
-        delete thread;
-    }
     printString("Finished\n");
 }
 
@@ -62,6 +32,10 @@ void main()
 
     MemoryAllocator::initialise();
 
+    Riscv::w_stvec((uint64) &Riscv::supervisorTrap);
+    TCB* mainThread = TCB::createThread(nullptr);
+    TCB::running = mainThread;
+    Riscv::ms_sstatus(Riscv::SSTATUS_SIE);
 
     userMain();
 }

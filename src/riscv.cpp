@@ -5,6 +5,7 @@
 #include "../h/syscall_c.hpp"
 #include "../h/MemoryAllocator.hpp"
 #include "../lib/hw.h"
+#include "../lib/mem.h"
 
 void Riscv::popSppSpie()
 {
@@ -48,9 +49,9 @@ void Riscv::handleSupervisorTrap()
             // retVal should already be in a0 but just in case
             asm volatile("mv %0, a0" : "=r" (retVal));
 
-
             // put the return value on the stack
             asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
+            // asm volatile("sd a0, 0x50(%0)" : : "r" (SP));
         }
         // mem_free
         else if (a[0] == 0x0000000000000002UL)
@@ -65,7 +66,7 @@ void Riscv::handleSupervisorTrap()
 
             // put the return value on the stack
             asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
-            // asm volatile("sd %0, 10 * 8(sp)" : : "r" (retVal));
+            // asm volatile("sd a0, 0x50(%0)" : : "r" (SP));
         }
         else
         {
