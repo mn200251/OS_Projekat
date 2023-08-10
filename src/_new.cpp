@@ -11,14 +11,14 @@ void *operator new(size_t n)
 {
     // return __mem_alloc(n);
     // return MemoryAllocator::mem_alloc(n);
-    mem_alloc(n);
+    return mem_alloc(n);
 }
 
 void *operator new[](size_t n)
 {
     // return __mem_alloc(n);
     // return MemoryAllocator::mem_alloc(n);
-    mem_alloc(n);
+    return mem_alloc(n);
 }
 
 void operator delete(void *p) noexcept
