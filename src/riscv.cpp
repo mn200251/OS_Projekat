@@ -27,6 +27,10 @@ void Riscv::handleSupervisorTrap()
     uint64 volatile sepc = r_sepc() + 4;
     uint64 volatile sstatus = r_sstatus();
 
+    // retrieve stack pointer relative to saved registers
+    void* SP;
+    asm volatile("csrr %0, sscratch" : "=r" (SP));
+
     uint64 scause = r_scause();
 
     if (scause == 0x0000000000000008UL || scause == 0x0000000000000009UL)
@@ -41,8 +45,12 @@ void Riscv::handleSupervisorTrap()
 
             void* retVal = MemoryAllocator::mem_alloc(size);
 
+            // retVal should already be in a0 but just in case
+            asm volatile("mv %0, a0" : "=r" (retVal));
+
+
             // put the return value on the stack
-            asm volatile("sd %0, 10 * 8(sp)" : : "r" (retVal));
+            asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
         }
         // mem_free
         else if (a[0] == 0x0000000000000002UL)
@@ -52,8 +60,12 @@ void Riscv::handleSupervisorTrap()
 
             int retVal = MemoryAllocator::mem_free(ptr);
 
+            // retVal should already be in a0 but just in case
+            asm volatile("mv %0, a0" : "=r" (retVal));
+
             // put the return value on the stack
-            asm volatile("sd %0, 10 * 8(sp)" : : "r" (retVal));
+            asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
+            // asm volatile("sd %0, 10 * 8(sp)" : : "r" (retVal));
         }
         else
         {
@@ -75,8 +87,8 @@ void Riscv::handleSupervisorTrap()
         TCB::timeSliceCounter++;
         if (TCB::timeSliceCounter >= TCB::running->getTimeSlice())
         {
-            uint64 volatile sepc = r_sepc();
-            uint64 volatile sstatus = r_sstatus();
+            // uint64 volatile sepc = r_sepc();
+            // uint64 volatile sstatus = r_sstatus();
             TCB::timeSliceCounter = 0;
             TCB::dispatch();
             w_sstatus(sstatus);

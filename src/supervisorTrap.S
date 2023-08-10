@@ -10,6 +10,8 @@ _ZN5Riscv14supervisorTrapEv:
     sd x\index, \index * 8(sp)
     .endr
 
+    csrw sscratch, sp
+
     call _ZN5Riscv20handleSupervisorTrapEv
 
     # pop all registers from stack

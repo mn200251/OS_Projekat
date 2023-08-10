@@ -11,6 +11,7 @@ void userMain()
     Riscv::w_stvec((uint64) &Riscv::supervisorTrap);
 
     __putc('1');
+    __putc('\n');
 
     TCB *threads[5];
 

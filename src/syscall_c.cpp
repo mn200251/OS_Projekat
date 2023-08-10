@@ -18,10 +18,11 @@ void* mem_alloc (size_t size)
 
     // __asm__ volatile("sd %0, (0)a0" : "=r" (ptr));
     asm volatile("sd a0, %0" : "=m" (ptr));
+    // asm volatile("mv a0, %0" : "=r" (ptr));
 
-    printString("mem_alloc: ");
-    printInteger(size_t(ptr));
-    printString("\n");
+//    printString("mem_alloc: ");
+//    printInteger(size_t(ptr));
+//    printString("\n");
 
     return ptr;
 }
@@ -39,10 +40,11 @@ int mem_free (void* ptr)
 
     // asm volatile("sd %0, 0(a0)" : "=m" (val));
     asm volatile("sd a0, %0" : "=m" (val));
+    // asm volatile("mv a0, %0" : "=r" (val));
 
-    printString("mem_free: ");
+    /*printString("mem_free: ");
     printInteger(val);
-    printString("\n");
+    printString("\n");*/
 
     return val;
 }
