@@ -9,7 +9,7 @@
 class TCB
 {
 public:
-    ~TCB() { delete[] stack; }
+     ~TCB();
 
     bool isFinished() const { return finished; }
 
