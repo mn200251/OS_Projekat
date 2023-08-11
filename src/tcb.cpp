@@ -19,8 +19,12 @@ TCB *TCB::createThread(Body body)
     else
         newThread->stack = nullptr;
 
-    newThread->context.ra = (uint64) &threadWrapper,
-    newThread->context.sp = *newThread->stack;
+    newThread->context.ra = (uint64) &threadWrapper;
+
+    if (newThread->stack != nullptr)
+        newThread->context.sp = (uint64) &newThread->stack[STACK_SIZE];
+    else
+        newThread->context.sp = 0;
 
     if (body != nullptr)
         Scheduler::put(newThread);

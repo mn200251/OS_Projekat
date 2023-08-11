@@ -26,6 +26,7 @@ public:
     static TCB *running;
 
 private:
+    /*
     TCB(Body body, uint64 timeSlice) :
             body(body),
             stack(body != nullptr ? new uint64[STACK_SIZE] : nullptr),
@@ -37,6 +38,7 @@ private:
     {
         if (body != nullptr) { Scheduler::put(this); }
     }
+    */
 
     struct Context
     {
