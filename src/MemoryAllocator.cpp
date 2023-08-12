@@ -173,6 +173,20 @@ int MemoryAllocator::tryToJoin(FreeMem *curr)
     }
 }
 
+size_t MemoryAllocator::convert2Blocks(size_t size) {
+    // Calculate number of blocks
+    // In front of every allocated block needs to be a struct
+    size_t totalSize = size + sizeof(AllocatedMem);
+    size_t blockNum = 0;
+
+    if (totalSize % MEM_BLOCK_SIZE != 0)
+        blockNum = totalSize / MEM_BLOCK_SIZE + 1; // mozda ne treba hardkovoati jedinicu
+    else
+        blockNum = totalSize / MEM_BLOCK_SIZE;
+
+    return 0;
+}
+
 
 
 

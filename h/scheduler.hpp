@@ -6,18 +6,19 @@
 #define PROJECT_BASE_SCHEDULER_HPP
 
 #include "list.hpp"
+#include "../h/thread.hpp"
 
-class TCB;
+// class TCB;
 
 class Scheduler
 {
 private:
-    static List<TCB> readyThreadQueue;
+    static List<thread_t> readyThreadQueue;
 
 public:
-    static TCB *get();
+    static thread_t *get();
 
-    static void put(TCB *ccb);
+    static void put(thread_t *ccb);
 
 };
 

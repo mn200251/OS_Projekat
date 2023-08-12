@@ -5,18 +5,11 @@
 #include "../h/syscall_c.hpp"
 #include "../h/print.hpp"
 #include "../h/MemoryAllocator.hpp"
+#include "../h/thread.hpp"
 
 void* mem_alloc (size_t size)
 {
-    // Calculate number of blocks
-    // In front of every allocated block needs to be a struct
-    size_t totalSize = size + sizeof(AllocatedMem);
-    size_t blockNum = 0;
-
-    if (totalSize % MEM_BLOCK_SIZE != 0)
-        blockNum = totalSize / MEM_BLOCK_SIZE + 1; // mozda ne treba hardkovoati jedinicu
-    else
-        blockNum = totalSize / MEM_BLOCK_SIZE;
+    size_t blockNum = MemoryAllocator::convert2Blocks(size);
 
     size_t code = 0x0000000000000001UL;
     __asm__ volatile("ld a0, %0" : : "m" (code));
@@ -59,7 +52,24 @@ int mem_free (void* ptr)
 
 int thread_create (thread_t* handle, void(*start_routine)(void*), void* arg)
 {
+    size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(uint64) * DEFAULT_STACK_SIZE);
+    void* stack_space = MemoryAllocator::mem_alloc(blockNum);
 
+    size_t code = 0x0000000000000011UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+    asm volatile("ld a1, %0" : : "m" (handle));
+    asm volatile("ld a2, %0" : : "m" (start_routine));
+    asm volatile("ld a3, %0" : : "m" (arg));
+    asm volatile("ld a4, %0" : : "m" (stack_space));
 
-    return 0;
+    asm volatile("ecall");
+
+    int val;
+
+    asm volatile("sd a0, %0" : "=m" (val));
+
+    if (val < 0)
+        return val;
+
+    return val;
 }

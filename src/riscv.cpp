@@ -6,6 +6,7 @@
 #include "../h/MemoryAllocator.hpp"
 #include "../lib/hw.h"
 #include "../lib/mem.h"
+#include "../h/thread.hpp"
 
 void Riscv::popSppSpie()
 {
@@ -44,7 +45,8 @@ void Riscv::handleSupervisorTrap()
             // get the size argument
             size_t size = reinterpret_cast<size_t>(a[1]);
 
-            void* retVal = MemoryAllocator::mem_alloc(size);
+            size_t blockNum = MemoryAllocator::convert2Blocks(size);
+            void* retVal = MemoryAllocator::mem_alloc(blockNum);
 
             // retVal should already be in a0 but just in case
             asm volatile("mv %0, a0" : "=r" (retVal));
@@ -68,6 +70,21 @@ void Riscv::handleSupervisorTrap()
             asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
             // asm volatile("sd a0, 0x50(%0)" : : "r" (SP));
         }
+        else if (a[0] == 0x0000000000000011UL)
+        {
+            thread_t* handle = reinterpret_cast<thread_t *>(a[1]);
+            void(*start_routine)(void*) = reinterpret_cast<void (*)(void *)>(a[2]);
+            void* arg = reinterpret_cast<void *>(a[3]);
+            void* stack_space = reinterpret_cast<void *>(a[4]);
+
+            int retVal = thread_create(handle, start_routine, arg, stack_space);
+
+            // retVal should already be in a0 but just in case
+            asm volatile("mv %0, a0" : "=r" (retVal));
+
+            // put the return value on the stack
+            asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
+        }
         else
         {
             // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
@@ -75,6 +92,7 @@ void Riscv::handleSupervisorTrap()
             // uint64 volatile sstatus = r_sstatus();
             TCB::timeSliceCounter = 0;
             TCB::dispatch();
+
             w_sstatus(sstatus);
             // w_sepc(sepc);
         }
