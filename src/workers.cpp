@@ -3,7 +3,7 @@
 //
 
 #include "../lib/hw.h"
-#include "../h/tcb.hpp"
+#include "../h/TCB.hpp"
 #include "../h/print.hpp"
 
 void workerBodyA()

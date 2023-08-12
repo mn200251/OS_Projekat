@@ -1,6 +1,6 @@
 
 #include "../h/riscv.hpp"
-#include "../h/tcb.hpp"
+#include "../h/TCB.hpp"
 #include "../lib/console.h"
 #include "../h/syscall_c.hpp"
 #include "../h/MemoryAllocator.hpp"

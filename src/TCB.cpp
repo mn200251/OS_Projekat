@@ -1,5 +1,5 @@
 
-#include "../h/tcb.hpp"
+#include "../h/TCB.hpp"
 #include "../h/riscv.hpp"
 #include "../h/MemoryAllocator.hpp"
 
