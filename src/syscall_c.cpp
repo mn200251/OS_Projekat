@@ -75,6 +75,22 @@ int thread_create (thread_t* handle, void(*start_routine)(void*), void* arg)
     return val;
 }
 
+int thread_exit ()
+{
+    size_t code = 0x0000000000000012UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+
+    asm volatile("ecall");
+
+
+    // if this code is executed -> error exiting thread
+    int val;
+
+    asm volatile("sd a0, %0" : "=m" (val));
+
+    return val;
+}
+
 void thread_dispatch ()
 {
     size_t code = 0x0000000000000013UL;
@@ -82,3 +98,4 @@ void thread_dispatch ()
 
     asm volatile("ecall");
 }
+

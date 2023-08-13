@@ -78,7 +78,7 @@ void Riscv::handleSupervisorTrap()
             void* arg = reinterpret_cast<void *>(a[3]);
             void* stack_space = reinterpret_cast<void *>(a[4]);
 
-            int retVal = threadCreate(handle, start_routine, arg, stack_space);
+            int retVal = thread_t::threadCreate(handle, start_routine, arg, stack_space);
 
             // retVal should already be in a0 but just in case
             asm volatile("mv %0, a0" : "=r" (retVal));
@@ -86,15 +86,27 @@ void Riscv::handleSupervisorTrap()
             // put the return value on the stack
             asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
         }
+        // thread_exit
+        else if (a[0] == 0x0000000000000012UL)
+        {
+            thread_t::running->finished = true;
+
+            thread_t::threadDispatch();
+
+            int retVal;
+
+            // return error code if thread didn't exit
+            asm volatile("mv %0, a0" : "=r" (retVal));
+        }
         // thread_dispatch
         else if (a[0] == 0x0000000000000013UL)
         {
             // sepc and sstatus already saved
             // seps already added +4
 
-            running->timeSlice = 0;
+            thread_t::running->timeSlice = 0;
 
-            threadDispatch();
+            thread_t::threadDispatch();
 
             w_sstatus(sstatus);
             w_sepc(sepc);
@@ -110,15 +122,15 @@ void Riscv::handleSupervisorTrap()
     {
         // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
         mc_sip(SIP_SSIP);
-        running->timeSlice++;
-        if (TCB::timeSliceCounter >= running->timeSlice)
+        thread_t::running->timeSlice++;
+        if (TCB::timeSliceCounter >= thread_t::running->timeSlice)
         {
             // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
             // uint64 volatile sepc = r_sepc() + 4;
             // uint64 volatile sstatus = r_sstatus();
 
-            running->timeSlice = 0;
-            threadDispatch();
+            thread_t::running->timeSlice = 0;
+            thread_t::threadDispatch();
             w_sstatus(sstatus);
             w_sepc(sepc);
         }

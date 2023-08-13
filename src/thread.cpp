@@ -7,7 +7,8 @@
 #include "../h/scheduler.hpp"
 #include "../h/syscall_c.hpp"
 
-int threadCreate (thread_t* handle, void(*start_routine)(void*), void* arg, void* stack_space) {
+
+int thread_t::threadCreate (thread_t* handle, void(*start_routine)(void*), void* arg, void* stack_space) {
     size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(thread_t));
     handle = (thread_t*) MemoryAllocator::mem_alloc(blockNum);
     handle->finished = false;
@@ -19,7 +20,7 @@ int threadCreate (thread_t* handle, void(*start_routine)(void*), void* arg, void
     else
         handle->stack = nullptr;
 
-    handle->context.ra = (uint64) &threadWrapper;
+    handle->context.ra = (uint64) &thread_t::threadWrapper;
 
     if (handle->stack != nullptr)
     {
@@ -52,24 +53,35 @@ int threadCreate (thread_t* handle, void(*start_routine)(void*), void* arg, void
     return 0;
 }
 
-void threadWrapper(thread_t* handle)
+void thread_t::threadWrapper(thread_t* handle)
 {
     Riscv::popSppSpie();
-    running->body(handle->arg);
-    running->finished = true;
 
-    // remove threads that are waiting for this one to finish
+    thread_t::running->body(handle->arg);
 
-    thread_dispatch();
+    thread_exit();
 }
 
-void threadDispatch ()
+void thread_t::threadDispatch ()
 {
-    thread_t *old = running;
-    if (!old->finished) { Scheduler::put(old); }
-    running = Scheduler::get();
+    thread_t *old = thread_t::running;
+    if (!old->finished)
+    {
+        Scheduler::put(old);
+    }
+    thread_t::running = Scheduler::get();
 
-    contextSwitch(&old->context, &running->context);
+    contextSwitch(&old->context, &thread_t::running->context);
+
+    if(old->finished)
+    {
+        // remove threads that are waiting for this one to finish
+
+
+        // thread finished -> dealloc the stack and thread
+        MemoryAllocator::mem_free(old->stack);
+        MemoryAllocator::mem_free(old);
+    }
 }
 
 
