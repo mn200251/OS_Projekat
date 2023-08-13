@@ -6,6 +6,7 @@
 #include "../h/print.hpp"
 #include "../h/MemoryAllocator.hpp"
 #include "../h/thread.hpp"
+#include "../h/scheduler.hpp"
 
 void* mem_alloc (size_t size)
 {
@@ -72,4 +73,12 @@ int thread_create (thread_t* handle, void(*start_routine)(void*), void* arg)
         return val;
 
     return val;
+}
+
+void thread_dispatch ()
+{
+    size_t code = 0x0000000000000013UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+
+    asm volatile("ecall");
 }

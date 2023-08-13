@@ -6,14 +6,16 @@
 #define PROJECT_BASE_SYSCALL_C_HPP
 
 #include "../lib/hw.h"
+#include "../h/thread.hpp"
 
 void* mem_alloc (size_t size);
 
 int mem_free (void* ptr);
 
 
-class _thread;
-typedef _thread* thread_t;
+// class _thread;
+// typedef _thread* thread_t;
+
 // class TCB;
 // typedef TCB* thread_t;
 
@@ -23,6 +25,6 @@ int thread_create (
         void* arg
 );
 
-
+void thread_dispatch ();
 
 #endif //PROJECT_BASE_SYSCALL_C_HPP

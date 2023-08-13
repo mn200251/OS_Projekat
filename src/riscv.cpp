@@ -70,6 +70,7 @@ void Riscv::handleSupervisorTrap()
             asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
             // asm volatile("sd a0, 0x50(%0)" : : "r" (SP));
         }
+        // thread_create
         else if (a[0] == 0x0000000000000011UL)
         {
             thread_t* handle = reinterpret_cast<thread_t *>(a[1]);
@@ -77,7 +78,7 @@ void Riscv::handleSupervisorTrap()
             void* arg = reinterpret_cast<void *>(a[3]);
             void* stack_space = reinterpret_cast<void *>(a[4]);
 
-            int retVal = thread_create(handle, start_routine, arg, stack_space);
+            int retVal = threadCreate(handle, start_routine, arg, stack_space);
 
             // retVal should already be in a0 but just in case
             asm volatile("mv %0, a0" : "=r" (retVal));
@@ -85,31 +86,39 @@ void Riscv::handleSupervisorTrap()
             // put the return value on the stack
             asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
         }
-        else
+        // thread_dispatch
+        else if (a[0] == 0x0000000000000013UL)
         {
-            // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
-            // uint64 volatile sepc = r_sepc() + 4;
-            // uint64 volatile sstatus = r_sstatus();
-            TCB::timeSliceCounter = 0;
-            TCB::dispatch();
+            // sepc and sstatus already saved
+            // seps already added +4
+
+            running->timeSlice = 0;
+
+            threadDispatch();
 
             w_sstatus(sstatus);
-            // w_sepc(sepc);
+            w_sepc(sepc);
+
+            // nothing to return
         }
-        // w_sstatus(sstatus);
-        // w_sepc(sepc);
+        else
+        {
+            int a = 1;
+        }
     }
     else if (scause == 0x8000000000000001UL)
     {
         // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
         mc_sip(SIP_SSIP);
-        TCB::timeSliceCounter++;
-        if (TCB::timeSliceCounter >= TCB::running->getTimeSlice())
+        running->timeSlice++;
+        if (TCB::timeSliceCounter >= running->timeSlice)
         {
-            // uint64 volatile sepc = r_sepc();
+            // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
+            // uint64 volatile sepc = r_sepc() + 4;
             // uint64 volatile sstatus = r_sstatus();
-            TCB::timeSliceCounter = 0;
-            TCB::dispatch();
+
+            running->timeSlice = 0;
+            threadDispatch();
             w_sstatus(sstatus);
             w_sepc(sepc);
         }

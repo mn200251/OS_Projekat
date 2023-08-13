@@ -23,14 +23,12 @@ typedef struct _thread
     Context context;
     void* arg;
     uint64 timeSlice;
-
-
 }thread_t;
 
 
 static thread_t* running = nullptr;
 
-int thread_create (
+int threadCreate (
         thread_t* handle,
         void(*start_routine)(void*),
         void* arg,
@@ -38,5 +36,9 @@ int thread_create (
 );
 
 void threadWrapper();
+
+void contextSwitch(thread_t::Context *oldContext, thread_t::Context *runningContext);
+
+void threadDispatch ();
 
 #endif //PROJECT_BASE_THREAD_HPP
