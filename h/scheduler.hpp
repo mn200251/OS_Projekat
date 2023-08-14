@@ -16,9 +16,9 @@ private:
     static List<thread_t> readyThreadQueue;
 
 public:
-    static thread_t *get();
+    static _thread *get();
 
-    static void put(thread_t *ccb);
+    static void put(_thread *ccb);
 
 };
 

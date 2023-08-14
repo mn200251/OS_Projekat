@@ -9,6 +9,7 @@
 #include "riscv.hpp"
 
 
+
 typedef struct _thread
 {
     void(*body)(void*);
@@ -25,17 +26,21 @@ typedef struct _thread
 
     static _thread* running;
 
-    static int threadCreate (_thread* handle, void(*start_routine)(void*), void* arg, void* stack_space);
+    static int threadCreate (_thread** handle, void(*start_routine)(void*), void* arg, void* stack_space);
 
-    static void threadWrapper(_thread* handle);
+    static void threadWrapper();
 
     static void threadDispatch ();
 
-}thread_t;
+};
 
-extern "C" void contextSwitch(thread_t::Context *oldContext, thread_t::Context *runningContext);
+typedef _thread* thread_t;
 
-thread_t *thread_t::running = nullptr;
+extern "C" void contextSwitch(_thread::Context *oldContext, _thread::Context *runningContext);
+
+extern "C" void contextSwitchThreadEnded(_thread::Context *runningContext);
+
+thread_t _thread::running = nullptr;
 
 
 

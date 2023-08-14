@@ -78,7 +78,7 @@ void Riscv::handleSupervisorTrap()
             void* arg = reinterpret_cast<void *>(a[3]);
             void* stack_space = reinterpret_cast<void *>(a[4]);
 
-            int retVal = thread_t::threadCreate(handle, start_routine, arg, stack_space);
+            int retVal = _thread::threadCreate(handle, start_routine, arg, stack_space);
 
             // retVal should already be in a0 but just in case
             asm volatile("mv %0, a0" : "=r" (retVal));
@@ -89,9 +89,9 @@ void Riscv::handleSupervisorTrap()
         // thread_exit
         else if (a[0] == 0x0000000000000012UL)
         {
-            thread_t::running->finished = true;
+            _thread::running->finished = true;
 
-            thread_t::threadDispatch();
+            _thread::threadDispatch();
 
             int retVal;
 
@@ -104,9 +104,9 @@ void Riscv::handleSupervisorTrap()
             // sepc and sstatus already saved
             // seps already added +4
 
-            thread_t::running->timeSlice = 0;
+            _thread::running->timeSlice = 0;
 
-            thread_t::threadDispatch();
+            _thread::threadDispatch();
 
             w_sstatus(sstatus);
             w_sepc(sepc);
@@ -122,15 +122,15 @@ void Riscv::handleSupervisorTrap()
     {
         // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
         mc_sip(SIP_SSIP);
-        thread_t::running->timeSlice++;
-        if (TCB::timeSliceCounter >= thread_t::running->timeSlice)
+        _thread::running->timeSlice++;
+        if (TCB::timeSliceCounter >= _thread::running->timeSlice)
         {
             // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
             // uint64 volatile sepc = r_sepc() + 4;
             // uint64 volatile sstatus = r_sstatus();
 
-            thread_t::running->timeSlice = 0;
-            thread_t::threadDispatch();
+            _thread::running->timeSlice = 0;
+            _thread::threadDispatch();
             w_sstatus(sstatus);
             w_sepc(sepc);
         }
