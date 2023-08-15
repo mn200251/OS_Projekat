@@ -1,6 +1,4 @@
-//
-// Created by os on 8/9/23.
-//
+
 
 #ifndef PROJECT_BASE_SYSCALL_C_HPP
 #define PROJECT_BASE_SYSCALL_C_HPP

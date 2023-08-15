@@ -1,6 +1,5 @@
 
 #include "../h/scheduler.hpp"
-#include "../h/thread.hpp"
 
 List<thread_t> Scheduler::readyThreadQueue;
 

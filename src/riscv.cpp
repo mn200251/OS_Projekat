@@ -1,12 +1,8 @@
 
 #include "../h/riscv.hpp"
-#include "../h/TCB.hpp"
 #include "../lib/console.h"
 #include "../h/syscall_c.hpp"
 #include "../h/MemoryAllocator.hpp"
-#include "../lib/hw.h"
-#include "../lib/mem.h"
-#include "../h/thread.hpp"
 
 void Riscv::popSppSpie()
 {
@@ -26,7 +22,7 @@ void Riscv::handleSupervisorTrap()
     asm volatile("sd a6, %0" : "=m" (a[6]));
     asm volatile("sd a7, %0" : "=m" (a[7]));
 
-    uint64 volatile sepc = r_sepc() + 4;
+    uint64 volatile sepc = r_sepc();
     uint64 volatile sstatus = r_sstatus();
 
     // retrieve stack pointer relative to saved registers
@@ -37,7 +33,7 @@ void Riscv::handleSupervisorTrap()
 
     if (scause == 0x0000000000000008UL || scause == 0x0000000000000009UL)
     {
-        w_sepc(sepc);
+        w_sepc(sepc + 4);
 
         // mem_alloc
         if (a[0] == 0x0000000000000001UL)
@@ -115,7 +111,7 @@ void Riscv::handleSupervisorTrap()
         }
         else
         {
-            int a = 1;
+
         }
     }
     else if (scause == 0x8000000000000001UL)
@@ -123,11 +119,12 @@ void Riscv::handleSupervisorTrap()
         // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
         mc_sip(SIP_SSIP);
         _thread::running->timeSlice++;
-        if (TCB::timeSliceCounter >= _thread::running->timeSlice)
+        if (DEFAULT_TIME_SLICE >= _thread::running->timeSlice)
         {
             // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
             // uint64 volatile sepc = r_sepc() + 4;
             // uint64 volatile sstatus = r_sstatus();
+            sepc = sepc + 4;
 
             _thread::running->timeSlice = 0;
             _thread::threadDispatch();

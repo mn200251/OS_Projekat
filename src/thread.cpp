@@ -7,6 +7,8 @@
 #include "../h/scheduler.hpp"
 #include "../h/syscall_c.hpp"
 
+thread_t _thread::running = nullptr;
+
 
 int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* arg, void* stack_space) {
     size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(thread_t));
@@ -14,6 +16,7 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
     (*handle)->finished = false;
     (*handle)->timeSlice = DEFAULT_TIME_SLICE;
     (*handle)->body = start_routine;
+    (*handle)->arg = arg;
 
     if (start_routine != nullptr)
         (*handle)->stack = (uint64*) stack_space;

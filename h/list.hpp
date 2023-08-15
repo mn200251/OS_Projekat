@@ -1,9 +1,9 @@
-//
-// Created by marko on 20.4.22..
-//
+
 
 #ifndef OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_LIST_HPP
 #define OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_LIST_HPP
+
+#include "MemoryAllocator.hpp"
 
 template<typename T>
 class List
@@ -35,7 +35,9 @@ public:
 
     void addLast(T *data)
     {
-        Elem *elem = new Elem(data, 0);
+        // Elem *elem = new Elem(data, 0);
+        size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(Elem));
+        Elem *elem = (Elem*)MemoryAllocator::mem_alloc(blockNum);
         if (tail)
         {
             tail->next = elem;
@@ -55,7 +57,8 @@ public:
         if (!head) { tail = 0; }
 
         T *ret = elem->data;
-        delete elem;
+        MemoryAllocator::mem_free(elem);
+        // delete elem;
         return ret;
     }
 
@@ -81,7 +84,8 @@ public:
         tail = prev;
 
         T *ret = elem->data;
-        delete elem;
+        MemoryAllocator::mem_free(elem);
+        //delete elem;
         return ret;
     }
 

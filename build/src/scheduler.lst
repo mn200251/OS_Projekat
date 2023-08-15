@@ -1,0 +1,610 @@
+GAS LISTING /tmp/ccipoLLH.s 			page 1
+
+
+   1              		.file	"scheduler.cpp"
+   2              		.option pic
+   3              		.option norelax
+   4              		.text
+   5              	.Ltext0:
+   6              		.align	2
+   8              	_Z41__static_initialization_and_destruction_0ii:
+   9              	.LFB31:
+  10              		.file 1 "src/scheduler.cpp"
+   1:src/scheduler.cpp **** 
+   2:src/scheduler.cpp **** #include "../h/scheduler.hpp"
+   3:src/scheduler.cpp **** 
+   4:src/scheduler.cpp **** List<thread_t> Scheduler::readyThreadQueue;
+   5:src/scheduler.cpp **** 
+   6:src/scheduler.cpp **** _thread *Scheduler::get()
+   7:src/scheduler.cpp **** {
+   8:src/scheduler.cpp ****     return *readyThreadQueue.removeFirst();
+   9:src/scheduler.cpp **** }
+  10:src/scheduler.cpp **** 
+  11:src/scheduler.cpp **** void Scheduler::put(_thread *ccb)
+  12:src/scheduler.cpp **** {
+  13:src/scheduler.cpp ****     readyThreadQueue.addLast(&ccb);
+  14:src/scheduler.cpp **** }...
+  11              		.loc 1 14 1
+  12              		.cfi_startproc
+  13              	.LVL0:
+  14 0000 130101FF 		addi	sp,sp,-16
+  15              		.cfi_def_cfa_offset 16
+  16 0004 23348100 		sd	s0,8(sp)
+  17              		.cfi_offset 8, -8
+  18 0008 13040101 		addi	s0,sp,16
+  19              		.cfi_def_cfa 8, 0
+  20              		.loc 1 14 1 is_stmt 0
+  21 000c 93071000 		li	a5,1
+  22 0010 6308F500 		beq	a0,a5,.L4
+  23              	.L1:
+  24 0014 03348100 		ld	s0,8(sp)
+  25              		.cfi_remember_state
+  26              		.cfi_restore 8
+  27              		.cfi_def_cfa 2, 16
+  28 0018 13010101 		addi	sp,sp,16
+  29              		.cfi_def_cfa_offset 0
+  30 001c 67800000 		jr	ra
+  31              	.L4:
+  32              		.cfi_restore_state
+  33              		.loc 1 14 1 discriminator 1
+  34 0020 B7070100 		li	a5,65536
+  35 0024 9387F7FF 		addi	a5,a5,-1
+  36 0028 E396F5FE 		bne	a1,a5,.L1
+  37              	.LVL1:
+  38              	.LBB7:
+  39              	.LBB8:
+  40              	.LBB9:
+  41              		.file 2 "src/../h/list.hpp"
+   1:src/../h/list.hpp **** 
+   2:src/../h/list.hpp **** 
+   3:src/../h/list.hpp **** #ifndef OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_LIST_HPP
+GAS LISTING /tmp/ccipoLLH.s 			page 2
+
+
+   4:src/../h/list.hpp **** #define OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_LIST_HPP
+   5:src/../h/list.hpp **** 
+   6:src/../h/list.hpp **** #include "MemoryAllocator.hpp"
+   7:src/../h/list.hpp **** 
+   8:src/../h/list.hpp **** template<typename T>
+   9:src/../h/list.hpp **** class List
+  10:src/../h/list.hpp **** {
+  11:src/../h/list.hpp **** private:
+  12:src/../h/list.hpp ****     struct Elem
+  13:src/../h/list.hpp ****     {
+  14:src/../h/list.hpp ****         T *data;
+  15:src/../h/list.hpp ****         Elem *next;
+  16:src/../h/list.hpp **** 
+  17:src/../h/list.hpp ****         Elem(T *data, Elem *next) : data(data), next(next) {}
+  18:src/../h/list.hpp ****     };
+  19:src/../h/list.hpp **** 
+  20:src/../h/list.hpp ****     Elem *head, *tail;
+  21:src/../h/list.hpp **** 
+  22:src/../h/list.hpp **** public:
+  23:src/../h/list.hpp ****     List() : head(0), tail(0) {}
+  42              		.loc 2 23 29
+  43 002c 97070000 		lla	a5,.LANCHOR0
+  43      93870700 
+  44 0034 23B00700 		sd	zero,0(a5)
+  45 0038 23B40700 		sd	zero,8(a5)
+  46              	.LVL2:
+  47              	.LBE9:
+  48              	.LBE8:
+  49              	.LBE7:
+  50              		.loc 1 14 1
+  51 003c 6FF09FFD 		j	.L1
+  52              		.cfi_endproc
+  53              	.LFE31:
+  55              		.align	2
+  56              		.globl	_ZN9Scheduler3getEv
+  58              	_ZN9Scheduler3getEv:
+  59              	.LFB24:
+   7:src/scheduler.cpp **** {
+  60              		.loc 1 7 1 is_stmt 1
+  61              		.cfi_startproc
+  62 0040 130101FE 		addi	sp,sp,-32
+  63              		.cfi_def_cfa_offset 32
+  64 0044 233C1100 		sd	ra,24(sp)
+  65 0048 23388100 		sd	s0,16(sp)
+  66 004c 23349100 		sd	s1,8(sp)
+  67              		.cfi_offset 1, -8
+  68              		.cfi_offset 8, -16
+  69              		.cfi_offset 9, -24
+  70 0050 13040102 		addi	s0,sp,32
+  71              		.cfi_def_cfa 8, 0
+   8:src/scheduler.cpp ****     return *readyThreadQueue.removeFirst();
+  72              		.loc 1 8 5
+  73              	.LVL3:
+  74              	.LBB10:
+  75              	.LBB11:
+  24:src/../h/list.hpp **** 
+  25:src/../h/list.hpp ****     List(const List<T> &) = delete;
+GAS LISTING /tmp/ccipoLLH.s 			page 3
+
+
+  26:src/../h/list.hpp **** 
+  27:src/../h/list.hpp ****     List<T> &operator=(const List<T> &) = delete;
+  28:src/../h/list.hpp **** 
+  29:src/../h/list.hpp ****     void addFirst(T *data)
+  30:src/../h/list.hpp ****     {
+  31:src/../h/list.hpp ****         Elem *elem = new Elem(data, head);
+  32:src/../h/list.hpp ****         head = elem;
+  33:src/../h/list.hpp ****         if (!tail) { tail = head; }
+  34:src/../h/list.hpp ****     }
+  35:src/../h/list.hpp **** 
+  36:src/../h/list.hpp ****     void addLast(T *data)
+  37:src/../h/list.hpp ****     {
+  38:src/../h/list.hpp ****         // Elem *elem = new Elem(data, 0);
+  39:src/../h/list.hpp ****         size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(Elem));
+  40:src/../h/list.hpp ****         Elem *elem = (Elem*)MemoryAllocator::mem_alloc(blockNum);
+  41:src/../h/list.hpp ****         if (tail)
+  42:src/../h/list.hpp ****         {
+  43:src/../h/list.hpp ****             tail->next = elem;
+  44:src/../h/list.hpp ****             tail = elem;
+  45:src/../h/list.hpp ****         } else
+  46:src/../h/list.hpp ****         {
+  47:src/../h/list.hpp ****             head = tail = elem;
+  48:src/../h/list.hpp ****         }
+  49:src/../h/list.hpp ****     }
+  50:src/../h/list.hpp **** 
+  51:src/../h/list.hpp ****     T *removeFirst()
+  52:src/../h/list.hpp ****     {
+  53:src/../h/list.hpp ****         if (!head) { return 0; }
+  76              		.loc 2 53 14 is_stmt 0
+  77 0054 17050000 		ld	a0,.LANCHOR0
+  77      03350500 
+  78              		.loc 2 53 9
+  79 005c 63020504 		beqz	a0,.L8
+  80              	.LVL4:
+  54:src/../h/list.hpp **** 
+  55:src/../h/list.hpp ****         Elem *elem = head;
+  56:src/../h/list.hpp ****         head = head->next;
+  81              		.loc 2 56 22
+  82 0060 83378500 		ld	a5,8(a0)
+  83              		.loc 2 56 9
+  84 0064 17070000 		sd	a5,.LANCHOR0,a4
+  84      2330F700 
+  57:src/../h/list.hpp ****         if (!head) { tail = 0; }
+  85              		.loc 2 57 9
+  86 006c 63840702 		beqz	a5,.L10
+  87              	.L7:
+  58:src/../h/list.hpp **** 
+  59:src/../h/list.hpp ****         T *ret = elem->data;
+  88              		.loc 2 59 12
+  89 0070 83340500 		ld	s1,0(a0)
+  90              	.LVL5:
+  60:src/../h/list.hpp ****         MemoryAllocator::mem_free(elem);
+  91              		.loc 2 60 34
+  92 0074 97000000 		call	_ZN15MemoryAllocator8mem_freeEPv@plt
+  92      E7800000 
+  93              	.LVL6:
+  94              	.L6:
+GAS LISTING /tmp/ccipoLLH.s 			page 4
+
+
+  95              	.LBE11:
+  96              	.LBE10:
+   9:src/scheduler.cpp **** }
+  97              		.loc 1 9 1
+  98 007c 03B50400 		ld	a0,0(s1)
+  99 0080 83308101 		ld	ra,24(sp)
+ 100              		.cfi_remember_state
+ 101              		.cfi_restore 1
+ 102 0084 03340101 		ld	s0,16(sp)
+ 103              		.cfi_restore 8
+ 104              		.cfi_def_cfa 2, 32
+ 105 0088 83348100 		ld	s1,8(sp)
+ 106              		.cfi_restore 9
+ 107 008c 13010102 		addi	sp,sp,32
+ 108              		.cfi_def_cfa_offset 0
+ 109 0090 67800000 		jr	ra
+ 110              	.LVL7:
+ 111              	.L10:
+ 112              		.cfi_restore_state
+ 113              	.LBB13:
+ 114              	.LBB12:
+  57:src/../h/list.hpp **** 
+ 115              		.loc 2 57 22
+ 116 0094 97070000 		sd	zero,.LANCHOR0+8,a5
+ 116      23B00700 
+ 117 009c 6FF05FFD 		j	.L7
+ 118              	.LVL8:
+ 119              	.L8:
+  53:src/../h/list.hpp **** 
+ 120              		.loc 2 53 29
+ 121 00a0 93040500 		mv	s1,a0
+ 122 00a4 6FF09FFD 		j	.L6
+ 123              	.LBE12:
+ 124              	.LBE13:
+ 125              		.cfi_endproc
+ 126              	.LFE24:
+ 128              		.align	2
+ 129              		.globl	_ZN9Scheduler3putEP7_thread
+ 131              	_ZN9Scheduler3putEP7_thread:
+ 132              	.LFB25:
+  12:src/scheduler.cpp **** {
+ 133              		.loc 1 12 1 is_stmt 1
+ 134              		.cfi_startproc
+ 135              	.LVL9:
+ 136 00a8 130101FF 		addi	sp,sp,-16
+ 137              		.cfi_def_cfa_offset 16
+ 138 00ac 23341100 		sd	ra,8(sp)
+ 139 00b0 23308100 		sd	s0,0(sp)
+ 140              		.cfi_offset 1, -8
+ 141              		.cfi_offset 8, -16
+ 142 00b4 13040101 		addi	s0,sp,16
+ 143              		.cfi_def_cfa 8, 0
+  13:src/scheduler.cpp ****     readyThreadQueue.addLast(&ccb);
+ 144              		.loc 1 13 5
+ 145              	.LVL10:
+ 146              	.LBB16:
+ 147              	.LBB17:
+GAS LISTING /tmp/ccipoLLH.s 			page 5
+
+
+  39:src/../h/list.hpp ****         Elem *elem = (Elem*)MemoryAllocator::mem_alloc(blockNum);
+ 148              		.loc 2 39 58 is_stmt 0
+ 149 00b8 13050001 		li	a0,16
+ 150              	.LVL11:
+ 151 00bc 97000000 		call	_ZN15MemoryAllocator14convert2BlocksEm@plt
+ 151      E7800000 
+ 152              	.LVL12:
+  40:src/../h/list.hpp ****         if (tail)
+ 153              		.loc 2 40 55
+ 154 00c4 97000000 		call	_ZN15MemoryAllocator9mem_allocEm@plt
+ 154      E7800000 
+ 155              	.LVL13:
+  41:src/../h/list.hpp ****         {
+ 156              		.loc 2 41 13
+ 157 00cc 97070000 		ld	a5,.LANCHOR0+8
+ 157      83B70700 
+  41:src/../h/list.hpp ****         {
+ 158              		.loc 2 41 9
+ 159 00d4 63800702 		beqz	a5,.L12
+  43:src/../h/list.hpp ****             tail = elem;
+ 160              		.loc 2 43 13
+ 161 00d8 23B4A700 		sd	a0,8(a5)
+  44:src/../h/list.hpp ****         } else
+ 162              		.loc 2 44 13
+ 163 00dc 97070000 		sd	a0,.LANCHOR0+8,a5
+ 163      23B0A700 
+ 164              	.LVL14:
+ 165              	.L11:
+ 166              	.LBE17:
+ 167              	.LBE16:
+ 168              		.loc 1 14 1
+ 169 00e4 83308100 		ld	ra,8(sp)
+ 170              		.cfi_remember_state
+ 171              		.cfi_restore 1
+ 172 00e8 03340100 		ld	s0,0(sp)
+ 173              		.cfi_restore 8
+ 174              		.cfi_def_cfa 2, 16
+ 175 00ec 13010101 		addi	sp,sp,16
+ 176              		.cfi_def_cfa_offset 0
+ 177 00f0 67800000 		jr	ra
+ 178              	.LVL15:
+ 179              	.L12:
+ 180              		.cfi_restore_state
+ 181              	.LBB19:
+ 182              	.LBB18:
+  47:src/../h/list.hpp ****         }
+ 183              		.loc 2 47 13
+ 184 00f4 97070000 		lla	a5,.LANCHOR0
+ 184      93870700 
+ 185 00fc 23B4A700 		sd	a0,8(a5)
+ 186 0100 23B0A700 		sd	a0,0(a5)
+ 187              	.LVL16:
+ 188              	.LBE18:
+ 189              	.LBE19:
+ 190              		.loc 1 14 1
+ 191 0104 6FF01FFE 		j	.L11
+ 192              		.cfi_endproc
+GAS LISTING /tmp/ccipoLLH.s 			page 6
+
+
+ 193              	.LFE25:
+ 195              		.align	2
+ 197              	_GLOBAL__sub_I__ZN9Scheduler16readyThreadQueueE:
+ 198              	.LFB32:
+ 199              		.loc 1 14 1 is_stmt 1
+ 200              		.cfi_startproc
+ 201 0108 130101FF 		addi	sp,sp,-16
+ 202              		.cfi_def_cfa_offset 16
+ 203 010c 23341100 		sd	ra,8(sp)
+ 204 0110 23308100 		sd	s0,0(sp)
+ 205              		.cfi_offset 1, -8
+ 206              		.cfi_offset 8, -16
+ 207 0114 13040101 		addi	s0,sp,16
+ 208              		.cfi_def_cfa 8, 0
+ 209              		.loc 1 14 1 is_stmt 0
+ 210 0118 B7050100 		li	a1,65536
+ 211 011c 9385F5FF 		addi	a1,a1,-1
+ 212 0120 13051000 		li	a0,1
+ 213 0124 97000000 		call	_Z41__static_initialization_and_destruction_0ii
+ 213      E7800000 
+ 214              	.LVL17:
+ 215 012c 83308100 		ld	ra,8(sp)
+ 216              		.cfi_restore 1
+ 217 0130 03340100 		ld	s0,0(sp)
+ 218              		.cfi_restore 8
+ 219              		.cfi_def_cfa 2, 16
+ 220 0134 13010101 		addi	sp,sp,16
+ 221              		.cfi_def_cfa_offset 0
+ 222 0138 67800000 		jr	ra
+ 223              		.cfi_endproc
+ 224              	.LFE32:
+ 226              		.section	.init_array,"aw"
+ 227              		.align	3
+ 228 0000 00000000 		.dword	_GLOBAL__sub_I__ZN9Scheduler16readyThreadQueueE
+ 228      00000000 
+ 229              		.globl	_ZN9Scheduler16readyThreadQueueE
+ 230              		.bss
+ 231              		.align	3
+ 232              		.set	.LANCHOR0,. + 0
+ 235              	_ZN9Scheduler16readyThreadQueueE:
+ 236 0000 00000000 		.zero	16
+ 236      00000000 
+ 236      00000000 
+ 236      00000000 
+ 237              		.text
+ 238              	.Letext0:
+ 239              		.file 3 "src/../h/../lib/hw.h"
+ 240              		.file 4 "src/../h/MemoryAllocator.hpp"
+ 241              		.file 5 "src/../h/../h/thread.hpp"
+ 242              		.file 6 "src/../h/scheduler.hpp"
+GAS LISTING /tmp/ccipoLLH.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 scheduler.cpp
+     /tmp/ccipoLLH.s:8      .text:0000000000000000 _Z41__static_initialization_and_destruction_0ii
+     /tmp/ccipoLLH.s:12     .text:0000000000000000 .L0 
+     /tmp/ccipoLLH.s:14     .text:0000000000000000 .L0 
+     /tmp/ccipoLLH.s:15     .text:0000000000000004 .L0 
+     /tmp/ccipoLLH.s:17     .text:0000000000000008 .L0 
+     /tmp/ccipoLLH.s:19     .text:000000000000000c .L0 
+     /tmp/ccipoLLH.s:21     .text:000000000000000c .L0 
+     /tmp/ccipoLLH.s:25     .text:0000000000000018 .L0 
+     /tmp/ccipoLLH.s:26     .text:0000000000000018 .L0 
+     /tmp/ccipoLLH.s:27     .text:0000000000000018 .L0 
+     /tmp/ccipoLLH.s:29     .text:000000000000001c .L0 
+     /tmp/ccipoLLH.s:32     .text:0000000000000020 .L0 
+     /tmp/ccipoLLH.s:34     .text:0000000000000020 .L0 
+     /tmp/ccipoLLH.s:43     .text:000000000000002c .L0 
+     /tmp/ccipoLLH.s:51     .text:000000000000003c .L0 
+     /tmp/ccipoLLH.s:52     .text:0000000000000040 .L0 
+     /tmp/ccipoLLH.s:58     .text:0000000000000040 _ZN9Scheduler3getEv
+     /tmp/ccipoLLH.s:61     .text:0000000000000040 .L0 
+     /tmp/ccipoLLH.s:62     .text:0000000000000040 .L0 
+     /tmp/ccipoLLH.s:63     .text:0000000000000044 .L0 
+     /tmp/ccipoLLH.s:67     .text:0000000000000050 .L0 
+     /tmp/ccipoLLH.s:68     .text:0000000000000050 .L0 
+     /tmp/ccipoLLH.s:69     .text:0000000000000050 .L0 
+     /tmp/ccipoLLH.s:71     .text:0000000000000054 .L0 
+     /tmp/ccipoLLH.s:76     .text:0000000000000054 .L0 
+     /tmp/ccipoLLH.s:77     .text:0000000000000054 .L0 
+     /tmp/ccipoLLH.s:79     .text:000000000000005c .L0 
+     /tmp/ccipoLLH.s:82     .text:0000000000000060 .L0 
+     /tmp/ccipoLLH.s:84     .text:0000000000000064 .L0 
+     /tmp/ccipoLLH.s:86     .text:000000000000006c .L0 
+     /tmp/ccipoLLH.s:89     .text:0000000000000070 .L0 
+     /tmp/ccipoLLH.s:92     .text:0000000000000074 .L0 
+     /tmp/ccipoLLH.s:98     .text:000000000000007c .L0 
+     /tmp/ccipoLLH.s:100    .text:0000000000000084 .L0 
+     /tmp/ccipoLLH.s:101    .text:0000000000000084 .L0 
+     /tmp/ccipoLLH.s:103    .text:0000000000000088 .L0 
+     /tmp/ccipoLLH.s:104    .text:0000000000000088 .L0 
+     /tmp/ccipoLLH.s:106    .text:000000000000008c .L0 
+     /tmp/ccipoLLH.s:108    .text:0000000000000090 .L0 
+     /tmp/ccipoLLH.s:112    .text:0000000000000094 .L0 
+     /tmp/ccipoLLH.s:116    .text:0000000000000094 .L0 
+     /tmp/ccipoLLH.s:121    .text:00000000000000a0 .L0 
+     /tmp/ccipoLLH.s:125    .text:00000000000000a8 .L0 
+     /tmp/ccipoLLH.s:131    .text:00000000000000a8 _ZN9Scheduler3putEP7_thread
+     /tmp/ccipoLLH.s:134    .text:00000000000000a8 .L0 
+     /tmp/ccipoLLH.s:136    .text:00000000000000a8 .L0 
+     /tmp/ccipoLLH.s:137    .text:00000000000000ac .L0 
+     /tmp/ccipoLLH.s:140    .text:00000000000000b4 .L0 
+     /tmp/ccipoLLH.s:141    .text:00000000000000b4 .L0 
+     /tmp/ccipoLLH.s:143    .text:00000000000000b8 .L0 
+     /tmp/ccipoLLH.s:148    .text:00000000000000b8 .L0 
+     /tmp/ccipoLLH.s:149    .text:00000000000000b8 .L0 
+     /tmp/ccipoLLH.s:154    .text:00000000000000c4 .L0 
+     /tmp/ccipoLLH.s:157    .text:00000000000000cc .L0 
+     /tmp/ccipoLLH.s:159    .text:00000000000000d4 .L0 
+GAS LISTING /tmp/ccipoLLH.s 			page 8
+
+
+     /tmp/ccipoLLH.s:161    .text:00000000000000d8 .L0 
+     /tmp/ccipoLLH.s:163    .text:00000000000000dc .L0 
+     /tmp/ccipoLLH.s:169    .text:00000000000000e4 .L0 
+     /tmp/ccipoLLH.s:170    .text:00000000000000e8 .L0 
+     /tmp/ccipoLLH.s:171    .text:00000000000000e8 .L0 
+     /tmp/ccipoLLH.s:173    .text:00000000000000ec .L0 
+     /tmp/ccipoLLH.s:174    .text:00000000000000ec .L0 
+     /tmp/ccipoLLH.s:176    .text:00000000000000f0 .L0 
+     /tmp/ccipoLLH.s:180    .text:00000000000000f4 .L0 
+     /tmp/ccipoLLH.s:184    .text:00000000000000f4 .L0 
+     /tmp/ccipoLLH.s:191    .text:0000000000000104 .L0 
+     /tmp/ccipoLLH.s:192    .text:0000000000000108 .L0 
+     /tmp/ccipoLLH.s:197    .text:0000000000000108 _GLOBAL__sub_I__ZN9Scheduler16readyThreadQueueE
+     /tmp/ccipoLLH.s:200    .text:0000000000000108 .L0 
+     /tmp/ccipoLLH.s:201    .text:0000000000000108 .L0 
+     /tmp/ccipoLLH.s:202    .text:000000000000010c .L0 
+     /tmp/ccipoLLH.s:205    .text:0000000000000114 .L0 
+     /tmp/ccipoLLH.s:206    .text:0000000000000114 .L0 
+     /tmp/ccipoLLH.s:208    .text:0000000000000118 .L0 
+     /tmp/ccipoLLH.s:210    .text:0000000000000118 .L0 
+     /tmp/ccipoLLH.s:216    .text:0000000000000130 .L0 
+     /tmp/ccipoLLH.s:218    .text:0000000000000134 .L0 
+     /tmp/ccipoLLH.s:219    .text:0000000000000134 .L0 
+     /tmp/ccipoLLH.s:221    .text:0000000000000138 .L0 
+     /tmp/ccipoLLH.s:223    .text:000000000000013c .L0 
+     /tmp/ccipoLLH.s:235    .bss:0000000000000000 _ZN9Scheduler16readyThreadQueueE
+     /tmp/ccipoLLH.s:232    .bss:0000000000000000 .LANCHOR0
+     /tmp/ccipoLLH.s:243    .text:000000000000013c .L0 
+     /tmp/ccipoLLH.s:43     .text:000000000000002c .L0 
+     /tmp/ccipoLLH.s:77     .text:0000000000000054 .L0 
+     /tmp/ccipoLLH.s:84     .text:0000000000000064 .L0 
+     /tmp/ccipoLLH.s:116    .text:0000000000000094 .L0 
+     /tmp/ccipoLLH.s:157    .text:00000000000000cc .L0 
+     /tmp/ccipoLLH.s:163    .text:00000000000000dc .L0 
+     /tmp/ccipoLLH.s:184    .text:00000000000000f4 .L0 
+     /tmp/ccipoLLH.s:31     .text:0000000000000020 .L4
+     /tmp/ccipoLLH.s:23     .text:0000000000000014 .L1
+     /tmp/ccipoLLH.s:119    .text:00000000000000a0 .L8
+     /tmp/ccipoLLH.s:111    .text:0000000000000094 .L10
+     /tmp/ccipoLLH.s:87     .text:0000000000000070 .L7
+     /tmp/ccipoLLH.s:94     .text:000000000000007c .L6
+     /tmp/ccipoLLH.s:179    .text:00000000000000f4 .L12
+     /tmp/ccipoLLH.s:165    .text:00000000000000e4 .L11
+     /tmp/ccipoLLH.s:1071   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccipoLLH.s:2205   .debug_str:00000000000004ec .LASF76
+     /tmp/ccipoLLH.s:2225   .debug_str:0000000000000663 .LASF77
+     /tmp/ccipoLLH.s:2101   .debug_str:000000000000018a .LASF78
+     /tmp/ccipoLLH.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccipoLLH.s:238    .text:000000000000013c .Letext0
+     /tmp/ccipoLLH.s:2053   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccipoLLH.s:2151   .debug_str:000000000000032b .LASF0
+     /tmp/ccipoLLH.s:2163   .debug_str:000000000000036a .LASF1
+     /tmp/ccipoLLH.s:2139   .debug_str:00000000000002cc .LASF2
+     /tmp/ccipoLLH.s:2121   .debug_str:000000000000025a .LASF4
+     /tmp/ccipoLLH.s:2195   .debug_str:00000000000004a1 .LASF3
+     /tmp/ccipoLLH.s:2069   .debug_str:0000000000000078 .LASF5
+     /tmp/ccipoLLH.s:2169   .debug_str:00000000000003ab .LASF6
+GAS LISTING /tmp/ccipoLLH.s 			page 9
+
+
+     /tmp/ccipoLLH.s:2149   .debug_str:0000000000000318 .LASF7
+     /tmp/ccipoLLH.s:2219   .debug_str:000000000000062a .LASF8
+     /tmp/ccipoLLH.s:2109   .debug_str:00000000000001f2 .LASF9
+     /tmp/ccipoLLH.s:2177   .debug_str:0000000000000400 .LASF10
+     /tmp/ccipoLLH.s:2209   .debug_str:00000000000005bc .LASF11
+     /tmp/ccipoLLH.s:2073   .debug_str:000000000000008a .LASF12
+     /tmp/ccipoLLH.s:2061   .debug_str:0000000000000031 .LASF13
+     /tmp/ccipoLLH.s:2081   .debug_str:00000000000000e8 .LASF14
+     /tmp/ccipoLLH.s:2191   .debug_str:0000000000000486 .LASF15
+     /tmp/ccipoLLH.s:2083   .debug_str:00000000000000f4 .LASF16
+     /tmp/ccipoLLH.s:2099   .debug_str:0000000000000182 .LASF20
+     /tmp/ccipoLLH.s:2229   .debug_str:00000000000006a0 .LASF17
+     /tmp/ccipoLLH.s:2223   .debug_str:000000000000065e .LASF18
+     /tmp/ccipoLLH.s:2201   .debug_str:00000000000004de .LASF19
+     /tmp/ccipoLLH.s:2137   .debug_str:00000000000002bc .LASF47
+     /tmp/ccipoLLH.s:2059   .debug_str:0000000000000028 .LASF21
+     /tmp/ccipoLLH.s:2055   .debug_str:0000000000000000 .LASF22
+     /tmp/ccipoLLH.s:2087   .debug_str:0000000000000126 .LASF23
+     /tmp/ccipoLLH.s:2093   .debug_str:000000000000016a .LASF28
+     /tmp/ccipoLLH.s:2173   .debug_str:00000000000003cd .LASF30
+     /tmp/ccipoLLH.s:2165   .debug_str:000000000000037d .LASF79
+     /tmp/ccipoLLH.s:2077   .debug_str:00000000000000bb .LASF80
+     /tmp/ccipoLLH.s:2197   .debug_str:00000000000004b3 .LASF24
+     /tmp/ccipoLLH.s:2199   .debug_str:00000000000004bd .LASF26
+     /tmp/ccipoLLH.s:2181   .debug_str:0000000000000431 .LASF25
+     /tmp/ccipoLLH.s:2107   .debug_str:00000000000001d1 .LASF27
+     /tmp/ccipoLLH.s:2153   .debug_str:0000000000000338 .LASF29
+     /tmp/ccipoLLH.s:2147   .debug_str:00000000000002f1 .LASF31
+     /tmp/ccipoLLH.s:2117   .debug_str:000000000000024d .LASF32
+     /tmp/ccipoLLH.s:2065   .debug_str:000000000000004e .LASF33
+     /tmp/ccipoLLH.s:2125   .debug_str:000000000000026a .LASF34
+     /tmp/ccipoLLH.s:2123   .debug_str:0000000000000261 .LASF35
+     /tmp/ccipoLLH.s:2155   .debug_str:0000000000000347 .LASF36
+     /tmp/ccipoLLH.s:2127   .debug_str:000000000000026f .LASF37
+     /tmp/ccipoLLH.s:2159   .debug_str:0000000000000358 .LASF38
+     /tmp/ccipoLLH.s:2161   .debug_str:0000000000000362 .LASF39
+     /tmp/ccipoLLH.s:2063   .debug_str:0000000000000041 .LASF40
+     /tmp/ccipoLLH.s:2227   .debug_str:0000000000000675 .LASF41
+     /tmp/ccipoLLH.s:2133   .debug_str:000000000000029f .LASF42
+     /tmp/ccipoLLH.s:2113   .debug_str:000000000000021c .LASF44
+     /tmp/ccipoLLH.s:2171   .debug_str:00000000000003be .LASF43
+     /tmp/ccipoLLH.s:2215   .debug_str:00000000000005ec .LASF45
+     /tmp/ccipoLLH.s:2097   .debug_str:000000000000017d .LASF46
+     /tmp/ccipoLLH.s:2175   .debug_str:00000000000003f6 .LASF48
+     /tmp/ccipoLLH.s:2103   .debug_str:00000000000001a8 .LASF49
+     /tmp/ccipoLLH.s:2115   .debug_str:0000000000000239 .LASF81
+     /tmp/ccipoLLH.s:2213   .debug_str:00000000000005d0 .LASF82
+     /tmp/ccipoLLH.s:2089   .debug_str:000000000000012b .LASF50
+     /tmp/ccipoLLH.s:2211   .debug_str:00000000000005cb .LASF51
+     /tmp/ccipoLLH.s:2185   .debug_str:000000000000043f .LASF52
+     /tmp/ccipoLLH.s:2221   .debug_str:000000000000063a .LASF83
+     /tmp/ccipoLLH.s:2143   .debug_str:00000000000002e2 .LASF53
+     /tmp/ccipoLLH.s:2119   .debug_str:0000000000000255 .LASF54
+     /tmp/ccipoLLH.s:2105   .debug_str:00000000000001b9 .LASF55
+     /tmp/ccipoLLH.s:2085   .debug_str:000000000000010a .LASF61
+     /tmp/ccipoLLH.s:2145   .debug_str:00000000000002e7 .LASF84
+     /tmp/ccipoLLH.s:2111   .debug_str:0000000000000200 .LASF85
+GAS LISTING /tmp/ccipoLLH.s 			page 10
+
+
+     /tmp/ccipoLLH.s:2203   .debug_str:00000000000004e3 .LASF56
+     /tmp/ccipoLLH.s:2067   .debug_str:0000000000000056 .LASF57
+     /tmp/ccipoLLH.s:2141   .debug_str:00000000000002da .LASF58
+     /tmp/ccipoLLH.s:2057   .debug_str:0000000000000007 .LASF59
+     /tmp/ccipoLLH.s:2207   .debug_str:00000000000005b0 .LASF60
+     /tmp/ccipoLLH.s:2167   .debug_str:0000000000000388 .LASF62
+     /tmp/ccipoLLH.s:2079   .debug_str:00000000000000de .LASF63
+     /tmp/ccipoLLH.s:2217   .debug_str:000000000000060a .LASF64
+     /tmp/ccipoLLH.s:2157   .debug_str:000000000000034d .LASF65
+     /tmp/ccipoLLH.s:2179   .debug_str:000000000000040f .LASF66
+     /tmp/ccipoLLH.s:2131   .debug_str:0000000000000296 .LASF67
+     /tmp/ccipoLLH.s:2129   .debug_str:0000000000000277 .LASF68
+     /tmp/ccipoLLH.s:2075   .debug_str:000000000000009a .LASF86
+     /tmp/ccipoLLH.s:2091   .debug_str:000000000000013a .LASF69
+     /tmp/ccipoLLH.s:198    .text:0000000000000108 .LFB32
+     /tmp/ccipoLLH.s:224    .text:000000000000013c .LFE32
+     /tmp/ccipoLLH.s:214    .text:000000000000012c .LVL17
+     /tmp/ccipoLLH.s:2187   .debug_str:0000000000000444 .LASF70
+     /tmp/ccipoLLH.s:9      .text:0000000000000000 .LFB31
+     /tmp/ccipoLLH.s:53     .text:0000000000000040 .LFE31
+     /tmp/ccipoLLH.s:2135   .debug_str:00000000000002ad .LASF71
+     /tmp/ccipoLLH.s:2071   .debug_str:000000000000007f .LASF72
+     /tmp/ccipoLLH.s:38     .text:000000000000002c .LBB7
+     /tmp/ccipoLLH.s:49     .text:000000000000003c .LBE7
+     /tmp/ccipoLLH.s:1933   .debug_loc:0000000000000000 .LLST0
+     /tmp/ccipoLLH.s:2183   .debug_str:000000000000043a .LASF75
+     /tmp/ccipoLLH.s:2095   .debug_str:0000000000000174 .LASF73
+     /tmp/ccipoLLH.s:2193   .debug_str:000000000000049c .LASF74
+     /tmp/ccipoLLH.s:2189   .debug_str:000000000000046e .LASF87
+     /tmp/ccipoLLH.s:132    .text:00000000000000a8 .LFB25
+     /tmp/ccipoLLH.s:193    .text:0000000000000108 .LFE25
+     /tmp/ccipoLLH.s:1942   .debug_loc:000000000000002c .LLST4
+     /tmp/ccipoLLH.s:146    .text:00000000000000b8 .LBB16
+     /tmp/ccipoLLH.s:2039   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccipoLLH.s:1956   .debug_loc:0000000000000065 .LLST5
+     /tmp/ccipoLLH.s:1971   .debug_loc:00000000000000a5 .LLST6
+     /tmp/ccipoLLH.s:1986   .debug_loc:00000000000000ed .LLST7
+     /tmp/ccipoLLH.s:152    .text:00000000000000c4 .LVL12
+     /tmp/ccipoLLH.s:155    .text:00000000000000cc .LVL13
+     /tmp/ccipoLLH.s:59     .text:0000000000000040 .LFB24
+     /tmp/ccipoLLH.s:126    .text:00000000000000a8 .LFE24
+     /tmp/ccipoLLH.s:74     .text:0000000000000054 .LBB10
+     /tmp/ccipoLLH.s:1993   .debug_loc:0000000000000110 .LLST1
+     /tmp/ccipoLLH.s:2008   .debug_loc:0000000000000158 .LLST2
+     /tmp/ccipoLLH.s:2019   .debug_loc:000000000000018e .LLST3
+     /tmp/ccipoLLH.s:93     .text:000000000000007c .LVL6
+     /tmp/ccipoLLH.s:37     .text:000000000000002c .LVL1
+     /tmp/ccipoLLH.s:46     .text:000000000000003c .LVL2
+     /tmp/ccipoLLH.s:135    .text:00000000000000a8 .LVL9
+     /tmp/ccipoLLH.s:150    .text:00000000000000bc .LVL11
+     /tmp/ccipoLLH.s:145    .text:00000000000000b8 .LVL10
+     /tmp/ccipoLLH.s:164    .text:00000000000000e4 .LVL14
+     /tmp/ccipoLLH.s:244    .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccipoLLH.s:178    .text:00000000000000f4 .LVL15
+     /tmp/ccipoLLH.s:187    .text:0000000000000104 .LVL16
+     /tmp/ccipoLLH.s:73     .text:0000000000000054 .LVL3
+     /tmp/ccipoLLH.s:110    .text:0000000000000094 .LVL7
+GAS LISTING /tmp/ccipoLLH.s 			page 11
+
+
+     /tmp/ccipoLLH.s:80     .text:0000000000000060 .LVL4
+     /tmp/ccipoLLH.s:118    .text:00000000000000a0 .LVL8
+     /tmp/ccipoLLH.s:90     .text:0000000000000074 .LVL5
+     /tmp/ccipoLLH.s:96     .text:000000000000007c .LBE10
+     /tmp/ccipoLLH.s:113    .text:0000000000000094 .LBB13
+     /tmp/ccipoLLH.s:124    .text:00000000000000a8 .LBE13
+     /tmp/ccipoLLH.s:167    .text:00000000000000e4 .LBE16
+     /tmp/ccipoLLH.s:181    .text:00000000000000f4 .LBB19
+     /tmp/ccipoLLH.s:189    .text:0000000000000104 .LBE19
+
+UNDEFINED SYMBOLS
+_ZN15MemoryAllocator8mem_freeEPv
+_ZN15MemoryAllocator14convert2BlocksEm
+_ZN15MemoryAllocator9mem_allocEm

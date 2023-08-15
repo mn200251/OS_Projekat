@@ -9,8 +9,7 @@
 #include "riscv.hpp"
 
 
-
-typedef struct _thread
+struct _thread
 {
     void(*body)(void*);
     struct Context
@@ -40,7 +39,6 @@ extern "C" void contextSwitch(_thread::Context *oldContext, _thread::Context *ru
 
 extern "C" void contextSwitchThreadEnded(_thread::Context *runningContext);
 
-thread_t _thread::running = nullptr;
 
 
 

@@ -1,6 +1,4 @@
-//
-// Created by marko on 20.4.22..
-//
+
 
 #ifndef PROJECT_BASE_SCHEDULER_HPP
 #define PROJECT_BASE_SCHEDULER_HPP
@@ -8,7 +6,6 @@
 #include "list.hpp"
 #include "../h/thread.hpp"
 
-// class TCB;
 
 class Scheduler
 {

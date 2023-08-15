@@ -1,6 +1,4 @@
-//
-// Created by os on 8/2/23.
-//
+
 
 #ifndef PROJECT_BASE_MEMORYALLOCATOR_HPP
 #define PROJECT_BASE_MEMORYALLOCATOR_HPP
