@@ -113,6 +113,9 @@ void *MemoryAllocator::mem_alloc(size_t size)
 
 int MemoryAllocator::mem_free(void* ptr)
 {
+    if (ptr == nullptr)
+        return -1; // unable to dealloc -> ptr is nullptr
+
     AllocatedMem* allocatedMem = (AllocatedMem*)((size_t)ptr - sizeof(AllocatedMem));
 
     size_t blockNum = allocatedMem->blockNum;

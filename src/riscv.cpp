@@ -4,6 +4,8 @@
 #include "../h/syscall_c.hpp"
 #include "../h/MemoryAllocator.hpp"
 
+#include "../h/print.hpp"
+
 void Riscv::popSppSpie()
 {
     __asm__ volatile("csrw sepc, ra");
@@ -30,6 +32,10 @@ void Riscv::handleSupervisorTrap()
     asm volatile("csrr %0, sscratch" : "=r" (SP));
 
     uint64 scause = r_scause();
+
+    printString("scause: ");
+    printInteger(scause);
+    printString("\n");
 
     if (scause == 0x0000000000000008UL || scause == 0x0000000000000009UL)
     {
@@ -119,7 +125,7 @@ void Riscv::handleSupervisorTrap()
         // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
         mc_sip(SIP_SSIP);
         _thread::running->timeSlice++;
-        if (DEFAULT_TIME_SLICE >= _thread::running->timeSlice)
+        if (DEFAULT_TIME_SLICE <= _thread::running->timeSlice)
         {
             // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
             // uint64 volatile sepc = r_sepc() + 4;
@@ -135,10 +141,17 @@ void Riscv::handleSupervisorTrap()
     else if (scause == 0x8000000000000009UL)
     {
         // interrupt: yes; cause code: supervisor external interrupt (PLIC; could be keyboard)
+        printString("Keyboard interrupt!\n");
         console_handler();
+
     }
     else
     {
+        printInteger(scause);
+        printString("\n");
+        printString("sepc = ");
+        printInteger(sepc);
+        printString("\nUnexpected trap cause!\n");
         // unexpected trap cause
     }
 }

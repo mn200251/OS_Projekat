@@ -38,6 +38,9 @@ public:
         // Elem *elem = new Elem(data, 0);
         size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(Elem));
         Elem *elem = (Elem*)MemoryAllocator::mem_alloc(blockNum);
+
+        elem->data = data;
+
         if (tail)
         {
             tail->next = elem;
@@ -57,8 +60,9 @@ public:
         if (!head) { tail = 0; }
 
         T *ret = elem->data;
-        MemoryAllocator::mem_free(elem);
         // delete elem;
+        MemoryAllocator::mem_free(elem);
+
         return ret;
     }
 
@@ -84,8 +88,10 @@ public:
         tail = prev;
 
         T *ret = elem->data;
-        MemoryAllocator::mem_free(elem);
+
         //delete elem;
+        MemoryAllocator::mem_free(elem);
+
         return ret;
     }
 

@@ -5,7 +5,10 @@ List<thread_t> Scheduler::readyThreadQueue;
 
 _thread *Scheduler::get()
 {
-    return *readyThreadQueue.removeFirst();
+    if (readyThreadQueue.peekFirst() != 0)
+        return *readyThreadQueue.removeFirst();
+
+    return nullptr;
 }
 
 void Scheduler::put(_thread *ccb)

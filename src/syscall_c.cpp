@@ -56,6 +56,12 @@ int thread_create (thread_t* handle, void(*start_routine)(void*), void* arg)
     size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(uint64) * DEFAULT_STACK_SIZE);
     void* stack_space = MemoryAllocator::mem_alloc(blockNum);
 
+//    blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread**));
+//    handle = (_thread**) MemoryAllocator::mem_alloc(blockNum);
+//
+//    blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread*));
+//    *handle = (_thread*) MemoryAllocator::mem_alloc(blockNum);
+
     size_t code = 0x0000000000000011UL;
     asm volatile("ld a0, %0" : : "m" (code));
     asm volatile("ld a1, %0" : : "m" (handle));

@@ -6,7 +6,7 @@
 #include "../h/print.hpp"
 #include "../h/syscall_c.hpp"
 
-void workerBodyA()
+void workerBodyA(void*)
 {
     for (uint64 i = 0; i < 10; i++)
     {
@@ -24,7 +24,7 @@ void workerBodyA()
     }
 }
 
-void workerBodyB()
+void workerBodyB(void*)
 {
     for (uint64 i = 0; i < 16; i++)
     {

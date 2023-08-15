@@ -6,13 +6,18 @@
 #include "../h/MemoryAllocator.hpp"
 #include "../h/scheduler.hpp"
 #include "../h/syscall_c.hpp"
+#include "../h/print.hpp"
 
 thread_t _thread::running = nullptr;
 
 
 int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* arg, void* stack_space) {
-    size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(thread_t));
-    handle = (thread_t*) MemoryAllocator::mem_alloc(blockNum);
+//    size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread*));
+//    handle = (_thread**) MemoryAllocator::mem_alloc(blockNum);
+
+    size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread));
+    *handle = (_thread*) MemoryAllocator::mem_alloc(blockNum);
+
     (*handle)->finished = false;
     (*handle)->timeSlice = DEFAULT_TIME_SLICE;
     (*handle)->body = start_routine;
@@ -23,33 +28,18 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
     else
         (*handle)->stack = nullptr;
 
-    (*handle)->context.ra = (uint64) &threadWrapper;
+    // (*handle)->context.ra = (uint64) &threadWrapper;
 
     if ((*handle)->stack != nullptr)
     {
         (*handle)->context.sp = (uint64) &((*handle)->stack[DEFAULT_STACK_SIZE]);
-
-        /*
-        // move the stack by 1 position and put handle on stack
-        // so that the wrapper function gets the argument when thread returns to it
-
-        // first put the new SP in a0
-        asm volatile("mv %0, a0" : "=r" ((*handle)->context.sp));
-
-        // we move it by 1 position
-        asm volatile("addi a0, a0, -1");
-
-        // we update the handle->context.sp value
-        asm volatile("csrw %0, a0" : "=r" ((*handle)->context.sp));
-
-        // we put the handle argument on the stack for the wrapper function
-        // first we put the argument in a1 and then on stack
-        asm volatile("mv %0, a1" : "=r" ((*handle)->arg));
-        asm volatile("sd a1, 0(%0)" : : "r" ((*handle)->context.sp));
-        */
-}
+        (*handle)->context.ra = (uint64) &threadWrapper;
+    }
     else
+    {
+        asm volatile("sd ra, %0" : "=m" ((*handle)->context.ra));
         (*handle)->context.sp = 0;
+    }
 
     if ((*handle)->body != nullptr)
         Scheduler::put(*handle);
@@ -70,12 +60,20 @@ void _thread::threadWrapper()
 void _thread::threadDispatch ()
 {
     _thread *old = _thread::running;
-    _thread::running = Scheduler::get();
 
     if (!old->finished)
     {
         Scheduler::put(old);
-        contextSwitch(&old->context, &(_thread::running->context));
+        _thread::running = Scheduler::get();
+
+        printString("old: ");
+        printInteger((uint64) old);
+        printString("\nnew running: ");
+        printInteger((uint64) _thread::running);
+        printString("\n");
+
+        if(old != _thread::running)
+            contextSwitch(&old->context, &_thread::running->context);
     }
     else
     {
@@ -84,7 +82,12 @@ void _thread::threadDispatch ()
         // thread finished -> dealloc the stack and thread
         MemoryAllocator::mem_free(old->stack);
         MemoryAllocator::mem_free(old);
-        contextSwitchThreadEnded(&_thread::running->context);
+        MemoryAllocator::mem_free(&old);
+
+        _thread::running = Scheduler::get();
+
+        if (_thread::running)
+            contextSwitchThreadEnded(&_thread::running->context);
     }
 }
 
