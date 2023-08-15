@@ -16,8 +16,8 @@ void userMain()
     handle2 = (_thread**) mem_alloc(sizeof(_thread**));
     handle3 = (_thread**) mem_alloc(sizeof(_thread**));
 
-    thread_create(handle2, workerBodyA, nullptr);
-    thread_create(handle3, workerBodyB, nullptr);
+    thread_create(handle2, workerBodyC, nullptr);
+    thread_create(handle3, workerBodyD, nullptr);
 
     printString("Finished!\n");
 }
@@ -34,9 +34,9 @@ void main(void*)
 
     int retVal = thread_create(handle, nullptr, nullptr);
 
-    printString("Main Thread handle: ");
-    printInteger((size_t)handle);
-    printString("\n");
+//    printString("Main Thread handle: ");
+//    printInteger((size_t)*handle);
+//    printString("\n");
 
     _thread::running = *handle;
 

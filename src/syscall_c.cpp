@@ -10,12 +10,13 @@
 
 void* mem_alloc (size_t size)
 {
-    size_t blockNum = MemoryAllocator::convert2Blocks(size);
+    //size_t blockNum = MemoryAllocator::convert2Blocks(size);
 
     size_t code = 0x0000000000000001UL;
     __asm__ volatile("ld a0, %0" : : "m" (code));
 
-    __asm__ volatile("ld a1, %0" : : "m" (blockNum));
+    //__asm__ volatile("ld a1, %0" : : "m" (blockNum));
+    __asm__ volatile("ld a1, %0" : : "m" (size));
 
     __asm__ volatile("ecall");
 
@@ -77,6 +78,10 @@ int thread_create (thread_t* handle, void(*start_routine)(void*), void* arg)
 
     if (val < 0)
         return val;
+
+    printString("\nnew thread: ");
+    printInteger((uint64) *handle);
+    printString("\n");
 
     return val;
 }

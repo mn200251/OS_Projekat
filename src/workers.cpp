@@ -49,7 +49,7 @@ static uint64 fibonacci(uint64 n)
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-void workerBodyC()
+void workerBodyC(void*)
 {
     uint8 i = 0;
     for (; i < 3; i++)
@@ -84,7 +84,7 @@ void workerBodyC()
 //    TCB::yield();
 }
 
-void workerBodyD()
+void workerBodyD(void*)
 {
     uint8 i = 10;
     for (; i < 13; i++)

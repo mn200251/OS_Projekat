@@ -28,14 +28,14 @@ void Riscv::handleSupervisorTrap()
     uint64 volatile sstatus = r_sstatus();
 
     // retrieve stack pointer relative to saved registers
-    void* SP;
+    void* volatile SP;
     asm volatile("csrr %0, sscratch" : "=r" (SP));
 
-    uint64 scause = r_scause();
+    uint64 volatile scause = r_scause();
 
-    printString("scause: ");
-    printInteger(scause);
-    printString("\n");
+//    printString("scause: ");
+//    printInteger(scause);
+//    printString("\n");
 
     if (scause == 0x0000000000000008UL || scause == 0x0000000000000009UL)
     {
@@ -125,11 +125,9 @@ void Riscv::handleSupervisorTrap()
         // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
         mc_sip(SIP_SSIP);
         _thread::running->timeSlice++;
-        if (DEFAULT_TIME_SLICE <= _thread::running->timeSlice)
+        if (_thread::running->timeSlice >= DEFAULT_TIME_SLICE)
         {
             // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
-            // uint64 volatile sepc = r_sepc() + 4;
-            // uint64 volatile sstatus = r_sstatus();
             sepc = sepc + 4;
 
             _thread::running->timeSlice = 0;
@@ -141,17 +139,17 @@ void Riscv::handleSupervisorTrap()
     else if (scause == 0x8000000000000009UL)
     {
         // interrupt: yes; cause code: supervisor external interrupt (PLIC; could be keyboard)
-        printString("Keyboard interrupt!\n");
+        // printString("Keyboard interrupt!\n");
         console_handler();
 
     }
     else
     {
-        printInteger(scause);
-        printString("\n");
-        printString("sepc = ");
-        printInteger(sepc);
-        printString("\nUnexpected trap cause!\n");
+//        printInteger(scause);
+//        printString("\n");
+//        printString("sepc = ");
+//        printInteger(sepc);
+//        printString("\nUnexpected trap cause!\n");
         // unexpected trap cause
     }
 }
