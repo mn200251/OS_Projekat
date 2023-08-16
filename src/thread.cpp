@@ -71,11 +71,11 @@ void _thread::threadDispatch ()
         Scheduler::put(old);
         _thread::running = Scheduler::get();
 
-//        printString("old: ");
-//        printInteger((uint64) old);
-//        printString("\nnew running: ");
-//        printInteger((uint64) _thread::running);
-//        printString("\n");
+        printString("old: ");
+        printInteger((uint64) old);
+        printString("\nnew running: ");
+        printInteger((uint64) _thread::running);
+        printString("\n");
 
         if(old != _thread::running)
             contextSwitch(&old->context, &_thread::running->context);
@@ -87,7 +87,7 @@ void _thread::threadDispatch ()
         // thread finished -> dealloc the stack and thread
         MemoryAllocator::mem_free(old->stack);
         MemoryAllocator::mem_free(old);
-        MemoryAllocator::mem_free(&old);
+        //MemoryAllocator::mem_free(&old);
 
         _thread::running = Scheduler::get();
 

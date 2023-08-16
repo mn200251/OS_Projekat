@@ -145,11 +145,11 @@ void Riscv::handleSupervisorTrap()
     }
     else
     {
-//        printInteger(scause);
-//        printString("\n");
-//        printString("sepc = ");
-//        printInteger(sepc);
-//        printString("\nUnexpected trap cause!\n");
+        printInteger(scause);
+        printString("\n");
+        printString("sepc = ");
+        printInteger(sepc);
+        printString("\nUnexpected trap cause!\n");
         // unexpected trap cause
     }
 }
