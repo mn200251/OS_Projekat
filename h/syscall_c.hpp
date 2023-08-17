@@ -24,3 +24,4 @@ void thread_dispatch ();
 int thread_exit ();
 
 #endif //PROJECT_BASE_SYSCALL_C_HPP
+

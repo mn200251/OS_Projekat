@@ -176,3 +176,4 @@ inline void Riscv::w_sstatus(uint64 sstatus)
 }
 
 #endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_RISCV_HPP
+

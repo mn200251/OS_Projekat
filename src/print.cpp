@@ -18,6 +18,7 @@ void printString(char const *string)
     Riscv::ms_sstatus(sstatus & Riscv::SSTATUS_SIE ? Riscv::SSTATUS_SIE : 0);
 }
 
+
 void printInteger(uint64 integer)
 {
     uint64 sstatus = Riscv::r_sstatus();

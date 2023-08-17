@@ -49,6 +49,7 @@ static uint64 fibonacci(uint64 n)
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
+
 void workerBodyC(void*)
 {
     uint8 i = 0;
