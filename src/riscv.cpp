@@ -121,10 +121,59 @@ void Riscv::handleSupervisorTrap()
         // thread_join
         else if (a[0] == 0x0000000000000014UL)
         {
-            _thread* handle = reinterpret_cast<_thread*>(a[1]);
+            // _thread* handle = reinterpret_cast<_thread*>(a[1]);
 
 
+        }
+        // sem_open
+        else if (a[0] == 0x0000000000000021UL)
+        {
+            _sem** handle = reinterpret_cast<_sem** >(a[1]);
+            unsigned init = (unsigned)a[2];
 
+            int retVal = _sem::semOpen(handle, init);
+
+            asm volatile("mv %0, a0" : "=r" (retVal));
+
+            // put the return value on the stack
+            asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
+        }
+        // sem_close
+        else if (a[0] == 0x0000000000000022UL)
+        {
+            _sem* handle = reinterpret_cast<_sem* >(a[1]);
+
+
+            int retVal = _sem::semClose(handle);
+
+            asm volatile("mv %0, a0" : "=r" (retVal));
+
+            // put the return value on the stack
+            asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
+        }
+        // sem_wait
+        else if (a[0] == 0x0000000000000023UL)
+        {
+            _sem* id = reinterpret_cast<_sem* >(a[1]);
+
+            int retVal = _sem::semWait(id);
+
+            asm volatile("mv %0, a0" : "=r" (retVal));
+
+            // put the return value on the stack
+            asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
+        }
+        // sem_signal
+        else if (a[0] == 0x0000000000000024UL)
+        {
+            _sem* id = reinterpret_cast<_sem* >(a[1]);
+
+            int retVal = _sem::semSignal(id);
+
+            asm volatile("mv %0, a0" : "=r" (retVal));
+
+            // put the return value on the stack
+            asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
         }
         else
         {

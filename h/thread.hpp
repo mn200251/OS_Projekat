@@ -23,6 +23,8 @@ struct _thread
     Context context;
     void* arg;
     uint64 timeSlice;
+    int semWaitVal;
+
 
     static _thread* running;
 

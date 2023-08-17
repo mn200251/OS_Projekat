@@ -6,23 +6,27 @@
 #include "../h/scheduler.hpp"
 
 
-int _sem::sem_open(_sem **handle, unsigned int t)
+int _sem::semOpen(_sem **handle, unsigned init)
 {
+    *handle = (_sem*)MemoryAllocator::mem_alloc(sizeof(_sem));
 
-
+    (*handle)->val = (int)init;
 
     return 0;
 }
 
 
-int _sem::close(_sem *handle)
+int _sem::semClose(_sem *handle)
 {
     if (handle == nullptr) // error: sem is nullptr
         return -1;
 
     // remove all threads that are blocked
     while (handle->queue.peekFirst())
+    {
+        handle->queue.peekFirst()->semWaitVal = -1;
         Scheduler::put(handle->queue.removeFirst());
+    }
 
     MemoryAllocator::mem_free(handle);
 
@@ -30,7 +34,7 @@ int _sem::close(_sem *handle)
 }
 
 
-int _sem::wait(sem_t id)
+int _sem::semWait(sem_t id)
 {
     if (id == nullptr)
         return -1; // invalid id
@@ -49,20 +53,20 @@ int _sem::wait(sem_t id)
     if (old != _thread::running)
         contextSwitch(&old->context, &_thread::running->context);
 
-    if (!id) // that means that the sem closed
-        return -2; // sem closed with thread waiting on it
-
     return 0;
 }
 
-int _sem::signal(sem_t id)
+int _sem::semSignal(sem_t id)
 {
     if (id == nullptr) // id is nullptr
         return -1;
 
     // remove first if exists or increment val
     if (id->queue.peekFirst())
+    {
+        id->queue.peekFirst()->semWaitVal = 0;
         Scheduler::put(id->queue.removeFirst());
+    }
     else
         id->val++;
 

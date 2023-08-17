@@ -12,17 +12,17 @@ struct _sem
 {
     List<_thread> queue;
 
-    int val = 1;
+    int val;
 
     // bool deallocated = false;
 
-    static int sem_open(_sem** handle, unsigned int t);
+    static int semOpen(_sem** handle, unsigned init);
 
-    static int wait(_sem* id);
+    static int semWait(_sem* id);
 
-    static int signal(_sem* id);
+    static int semSignal(_sem* id);
 
-    static int close(_sem* handle);
+    static int semClose(_sem* handle);
 };
 
 typedef _sem* sem_t;

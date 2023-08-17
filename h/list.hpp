@@ -123,7 +123,6 @@ public:
 
             temp = temp->next;
         }
-        printString("Endprint!\n");
         printString("-----------------------------------------\n");
     }
 };

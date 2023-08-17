@@ -20,7 +20,7 @@ int thread_exit();
 
 void thread_join(_thread handle);
 
-int sem_open(sem_t* handle);
+int sem_open(sem_t* handle, unsigned init);
 
 int sem_close (sem_t handle);
 

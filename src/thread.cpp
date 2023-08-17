@@ -19,6 +19,7 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
     size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread));
     *handle = (_thread*) MemoryAllocator::mem_alloc(blockNum);
 
+    (*handle)->semWaitVal = 0;
     (*handle)->finished = false;
     (*handle)->timeSlice = 0;
     (*handle)->body = start_routine;

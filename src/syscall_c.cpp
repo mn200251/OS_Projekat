@@ -120,11 +120,12 @@ void thread_join(_thread handle)
     asm volatile("ecall");
 }
 
-int sem_open(sem_t* handle)
+int sem_open(sem_t* handle, unsigned init)
 {
     size_t code = 0x0000000000000021UL;
     asm volatile("ld a0, %0" : : "m" (code));
     asm volatile("ld a1, %0" : : "m" (handle));
+    asm volatile("ld a2, %0" : : "m" (init));
 
     asm volatile("ecall");
 
@@ -158,11 +159,13 @@ int sem_wait(sem_t id)
 
     asm volatile("ecall");
 
-    int val;
+//    int val;
+//
+//    asm volatile("sd a0, %0" : "=m" (val));
+//
+//    return val;
 
-    asm volatile("sd a0, %0" : "=m" (val));
-
-    return val;
+    return _thread::running->semWaitVal;
 }
 
 int sem_signal(sem_t id)
