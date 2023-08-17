@@ -38,8 +38,8 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
     }
     else
     {
-        //asm volatile("sd ra, %0" : "=m" ((*handle)->context.ra));
-        (*handle)->context.ra = (uint64) &threadWrapper;
+        // asm volatile("sd ra, %0" : "=m" ((*handle)->context.ra));
+        // (*handle)->context.ra = (uint64) &threadWrapper;
         (*handle)->context.sp = 0;
     }
 

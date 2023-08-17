@@ -125,19 +125,22 @@ void Riscv::handleSupervisorTrap()
     }
     else if (scause == 0x8000000000000001UL)
     {
-//        // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
-          mc_sip(SIP_SSIP);
-//        _thread::running->timeSlice++;
-//        if (_thread::running->timeSlice >= DEFAULT_TIME_SLICE)
-//        {
-//            // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
-//            sepc = sepc + 4;
-//
-//            _thread::running->timeSlice = 0;
-//            _thread::threadDispatch();
-//            w_sstatus(sstatus);
-//            w_sepc(sepc);
-//        }
+        mc_sip(SIP_SSIP);
+        /*
+        // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
+
+        _thread::running->timeSlice++;
+        if (_thread::running->timeSlice >= DEFAULT_TIME_SLICE)
+        {
+            // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
+            // sepc = sepc + 4;
+
+            _thread::running->timeSlice = 0;
+            _thread::threadDispatch();
+            w_sstatus(sstatus);
+            w_sepc(sepc);
+        }
+        */
     }
     else if (scause == 0x8000000000000009UL)
     {

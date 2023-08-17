@@ -29,17 +29,17 @@ void userMain()
     __putc('1');
     __putc('\n');
 
-    thread_t handle2 = nullptr;
-    thread_t handle3 = nullptr;
-
-    //handle2 = (_thread**) mem_alloc(sizeof(_thread*));
-    //handle3 = (_thread**) mem_alloc(sizeof(_thread*));
-
-    thread_create(&handle2, test, nullptr);
-    thread_create(&handle3, test2, nullptr);
-
-    while(!handle2->finished || !handle3->finished)
-        thread_dispatch();
+//    thread_t handle2 = nullptr;
+//    thread_t handle3 = nullptr;
+//
+//    // handle2 = (_thread**) mem_alloc(sizeof(_thread*));
+//    // handle3 = (_thread**) mem_alloc(sizeof(_thread*));
+//
+//    thread_create(&handle2, test, nullptr);
+//    thread_create(&handle3, test2, nullptr);
+//
+//    while(!handle2->finished || !handle3->finished)
+//        thread_dispatch();
 
     printString("Finished!\n");
 }
