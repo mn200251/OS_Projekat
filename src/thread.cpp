@@ -46,7 +46,6 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
     if ((*handle)->body != nullptr)
         Scheduler::put(*handle);
 
-
 //    printString("\nnew thread: ");
 //    printInteger((uint64) *handle);
 //    printString("\n");
@@ -67,7 +66,7 @@ void _thread::threadWrapper()
 
 void _thread::threadDispatch ()
 {
-    Scheduler::readyThreadQueue.printAll();
+    // Scheduler::readyThreadQueue.printAll();
 
     _thread *old = _thread::running;
 
@@ -76,11 +75,11 @@ void _thread::threadDispatch ()
         Scheduler::put(old);
         _thread::running = Scheduler::get();
 
-        printString("old: ");
-        printInteger((uint64) old);
-        printString("\nnew running: ");
-        printInteger((uint64) _thread::running);
-        printString("\n");
+//        printString("old: ");
+//        printInteger((uint64) old);
+//        printString("\nnew running: ");
+//        printInteger((uint64) _thread::running);
+//        printString("\n");
 
         if(old != _thread::running)
             contextSwitch(&old->context, &_thread::running->context);

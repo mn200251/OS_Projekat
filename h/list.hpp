@@ -115,7 +115,7 @@ public:
     {
         Elem* temp = head;
         printString("-----------------------------------------\n");
-        printString("PrintAll: ");
+        printString("Print all threads in Scheduler:\n");
         while(temp)
         {
             printInteger((size_t)temp->data);
@@ -123,7 +123,7 @@ public:
 
             temp = temp->next;
         }
-        printString("\nEndprint!\n");
+        printString("Endprint!\n");
         printString("-----------------------------------------\n");
     }
 };

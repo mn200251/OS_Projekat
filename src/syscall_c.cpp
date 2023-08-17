@@ -79,9 +79,9 @@ int thread_create (thread_t* handle, void(*start_routine)(void*), void* arg)
     if (val < 0)
         return val;
 
-    printString("\nnew thread: ");
-    printInteger((uint64) *handle);
-    printString("\n");
+//    printString("\nnew thread: ");
+//    printInteger((uint64) *handle);
+//    printString("\n");
 
     return val;
 }
@@ -109,5 +109,74 @@ void thread_dispatch ()
     asm volatile("ld a0, %0" : : "m" (code));
 
     asm volatile("ecall");
+}
+
+void thread_join(_thread handle)
+{
+    size_t code = 0x0000000000000014UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+    asm volatile("ld a1, %0" : : "m" (handle));
+
+    asm volatile("ecall");
+}
+
+int sem_open(sem_t* handle)
+{
+    size_t code = 0x0000000000000021UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+    asm volatile("ld a1, %0" : : "m" (handle));
+
+    asm volatile("ecall");
+
+    int val;
+
+    asm volatile("sd a0, %0" : "=m" (val));
+
+    return val;
+}
+
+int sem_close(sem_t handle)
+{
+    size_t code = 0x0000000000000022UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+    asm volatile("ld a1, %0" : : "m" (handle));
+
+    asm volatile("ecall");
+
+    int val;
+
+    asm volatile("sd a0, %0" : "=m" (val));
+
+    return val;
+}
+
+int sem_wait(sem_t id)
+{
+    size_t code = 0x0000000000000023UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+    asm volatile("ld a1, %0" : : "m" (id));
+
+    asm volatile("ecall");
+
+    int val;
+
+    asm volatile("sd a0, %0" : "=m" (val));
+
+    return val;
+}
+
+int sem_signal(sem_t id)
+{
+    size_t code = 0x0000000000000024UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+    asm volatile("ld a1, %0" : : "m" (id));
+
+    asm volatile("ecall");
+
+    int val;
+
+    asm volatile("sd a0, %0" : "=m" (val));
+
+    return val;
 }
 

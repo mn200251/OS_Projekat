@@ -111,12 +111,20 @@ void Riscv::handleSupervisorTrap()
 
             _thread::threadDispatch();
 
-            printString("Dispatched!\n");
+            // printString("Dispatched!\n");
 
             w_sstatus(sstatus);
             w_sepc(sepc);
 
             // nothing to return
+        }
+        // thread_join
+        else if (a[0] == 0x0000000000000014UL)
+        {
+            _thread* handle = reinterpret_cast<_thread*>(a[1]);
+
+
+
         }
         else
         {

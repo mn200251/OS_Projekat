@@ -5,23 +5,28 @@
 
 #include "../lib/hw.h"
 #include "../h/thread.hpp"
-
-void* mem_alloc (size_t size);
-
-int mem_free (void* ptr);
+#include "../h/sem.hpp"
 
 
-// class _thread;
-// typedef _thread* thread_t;
+void* mem_alloc(size_t size);
 
-// class TCB;
-// typedef TCB* thread_t;
+int mem_free(void* ptr);
 
 int thread_create(thread_t* handle, void(*start_routine)(void*), void* arg);
 
-void thread_dispatch ();
+void thread_dispatch();
 
-int thread_exit ();
+int thread_exit();
+
+void thread_join(_thread handle);
+
+int sem_open(sem_t* handle);
+
+int sem_close (sem_t handle);
+
+int sem_wait (sem_t id);
+
+int sem_signal (sem_t id);
 
 #endif //PROJECT_BASE_SYSCALL_C_HPP
 

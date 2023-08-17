@@ -21,6 +21,7 @@ void workerBodyA(void*)
             }
 //            TCB::yield();
         }
+        thread_dispatch();
     }
 }
 
@@ -39,6 +40,7 @@ void workerBodyB(void*)
             }
 //            TCB::yield();
         }
+        thread_dispatch();
     }
 }
 
@@ -58,6 +60,7 @@ void workerBodyC(void*)
         printString("C: i=");
         printInteger(i);
         printString("\n");
+        thread_dispatch();
     }
 
     printString("C: yield\n");
@@ -93,6 +96,7 @@ void workerBodyD(void*)
         printString("D: i=");
         printInteger(i);
         printString("\n");
+        thread_dispatch();
     }
 
     printString("D: yield\n");
@@ -109,6 +113,7 @@ void workerBodyD(void*)
         printString("D: i=");
         printInteger(i);
         printString("\n");
+        thread_dispatch();
     }
 //    TCB::yield();
 }
