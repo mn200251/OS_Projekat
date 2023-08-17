@@ -4,6 +4,7 @@
 #define OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_LIST_HPP
 
 #include "MemoryAllocator.hpp"
+#include "../h/print.hpp"
 
 template<typename T>
 class List
@@ -40,6 +41,7 @@ public:
         Elem *elem = (Elem*)MemoryAllocator::mem_alloc(blockNum);
 
         elem->data = data;
+        elem->next = nullptr;
 
         if (tail)
         {
@@ -49,6 +51,10 @@ public:
         {
             head = tail = elem;
         }
+
+//        printString("\nSheduler.put(): ");
+//        printInteger((uint64) *elem->data);
+//        printString("\n");
     }
 
     T *removeFirst()
@@ -62,6 +68,10 @@ public:
         T *ret = elem->data;
         // delete elem;
         MemoryAllocator::mem_free(elem);
+
+//        printString("\nSheduler.get(): ");
+//        printInteger((uint64) *ret);
+//        printString("\n");
 
         return ret;
     }
@@ -100,6 +110,25 @@ public:
         if (!tail) { return 0; }
         return tail->data;
     }
+
+    void printAll()
+    {
+        Elem* temp = head;
+        printString("-----------------------------------------\n");
+        printString("PrintAll: ");
+        while(temp)
+        {
+            printInteger((size_t)temp->data);
+            printString("\n");
+
+            temp = temp->next;
+        }
+        printString("\nEndprint!\n");
+        printString("-----------------------------------------\n");
+    }
 };
+
+
+
 
 #endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_LIST_HPP

@@ -7,6 +7,7 @@
 #include "../h/scheduler.hpp"
 #include "../h/syscall_c.hpp"
 #include "../h/print.hpp"
+#include "../h/list.hpp"
 
 thread_t _thread::running = nullptr;
 
@@ -37,7 +38,8 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
     }
     else
     {
-        asm volatile("sd ra, %0" : "=m" ((*handle)->context.ra));
+        //asm volatile("sd ra, %0" : "=m" ((*handle)->context.ra));
+        (*handle)->context.ra = (uint64) &threadWrapper;
         (*handle)->context.sp = 0;
     }
 
@@ -64,6 +66,8 @@ void _thread::threadWrapper()
 
 void _thread::threadDispatch ()
 {
+    Scheduler::readyThreadQueue.printAll();
+
     _thread *old = _thread::running;
 
     if (!old->finished)

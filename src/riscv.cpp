@@ -39,7 +39,8 @@ void Riscv::handleSupervisorTrap()
 
     if (scause == 0x0000000000000008UL || scause == 0x0000000000000009UL)
     {
-        w_sepc(sepc + 4);
+        sepc = sepc + 4;
+        w_sepc(sepc);
 
         // mem_alloc
         if (a[0] == 0x0000000000000001UL)
@@ -110,6 +111,8 @@ void Riscv::handleSupervisorTrap()
 
             _thread::threadDispatch();
 
+            printString("Dispatched!\n");
+
             w_sstatus(sstatus);
             w_sepc(sepc);
 
@@ -122,19 +125,19 @@ void Riscv::handleSupervisorTrap()
     }
     else if (scause == 0x8000000000000001UL)
     {
-        // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
-        mc_sip(SIP_SSIP);
-        _thread::running->timeSlice++;
-        if (_thread::running->timeSlice >= DEFAULT_TIME_SLICE)
-        {
-            // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
-            sepc = sepc + 4;
-
-            _thread::running->timeSlice = 0;
-            _thread::threadDispatch();
-            w_sstatus(sstatus);
-            w_sepc(sepc);
-        }
+//        // interrupt: yes; cause code: supervisor software interrupt (CLINT; machine timer interrupt)
+          mc_sip(SIP_SSIP);
+//        _thread::running->timeSlice++;
+//        if (_thread::running->timeSlice >= DEFAULT_TIME_SLICE)
+//        {
+//            // interrupt: no; cause code: environment call from U-mode(8) or S-mode(9)
+//            sepc = sepc + 4;
+//
+//            _thread::running->timeSlice = 0;
+//            _thread::threadDispatch();
+//            w_sstatus(sstatus);
+//            w_sepc(sepc);
+//        }
     }
     else if (scause == 0x8000000000000009UL)
     {

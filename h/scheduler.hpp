@@ -9,11 +9,11 @@
 
 class Scheduler
 {
-private:
-    static List<thread_t> readyThreadQueue;
+public:
+    static List<_thread> readyThreadQueue;
 
 public:
-    static _thread *get();
+    static _thread* get();
 
     static void put(_thread *ccb);
 

@@ -5,6 +5,25 @@
 #include "../h/syscall_c.hpp"
 #include "../h/workers.hpp"
 
+void test(void*)
+{
+    printString("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
+}
+
+void test2(void*)
+{
+    int i = 0;
+    while(i < 100)
+    {
+        printInteger(i);
+        printString("\n");
+        if (i % 10 == 0)
+            thread_dispatch();
+
+        i++;
+    }
+}
+
 void userMain()
 {
     __putc('1');
@@ -16,11 +35,16 @@ void userMain()
     //handle2 = (_thread**) mem_alloc(sizeof(_thread*));
     //handle3 = (_thread**) mem_alloc(sizeof(_thread*));
 
-    thread_create(&handle2, workerBodyC, nullptr);
-    thread_create(&handle3, workerBodyD, nullptr);
+    thread_create(&handle2, test, nullptr);
+    thread_create(&handle3, test2, nullptr);
+
+    while(!handle2->finished || !handle3->finished)
+        thread_dispatch();
 
     printString("Finished!\n");
 }
+
+
 
 void main(void*)
 {
@@ -32,7 +56,7 @@ void main(void*)
 //    size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread**));
 //    handle = (_thread**) MemoryAllocator::mem_alloc(blockNum);
 
-    int retVal = thread_create(&handle, nullptr, nullptr);
+    thread_create(&handle, nullptr, nullptr);
 
 //    printString("Main Thread handle: ");
 //    printInteger((size_t)*handle);
@@ -40,9 +64,9 @@ void main(void*)
 
     _thread::running = handle;
 
-    printString("Main Thread return value: ");
-    printInteger(retVal);
-    printString("\n");
+//    printString("Main Thread return value: ");
+//    printInteger(retVal);
+//    printString("\n");
 
     Riscv::ms_sstatus(Riscv::SSTATUS_SIE);
 
