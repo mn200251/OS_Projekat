@@ -8,6 +8,7 @@
 #include "../h/syscall_c.hpp"
 #include "../h/print.hpp"
 #include "../h/list.hpp"
+#include "../h/sem.hpp"
 
 thread_t _thread::running = nullptr;
 
@@ -19,6 +20,8 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
     size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread));
     *handle = (_thread*) MemoryAllocator::mem_alloc(blockNum);
 
+
+    _sem::semOpen(&(*handle)->semaphore, 0);
     (*handle)->semWaitVal = 0;
     (*handle)->finished = false;
     (*handle)->timeSlice = 0;
@@ -87,7 +90,8 @@ void _thread::threadDispatch ()
     }
     else
     {
-        // remove threads that are waiting for this one to finish
+        // dealloc the sem and release all waiting threads
+        _sem::semClose(_thread::running->semaphore);
 
         // thread finished -> dealloc the stack and thread
         MemoryAllocator::mem_free(old->stack);

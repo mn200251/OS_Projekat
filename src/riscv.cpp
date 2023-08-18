@@ -3,6 +3,7 @@
 #include "../lib/console.h"
 #include "../h/syscall_c.hpp"
 #include "../h/MemoryAllocator.hpp"
+#include "../h/sem.hpp"
 
 #include "../h/print.hpp"
 
@@ -96,6 +97,7 @@ void Riscv::handleSupervisorTrap()
 
             _thread::threadDispatch();
 
+            // error if this runs!
             int retVal;
 
             // return error code if thread didn't exit
@@ -121,9 +123,12 @@ void Riscv::handleSupervisorTrap()
         // thread_join
         else if (a[0] == 0x0000000000000014UL)
         {
-            // _thread* handle = reinterpret_cast<_thread*>(a[1]);
+            _thread* handle = reinterpret_cast<_thread*>(a[1]);
 
+            _sem::semWait(handle->semaphore);
 
+            w_sstatus(sstatus);
+            w_sepc(sepc);
         }
         // sem_open
         else if (a[0] == 0x0000000000000021UL)
@@ -162,6 +167,10 @@ void Riscv::handleSupervisorTrap()
 
             // put the return value on the stack
             asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
+
+            // restore sstatus and sepc because we are changing threads
+            w_sstatus(sstatus);
+            w_sepc(sepc);
         }
         // sem_signal
         else if (a[0] == 0x0000000000000024UL)

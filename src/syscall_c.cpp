@@ -111,7 +111,7 @@ void thread_dispatch ()
     asm volatile("ecall");
 }
 
-void thread_join(_thread handle)
+void thread_join(_thread* handle)
 {
     size_t code = 0x0000000000000014UL;
     asm volatile("ld a0, %0" : : "m" (code));

@@ -7,8 +7,9 @@
 
 #include "../lib/hw.h"
 #include "riscv.hpp"
+// #include "sem.hpp"
 
-
+extern struct _sem;
 
 struct _thread
 {
@@ -24,7 +25,7 @@ struct _thread
     void* arg;
     uint64 timeSlice;
     int semWaitVal;
-
+    _sem* semaphore;
 
     static _thread* running;
 
