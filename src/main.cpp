@@ -45,6 +45,14 @@ void userMain()
     while(!handle2->finished || !handle3->finished || !handle4->finished || !handle5->finished)
         thread_dispatch();
 
+    __putc('4');
+    __putc('\n');
+
+//    thread_join(handle2);
+//    thread_join(handle3);
+//    thread_join(handle4);
+//    thread_join(handle5);
+
     printString("Finished!\n");
 }
 
@@ -75,6 +83,8 @@ void main(void*)
     Riscv::ms_sstatus(Riscv::SSTATUS_SIE);
 
     userMain();
+
+
 
     // thread_exit();
 }

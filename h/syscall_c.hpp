@@ -18,7 +18,7 @@ void thread_dispatch();
 
 int thread_exit();
 
-void thread_join(_thread handle);
+void thread_join(_thread* handle);
 
 int sem_open(sem_t* handle, unsigned init);
 

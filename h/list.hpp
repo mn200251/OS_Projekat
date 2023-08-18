@@ -37,14 +37,16 @@ public:
     void addLast(T *data)
     {
         // Elem *elem = new Elem(data, 0);
-        size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(Elem));
+        size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(List<T>::Elem));
         Elem *elem = (Elem*)MemoryAllocator::mem_alloc(blockNum);
 
         elem->data = data;
         elem->next = nullptr;
 
-        if (tail)
+        if (tail != 0)
         {
+            printInteger((size_t)tail->data);
+            printString("\n");
             tail->next = elem;
             tail = elem;
         } else

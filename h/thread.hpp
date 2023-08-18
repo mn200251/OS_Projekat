@@ -7,9 +7,8 @@
 
 #include "../lib/hw.h"
 #include "riscv.hpp"
-// #include "sem.hpp"
 
-extern struct _sem;
+struct _sem;
 
 struct _thread
 {
