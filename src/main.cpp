@@ -4,6 +4,8 @@
 #include "../h/riscv.hpp"
 #include "../h/syscall_c.hpp"
 #include "../h/workers.hpp"
+// #include "../test/userMain.cpp"
+
 
 void test(void*)
 {
@@ -87,7 +89,7 @@ void producer(void* n)
     }
 }
 
-void userMain()
+void userMain2()
 {
     __putc('1');
     __putc('\n');
@@ -125,7 +127,7 @@ void userMain()
 
 void userMainWrapper(void*)
 {
-    userMain();
+    userMain2();
 }
 
 void main(void*)

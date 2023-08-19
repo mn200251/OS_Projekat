@@ -14,8 +14,6 @@ thread_t _thread::running = nullptr;
 
 
 int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* arg, void* stack_space) {
-//    size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread*));
-//    handle = (_thread**) MemoryAllocator::mem_alloc(blockNum);
 
     size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread));
     *handle = (_thread*) MemoryAllocator::mem_alloc(blockNum);
@@ -23,6 +21,7 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
 
     _sem::semOpen(&(*handle)->semaphore, 0);
     (*handle)->semWaitVal = 0;
+    (*handle)->started = true;
     (*handle)->finished = false;
     (*handle)->timeSlice = 0;
     (*handle)->body = start_routine;

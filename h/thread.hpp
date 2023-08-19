@@ -18,6 +18,7 @@ struct _thread
         uint64 ra;
         uint64 sp;
     };
+    bool started;
     bool finished;
     uint64 *stack;
     Context context;
