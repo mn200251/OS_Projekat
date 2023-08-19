@@ -10,11 +10,31 @@
 
 struct _sem
 {
-    List<_thread> queue;
+    // List<_thread> queue;
+
+    struct Elem{
+        _thread* data;
+        Elem* next;
+
+        void* operator new(size_t size) {
+            size_t blockNum = MemoryAllocator::convert2Blocks(size);
+            void* ptr = MemoryAllocator::mem_alloc(blockNum);
+            return ptr;
+        }
+        void operator delete(void* ptr) {
+            MemoryAllocator::mem_free(ptr);
+        }
+
+        Elem(_thread *data, Elem *next) : data(data), next(next) {}
+    };
+    Elem* head = nullptr;
+    Elem* tail = nullptr;
+
+    void addLast(_thread* t);
+    _thread* removeFirst();
+    _thread* peekFirst() const;
 
     int val;
-
-    // bool deallocated = false;
 
     static int semOpen(_sem** handle, unsigned init);
 

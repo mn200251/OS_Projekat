@@ -95,8 +95,8 @@ void _thread::threadDispatch ()
 
         // thread finished -> dealloc the stack and thread
         MemoryAllocator::mem_free(old->stack);
-        MemoryAllocator::mem_free(old);
-        //MemoryAllocator::mem_free(&old);
+        // MemoryAllocator::mem_free(old);
+        // MemoryAllocator::mem_free(&old);
 
         _thread::running = Scheduler::get();
 

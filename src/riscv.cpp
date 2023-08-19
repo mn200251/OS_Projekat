@@ -125,7 +125,9 @@ void Riscv::handleSupervisorTrap()
         {
             _thread* handle = reinterpret_cast<_thread*>(a[1]);
 
-            _sem::semWait(handle->semaphore);
+            if (!handle->finished)
+                _sem::semWait(handle->semaphore);
+
 
             w_sstatus(sstatus);
             w_sepc(sepc);
@@ -217,6 +219,7 @@ void Riscv::handleSupervisorTrap()
     }
     else
     {
+        printString("Scause: ");
         printInteger(scause);
         printString("\n");
         printString("sepc = ");

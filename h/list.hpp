@@ -18,14 +18,14 @@ private:
         Elem(T *data, Elem *next) : data(data), next(next) {}
     };
 
-    Elem *head, *tail;
-
 public:
     List() : head(0), tail(0) {}
 
     List(const List<T> &) = delete;
 
     List<T> &operator=(const List<T> &) = delete;
+
+    Elem *head = nullptr, *tail = nullptr;
 
     void addFirst(T *data)
     {
@@ -45,14 +45,18 @@ public:
 
         if (tail != 0)
         {
-            printInteger((size_t)tail->data);
-            printString("\n");
+//            printInteger((size_t)tail->data);
+//            printString("\n");
             tail->next = elem;
             tail = elem;
         } else
         {
             head = tail = elem;
         }
+
+//        printString("\nMemory address thread: ");
+//        printString("\n");
+//        printInteger((size_t)(&tail->data));
 
 //        printString("\nSheduler.put(): ");
 //        printInteger((uint64) *elem->data);
@@ -81,6 +85,15 @@ public:
     T *peekFirst()
     {
         if (!head) { return 0; }
+//        printString("\n\nMemory:\n");
+//        for(int i = 0; i < 10; i++)
+//        {
+//            printInteger((size_t)head->data);
+//            printString("\n");
+//            printInteger((size_t)((uint8*)head)[i]);
+//            printString(" ");
+//        }
+//        printString("\n");
         return head->data;
     }
 
@@ -117,13 +130,13 @@ public:
     {
         Elem* temp = head;
         printString("-----------------------------------------\n");
-        printString("Print all threads in Scheduler:\n");
+        printString("Print all threads in list:\n");
         while(temp)
         {
             printInteger((size_t)temp->data);
             printString("\n");
-
             temp = temp->next;
+
         }
         printString("-----------------------------------------\n");
     }
