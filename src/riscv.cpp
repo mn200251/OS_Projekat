@@ -1,11 +1,7 @@
-
-#include "../h/riscv.hpp"
 #include "../lib/console.h"
+#include "../h/riscv.hpp"
 #include "../h/syscall_c.hpp"
-#include "../h/MemoryAllocator.hpp"
-#include "../h/sem.hpp"
-
-#include "../h/print.hpp"
+#include "../test/printing.hpp"
 
 void Riscv::popSppSpie()
 {
@@ -220,10 +216,10 @@ void Riscv::handleSupervisorTrap()
     else
     {
         printString("Scause: ");
-        printInteger(scause);
+        printInt(scause);
         printString("\n");
         printString("sepc = ");
-        printInteger(sepc);
+        printInt(sepc);
         printString("\nUnexpected trap cause!\n");
         // unexpected trap cause
     }

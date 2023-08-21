@@ -4,7 +4,7 @@
 
 #include "../h/syscall_cpp.hpp"
 #include "../h/syscall_c.hpp"
-
+#include "../test/printing.hpp"
 
 void* operator new (size_t size)
 {
@@ -19,9 +19,15 @@ void operator delete (void* ptr)
 Thread::Thread(void (*body)(void *), void *arg)
 {
     if (body != nullptr)
-        thread_create(&this->myHandle, body, arg);
-    else
+    {
+        this->body = body;
+        this->arg = arg;
         this->myHandle = nullptr;
+    }
+    else
+    {
+        Thread();
+    }
 }
 
 Thread::~Thread()
@@ -32,11 +38,12 @@ Thread::~Thread()
 
 int Thread::start()
 {
-    // kada nit zavrsi dealocirace se myHandle pa onda mozda moze da se pozove opet...
-    if (this->myHandle == nullptr)
+    if (this->body != nullptr)
     {
-        thread_create(&this->myHandle, &this->wrapper, nullptr);
-        return 0;
+        thread_create(&this->myHandle, this->body, this->arg);
+        this->body = nullptr;
+        this->arg = nullptr;
+        return 0; // thread started successfully
     }
 
     return -1; // thread already started
@@ -44,7 +51,8 @@ int Thread::start()
 
 void Thread::join()
 {
-    thread_join(this->myHandle);
+    if (this->myHandle)
+        thread_join(this->myHandle);
 }
 
 void Thread::dispatch()
@@ -58,12 +66,15 @@ int Thread::sleep(time_t) {
 
 Thread::Thread()
 {
-
+    myHandle = nullptr;
+    body = &wrapper;
+    arg = this;
 }
 
-void Thread::wrapper(void *)
+void Thread::wrapper(void* thread)
 {
-    this->run();
+    Thread* t = static_cast<Thread *>(thread);
+    t->run();
 }
 
 
@@ -84,4 +95,12 @@ int Semaphore::wait()
 
 int Semaphore::signal() {
     return sem_signal(myHandle);
+}
+
+char Console::getc() {
+    return ::getc() ;
+}
+
+void Console::putc(char c) {
+    ::putc(c);
 }

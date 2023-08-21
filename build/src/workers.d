@@ -1,25 +1,26 @@
-build/src/workers.o: src/workers.cpp src/../lib/hw.h src/../h/print.hpp \
- src/../h/syscall_c.hpp src/../h/../h/thread.hpp src/../h/../h/riscv.hpp \
- src/../h/../h/sem.hpp src/../h/../h/list.hpp \
- src/../h/../h/MemoryAllocator.hpp src/../h/../h/../h/print.hpp \
- src/../h/../h/thread.hpp
+build/src/workers.o: src/workers.cpp src/../test/printing.hpp \
+ src/../test/../h/syscall_c.hpp src/../test/../h/../lib/hw.h \
+ src/../test/../h/../h/thread.hpp src/../test/../h/../h/riscv.hpp \
+ src/../test/../h/../h/sem.hpp src/../test/../h/../h/thread.hpp \
+ src/../test/../h/../h/MemoryAllocator.hpp \
+ src/../test/../h/../h/../test/printing.hpp src/../h/syscall_c.hpp
 
-src/../lib/hw.h:
+src/../test/printing.hpp:
 
-src/../h/print.hpp:
+src/../test/../h/syscall_c.hpp:
+
+src/../test/../h/../lib/hw.h:
+
+src/../test/../h/../h/thread.hpp:
+
+src/../test/../h/../h/riscv.hpp:
+
+src/../test/../h/../h/sem.hpp:
+
+src/../test/../h/../h/thread.hpp:
+
+src/../test/../h/../h/MemoryAllocator.hpp:
+
+src/../test/../h/../h/../test/printing.hpp:
 
 src/../h/syscall_c.hpp:
-
-src/../h/../h/thread.hpp:
-
-src/../h/../h/riscv.hpp:
-
-src/../h/../h/sem.hpp:
-
-src/../h/../h/list.hpp:
-
-src/../h/../h/MemoryAllocator.hpp:
-
-src/../h/../h/../h/print.hpp:
-
-src/../h/../h/thread.hpp:

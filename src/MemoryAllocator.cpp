@@ -3,7 +3,7 @@
 //
 
 #include "../h/MemoryAllocator.hpp"
-#include "../h/print.hpp"
+#include "../test/printing.hpp"
 
 void* MemoryAllocator::memStart = nullptr;
 void* MemoryAllocator::memEnd = nullptr;

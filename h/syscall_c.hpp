@@ -7,6 +7,7 @@
 #include "../h/thread.hpp"
 #include "../h/sem.hpp"
 
+typedef _sem* sem_t;
 
 void* mem_alloc(size_t size);
 
@@ -27,6 +28,14 @@ int sem_close (sem_t handle);
 int sem_wait (sem_t id);
 
 int sem_signal (sem_t id);
+
+typedef unsigned long time_t;
+int time_sleep (time_t);
+
+const int EOF = -1;
+char getc ();
+
+void putc (char);
 
 #endif //PROJECT_BASE_SYSCALL_C_HPP
 

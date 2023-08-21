@@ -3,10 +3,8 @@
 //
 
 #include "../h/syscall_c.hpp"
-#include "../h/print.hpp"
-#include "../h/MemoryAllocator.hpp"
-#include "../h/thread.hpp"
-#include "../h/scheduler.hpp"
+#include "../lib/console.h"
+
 
 void* mem_alloc (size_t size)
 {
@@ -182,4 +180,18 @@ int sem_signal(sem_t id)
 
     return val;
 }
+
+int time_sleep(time_t t) {
+    return 0;
+}
+
+char getc() {
+    return __getc();
+}
+
+void putc(char c){
+    __putc(c);
+}
+
+
 

@@ -2,10 +2,7 @@
 
 #include "buffer_CPP_API.hpp"
 #include "printing.hpp"
-/////////
-#include "../lib/console.h"
 
-/////////
 
 static Semaphore *waitForAll;
 
@@ -25,7 +22,7 @@ public:
     void run() override {
         int key;
         int i = 0;
-        while ((key = __getc()) != 0x1b) {
+        while ((key = getc()) != 0x1b) {
             td->buffer->put(key);
             i++;
         }

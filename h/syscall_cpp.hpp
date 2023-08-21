@@ -3,8 +3,8 @@
 //
 
 
-#ifndef _syscall_cpp
-#define _syscall_cpp
+#ifndef syscall_cpp2
+#define syscall_cpp2
 
 #include "syscall_c.hpp"
 
@@ -26,7 +26,7 @@ protected:
 private:
     thread_t myHandle = nullptr;
     void (*body)(void*); void* arg;
-    void wrapper(void*);
+    static void wrapper(void*);
 };
 
 
@@ -37,7 +37,7 @@ public:
     int wait ();
     int signal ();
 private:
-    sem_t myHandle;
+    _sem* myHandle;
 };
 
 

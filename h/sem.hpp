@@ -5,8 +5,9 @@
 #ifndef PROJECT_BASE_SEM_HPP
 #define PROJECT_BASE_SEM_HPP
 
-#include "list.hpp"
 #include "thread.hpp"
+#include "MemoryAllocator.hpp"
+
 
 struct _sem
 {
@@ -16,16 +17,16 @@ struct _sem
         _thread* data;
         Elem* next;
 
-        void* operator new(size_t size) {
-            size_t blockNum = MemoryAllocator::convert2Blocks(size);
-            void* ptr = MemoryAllocator::mem_alloc(blockNum);
-            return ptr;
-        }
-        void operator delete(void* ptr) {
-            MemoryAllocator::mem_free(ptr);
-        }
+//        void* operator new(size_t size) {
+//            size_t blockNum = MemoryAllocator::convert2Blocks(size);
+//            void* ptr = MemoryAllocator::mem_alloc(blockNum);
+//            return ptr;
+//        }
+//        void operator delete(void* ptr) {
+//            MemoryAllocator::mem_free(ptr);
+//        }
 
-        Elem(_thread *data, Elem *next) : data(data), next(next) {}
+        // Elem(_thread *data, Elem *next) : data(data), next(next) {}
     };
     Elem* head = nullptr;
     Elem* tail = nullptr;
@@ -45,8 +46,8 @@ struct _sem
     static int semClose(_sem* handle);
 };
 
-typedef _sem* sem_t;
 
+typedef _sem* sem_t;
 
 
 

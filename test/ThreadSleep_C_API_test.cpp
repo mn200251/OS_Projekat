@@ -1,9 +1,5 @@
 #include "../h/syscall_c.hpp"
 
-/////////
-// time sleep zakomentarisan
-/////////
-
 #include "printing.hpp"
 
 static volatile bool finished[2];
@@ -16,7 +12,7 @@ static void sleepyRun(void *arg) {
         printString("Hello ");
         printInt(sleep_time);
         printString(" !\n");
-        // time_sleep(sleep_time);
+        time_sleep(sleep_time);
     }
     finished[sleep_time/10-1] = true;
 }

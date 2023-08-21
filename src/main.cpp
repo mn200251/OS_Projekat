@@ -1,11 +1,10 @@
-#include "../lib/console.h"
 #include "../h/MemoryAllocator.hpp"
-#include "../h/print.hpp"
 #include "../h/riscv.hpp"
 #include "../h/syscall_c.hpp"
 #include "../h/workers.hpp"
-// #include "../test/userMain.cpp"
+#include "../test/printing.hpp"
 
+void userMain();
 
 void test(void*)
 {
@@ -17,7 +16,7 @@ void test2(void*)
     int i = 0;
     while(i < 100)
     {
-        printInteger(i);
+        printInt(i);
         printString("\n");
         if (i % 10 == 0)
             thread_dispatch();
@@ -50,13 +49,13 @@ void consumer(void* n)
         int retVal = sem_wait(full);
         if (retVal == -1) break;
         printString("retVal: ");
-        printInteger(retVal);
+        printInt(retVal);
         printString("\n");
         int val = buffer;
         printString("Consumer ");
-        printInteger(num);
+        printInt(num);
         printString(" Value: ");
-        printInteger(val);
+        printInt(val);
         printString("\n");
         sem_signal(empty);
     }
@@ -73,9 +72,9 @@ void producer(void* n)
         buffer = i;
         i += 1 * 2 - 1;
         printString("Producer ");
-        printInteger(num);
+        printInt(num);
         printString(" Value: ");
-        printInteger(buffer);
+        printInt(buffer);
         printString("\n");
 
         if (i > 200)
@@ -89,19 +88,19 @@ void producer(void* n)
     }
 }
 
-void userMain2()
+void prosliMain()
 {
-    __putc('1');
-    __putc('\n');
+    // __putc('1');
+    // __putc('\n');
 
 
-//    sem_open(&empty, 1);
-//    sem_open(&full, 0);
-//    thread_create(&globalThread1, producer, nullptr);
-//    thread_create(&globalThread2, consumer, (void*)1);
-//    thread_create(&globalThread3, consumer, (void*)2);
-//
-//    thread_join(globalThread1);
+    sem_open(&empty, 1);
+    sem_open(&full, 0);
+    thread_create(&globalThread1, producer, nullptr);
+    thread_create(&globalThread2, consumer, (void*)1);
+    thread_create(&globalThread3, consumer, (void*)2);
+
+    thread_join(globalThread1);
 
     thread_t handle2 = nullptr;
     thread_t handle3 = nullptr;
@@ -125,9 +124,9 @@ void userMain2()
     printString("Finished!\n");
 }
 
-void userMainWrapper(void*)
+void mainWrapper(void*)
 {
-    userMain2();
+    userMain();
 }
 
 void main(void*)
@@ -143,7 +142,7 @@ void main(void*)
 
     thread_create(&handle, nullptr, nullptr);
     _thread::running = handle;
-    thread_create(&userMainHandle, userMainWrapper, nullptr);
+    thread_create(&userMainHandle, mainWrapper, nullptr);
 
     Riscv::ms_sstatus(Riscv::SSTATUS_SIE);
 

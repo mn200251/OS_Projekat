@@ -6,7 +6,7 @@
 #include "../h/MemoryAllocator.hpp"
 #include "../h/scheduler.hpp"
 #include "../h/syscall_c.hpp"
-#include "../h/print.hpp"
+#include "../test/printing.hpp"
 #include "../h/list.hpp"
 #include "../h/sem.hpp"
 

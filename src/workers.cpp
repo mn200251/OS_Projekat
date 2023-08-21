@@ -2,8 +2,8 @@
 // Created by marko on 20.4.22..
 //
 
-#include "../lib/hw.h"
-#include "../h/print.hpp"
+
+#include "../test/printing.hpp"
 #include "../h/syscall_c.hpp"
 
 void workerBodyA(void*)
@@ -11,7 +11,7 @@ void workerBodyA(void*)
     for (uint64 i = 0; i < 10; i++)
     {
         printString("A: i=");
-        printInteger(i);
+        printInt(i);
         printString("\n");
         for (uint64 j = 0; j < 10000; j++)
         {
@@ -30,7 +30,7 @@ void workerBodyB(void*)
     for (uint64 i = 0; i < 16; i++)
     {
         printString("B: i=");
-        printInteger(i);
+        printInt(i);
         printString("\n");
         for (uint64 j = 0; j < 10000; j++)
         {
@@ -58,7 +58,7 @@ void workerBodyC(void*)
     for (; i < 3; i++)
     {
         printString("C: i=");
-        printInteger(i);
+        printInt(i);
         printString("\n");
         thread_dispatch();
     }
@@ -71,18 +71,18 @@ void workerBodyC(void*)
     __asm__ ("mv %[t1], t1" : [t1] "=r"(t1));
 
     printString("C: t1=");
-    printInteger(t1);
+    printInt(t1);
     printString("\n");
 
     uint64 result = fibonacci(12);
     printString("C: fibonaci=");
-    printInteger(result);
+    printInt(result);
     printString("\n");
 
     for (; i < 6; i++)
     {
         printString("C: i=");
-        printInteger(i);
+        printInt(i);
         printString("\n");
     }
 //    TCB::yield();
@@ -94,7 +94,7 @@ void workerBodyD(void*)
     for (; i < 13; i++)
     {
         printString("D: i=");
-        printInteger(i);
+        printInt(i);
         printString("\n");
         thread_dispatch();
     }
@@ -105,13 +105,13 @@ void workerBodyD(void*)
 
     uint64 result = fibonacci(16);
     printString("D: fibonaci=");
-    printInteger(result);
+    printInt(result);
     printString("\n");
 
     for (; i < 16; i++)
     {
         printString("D: i=");
-        printInteger(i);
+        printInt(i);
         printString("\n");
         thread_dispatch();
     }

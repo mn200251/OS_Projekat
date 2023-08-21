@@ -4,7 +4,8 @@
 #define OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_LIST_HPP
 
 #include "MemoryAllocator.hpp"
-#include "../h/print.hpp"
+#include "../test/printing.hpp"
+
 
 template<typename T>
 class List
@@ -65,6 +66,7 @@ public:
 
     T *removeFirst()
     {
+        printAll();
         if (!head) { return 0; }
 
         Elem *elem = head;
@@ -133,7 +135,7 @@ public:
         printString("Print all threads in list:\n");
         while(temp)
         {
-            printInteger((size_t)temp->data);
+            printInt((size_t)temp->data);
             printString("\n");
             temp = temp->next;
 
@@ -141,9 +143,6 @@ public:
         printString("-----------------------------------------\n");
     }
 };
-
-
-
 
 
 #endif //OS1_VEZBE07_RISCV_CONTEXT_SWITCH_2_INTERRUPT_LIST_HPP
