@@ -32,21 +32,25 @@ Thread::Thread(void (*body)(void *), void *arg)
 
 Thread::~Thread()
 {
-    if (this->myHandle)
-        thread_exit();
+//    if (this->myHandle)
+//        thread_exit();
 }
 
 int Thread::start()
 {
     if (this->body != nullptr)
     {
-        thread_create(&this->myHandle, this->body, this->arg);
+        int retVal = thread_create(&this->myHandle, this->body, this->arg);
+
+        if (retVal < 0)
+            return retVal;
+
         this->body = nullptr;
         this->arg = nullptr;
         return 0; // thread started successfully
     }
 
-    return -1; // thread already started
+    return -3; // thread already started
 }
 
 void Thread::join()

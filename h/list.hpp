@@ -66,7 +66,7 @@ public:
 
     T *removeFirst()
     {
-        printAll();
+        // printAll();
         if (!head) { return 0; }
 
         Elem *elem = head;

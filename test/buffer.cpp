@@ -15,7 +15,6 @@ Buffer::~Buffer() {
         char ch = buffer[head];
         putc(ch);
         head = (head + 1) % cap;
-        printString("Buffer in while loop!\n");
     }
     putc('!');
     putc('\n');
@@ -25,7 +24,6 @@ Buffer::~Buffer() {
     sem_close(spaceAvailable);
     sem_close(mutexTail);
     sem_close(mutexHead);
-    printString("Buffer deleted FOR REAL!\n");
 }
 
 void Buffer::put(int val) {

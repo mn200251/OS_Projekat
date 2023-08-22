@@ -48,7 +48,6 @@ void Riscv::handleSupervisorTrap()
             size_t blockNum = MemoryAllocator::convert2Blocks(size);
             void* retVal = MemoryAllocator::mem_alloc(blockNum);
 
-            // retVal should already be in a0 but just in case
             asm volatile("mv %0, a0" : "=r" (retVal));
 
             // put the return value on the stack
@@ -63,7 +62,6 @@ void Riscv::handleSupervisorTrap()
 
             int retVal = MemoryAllocator::mem_free(ptr);
 
-            // retVal should already be in a0 but just in case
             asm volatile("mv %0, a0" : "=r" (retVal));
 
             // put the return value on the stack
@@ -80,7 +78,6 @@ void Riscv::handleSupervisorTrap()
 
             int retVal = _thread::threadCreate(handle, start_routine, arg, stack_space);
 
-            // retVal should already be in a0 but just in case
             asm volatile("mv %0, a0" : "=r" (retVal));
 
             // put the return value on the stack
@@ -215,12 +212,12 @@ void Riscv::handleSupervisorTrap()
     }
     else
     {
-        printString("Scause: ");
-        printInt(scause);
-        printString("\n");
-        printString("sepc = ");
-        printInt(sepc);
-        printString("\nUnexpected trap cause!\n");
+//        printString("Scause: ");
+//        printInt(scause);
+//        printString("\n");
+//        printString("sepc = ");
+//        printInt(sepc);
+//        printString("\nUnexpected trap cause!\n");
         // unexpected trap cause
     }
 }

@@ -5,13 +5,10 @@
 #include "../h/sem.hpp"
 #include "../h/scheduler.hpp"
 #include "../test/printing.hpp"
-
+#include "../h/thread.hpp"
 
 int _sem::semOpen(_sem **handle, unsigned init)
 {
-    if (*handle == nullptr)
-        return -1;
-
     *handle = (_sem*)MemoryAllocator::mem_alloc(sizeof(_sem));
 
     (*handle)->val = (int)init;
@@ -24,17 +21,18 @@ int _sem::semOpen(_sem **handle, unsigned init)
 
 int _sem::semClose(_sem *handle)
 {
-    if (handle == nullptr) // error: sem is nullptr
-        return -1;
+//    if (handle == nullptr) // error: sem is nullptr
+//        return -1;
 
-    printString("\nSem Close - Closing sem!\n");
+//    printString("\n****************\nSem Close - Closing sem!\n");
     // remove all threads that are blocked
     while (handle->peekFirst())
     {
-        printString("\nSem Close - Closing sem and removing thread!\n");
+//        printString("Removing thread!\n");
         handle->peekFirst()->semWaitVal = -1;
         Scheduler::put(handle->removeFirst());
     }
+//    printString("\n****************\n");
 
     MemoryAllocator::mem_free(handle);
 
@@ -43,8 +41,8 @@ int _sem::semClose(_sem *handle)
 
 
 int _sem::semWait(_sem* id) {
-    if (id == nullptr)
-        return -1; // invalid id
+//    if (id == nullptr)
+//        return -1; // invalid id
 
     id->val--;
 
@@ -52,19 +50,16 @@ int _sem::semWait(_sem* id) {
 
     if (id->val < 0)
     {
-        printString("\nSem Wait - Waiting on sem!\n");
+//        printString("\nSem Wait - Waiting on sem!\n");
         id->addLast(_thread::running);
     }
     else
-    {
-        printString("\nSem Wait - Dispatching!\n");
-        Scheduler::put(_thread::running);
-    }
+        return 0;
 
-    _thread::running = Scheduler::get();
+     _thread::running = Scheduler::get();
 
-    if (!_thread::running)
-        printString("\n********************\nThread running is nullptr!\n");
+//    if (!_thread::running)
+//        printString("\n********************\nThread running is nullptr!\n");
 
     if (old != _thread::running)
         contextSwitch(&old->context, &_thread::running->context);
@@ -74,20 +69,16 @@ int _sem::semWait(_sem* id) {
 
 int _sem::semSignal(sem_t id)
 {
-    if (id == nullptr) // id is nullptr
-        return -1;
+//    if (id == nullptr) // id is nullptr
+//        return -1;
 
-    // remove first if exists or increment val
+    id->val++;
+    // remove first if exists
     if (id->peekFirst())
     {
-        printString("\nSem signal - releasing thread!\n");
+//        printString("\nSem signal!\n");
         id->peekFirst()->semWaitVal = 0;
         Scheduler::put(id->removeFirst());
-    }
-    else
-    {
-        printString("\nSem signal - incrementing val!\n");
-        id->val++;
     }
 
     return 0;
