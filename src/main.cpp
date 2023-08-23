@@ -4,7 +4,7 @@
 #include "../h/workers.hpp"
 #include "../test/printing.hpp"
 #include "../h/scheduler.hpp"
-
+#include "../h/syscall_c.hpp"
 
 void userMain();
 
@@ -137,21 +137,20 @@ void main(void*)
     MemoryAllocator::initialise();
 
     Riscv::w_stvec((uint64) &Riscv::supervisorTrap);
+
+    uint64 sstatus = Riscv::r_sstatus();
+    sstatus |= Riscv::SSTATUS_SIE;
+    sstatus |= Riscv::SSTATUS_SPP;
+    Riscv::ms_sstatus(sstatus);
+
     thread_t handle = nullptr;
     thread_t userMainHandle = nullptr;
 
     thread_create(&handle, nullptr, nullptr);
     _thread::running = handle;
 
-    putc('r');
-    putc('a');
-    putc('d');
-    putc('i');
-    putc('\n');
 
     thread_create(&userMainHandle, mainWrapper, nullptr);
-
-    Riscv::ms_sstatus(Riscv::SSTATUS_SIE);
 
 //    printString("\nMain Thread: ");
 //    printInt((size_t)handle);
@@ -159,6 +158,8 @@ void main(void*)
 
 //    Scheduler::readyThreadQueue.printAll();
 //    printString("\nPre join-a\n\n");
+
+    enterUserMode();
     thread_join(userMainHandle);
 //    printString("\nPosle join-a\n\n");
 //    Scheduler::readyThreadQueue.printAll();

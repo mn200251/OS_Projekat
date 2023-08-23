@@ -181,16 +181,56 @@ int sem_signal(sem_t id)
     return val;
 }
 
+
+
+
+void enterUserMode()
+{
+    size_t code = 0x0000000000000025UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+
+    asm volatile("ecall");
+}
+
+void enterSysytemMode()
+{
+    size_t code = 0x0000000000000026UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+
+    asm volatile("ecall");
+}
+
 int time_sleep(time_t t) {
     return 0;
 }
 
 char getc() {
-    return __getc();
+//    size_t code = 0x0000000000000041UL;
+//    asm volatile("ld a0, %0" : : "m" (code));
+//
+//    asm volatile("ecall");
+//
+//    char val;
+//
+//    asm volatile("sd a0, %0" : "=m" (val));
+//
+//    return val
+
+    enterSysytemMode();
+
+    char val = __getc();
+
+    enterUserMode();
+
+    return val;
 }
 
-void putc(char c){
-    __putc(c);
+void putc(char c) {
+    size_t code = 0x0000000000000042UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+    asm volatile("ld a1, %0" : : "m" (c));
+
+    asm volatile("ecall");
 }
 
 

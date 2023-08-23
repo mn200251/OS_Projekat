@@ -34,6 +34,7 @@ void Riscv::handleSupervisorTrap()
 //    printInteger(scause);
 //    printString("\n");
 
+
     if (scause == 0x0000000000000008UL || scause == 0x0000000000000009UL)
     {
         sepc = sepc + 4;
@@ -179,6 +180,41 @@ void Riscv::handleSupervisorTrap()
             // put the return value on the stack
             asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
         }
+        // enter user mode
+        else if (a[0] == 0x0000000000000025UL)
+        {
+            size_t sstatus;
+            asm volatile("csrr %0, sstatus" : "=r" (sstatus));
+            sstatus &= ~0x100;
+            asm volatile("csrw sstatus, %0" : : "r" (sstatus));
+        }
+        // enter system mode
+        else if (a[0] == 0x0000000000000026UL)
+        {
+            size_t sstatus;
+            asm volatile("csrr %0, sstatus" : "=r" (sstatus));
+            sstatus |= 0x100;
+            asm volatile("csrw sstatus, %0" : : "r" (sstatus));
+        }
+        // getc
+        else if (a[0] == 0x0000000000000041UL)
+        {
+            uint64 retVal = __getc();
+
+            asm volatile("mv %0, a0" : "=r" (retVal));
+
+
+            retVal = retVal + 1;
+            // put the return value on the stack
+            asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
+        }
+        // putc
+        else if (a[0] == 0x0000000000000042UL)
+        {
+            char c = (char)a[1];
+
+            __putc(c);
+        }
         else
         {
 
@@ -212,12 +248,13 @@ void Riscv::handleSupervisorTrap()
     }
     else
     {
-//        printString("Scause: ");
-//        printInt(scause);
-//        printString("\n");
-//        printString("sepc = ");
-//        printInt(sepc);
-//        printString("\nUnexpected trap cause!\n");
         // unexpected trap cause
+        printString("Scause: ");
+        printInt(scause);
+        printString("\n");
+        printString("sepc = ");
+        printInt(sepc);
+        printString("\nUnexpected trap cause!\n");
+        while(1);
     }
 }

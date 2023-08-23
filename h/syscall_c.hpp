@@ -29,13 +29,15 @@ int sem_wait (sem_t id);
 
 int sem_signal (sem_t id);
 
+void enterUserMode();
+
 typedef unsigned long time_t;
 int time_sleep (time_t);
 
 const int EOF = -1;
 char getc ();
 
-void putc (char);
+void putc (char c);
 
 #endif //PROJECT_BASE_SYSCALL_C_HPP
 
