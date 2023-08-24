@@ -18,8 +18,11 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
     size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread));
     *handle = (_thread*) MemoryAllocator::mem_alloc(blockNum);
 
+    int retVal = _sem::semOpen(&(*handle)->semaphore, 0);
 
-    _sem::semOpen(&(*handle)->semaphore, 0);
+    if (*handle == nullptr || retVal < 0)
+        return -1;
+
     (*handle)->semWaitVal = 0;
     (*handle)->finished = false;
     (*handle)->timeSlice = 0;
@@ -49,7 +52,7 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
         Scheduler::put(*handle);
 
 //    printString("\nnew thread: ");
-//    printInteger((uint64) *handle);
+//    printInt((uint64) *handle);
 //    printString("\n");
 
     return 0;
@@ -86,7 +89,7 @@ void _thread::threadDispatch ()
 
         // thread finished -> dealloc the stack and thread
         MemoryAllocator::mem_free(old->stack);
-        MemoryAllocator::mem_free(old);
+        // MemoryAllocator::mem_free(old);
         // MemoryAllocator::mem_free(&old);
 
         _thread::running = Scheduler::get();

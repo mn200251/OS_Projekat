@@ -122,7 +122,6 @@ void Riscv::handleSupervisorTrap()
             if (!handle->finished)
                 _sem::semWait(handle->semaphore);
 
-
             w_sstatus(sstatus);
             w_sepc(sepc);
         }
@@ -247,12 +246,12 @@ void Riscv::handleSupervisorTrap()
     else
     {
         // unexpected trap cause
-        printString("Scause: ");
-        printInt(scause);
-        printString("\n");
-        printString("sepc = ");
-        printInt(sepc);
-        printString("\nUnexpected trap cause!\n");
+//        printString("\nUnexpected trap cause!\n");
+//        printString("Scause: ");
+//        printInt(scause);
+//        printString("\n");
+//        printString("sepc = ");
+//        printInt(sepc);
         while(1);
     }
 }
