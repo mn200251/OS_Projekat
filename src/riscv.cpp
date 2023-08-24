@@ -203,8 +203,6 @@ void Riscv::handleSupervisorTrap()
 
             asm volatile("mv %0, a0" : "=r" (retVal));
 
-
-            retVal = retVal + 1;
             // put the return value on the stack
             asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
         }

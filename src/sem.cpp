@@ -11,6 +11,9 @@ int _sem::semOpen(_sem **handle, unsigned init)
 {
     *handle = (_sem*)MemoryAllocator::mem_alloc(sizeof(_sem));
 
+    if (*handle == nullptr)
+        return -1;
+
     (*handle)->val = (int)init;
     (*handle)->head = nullptr;
     (*handle)->tail = nullptr;
@@ -21,8 +24,8 @@ int _sem::semOpen(_sem **handle, unsigned init)
 
 int _sem::semClose(_sem *handle)
 {
-//    if (handle == nullptr) // error: sem is nullptr
-//        return -1;
+    if (handle == nullptr) // error: sem is nullptr
+        return -1;
 
 //    printString("\n****************\nSem Close - Closing sem!\n");
     // remove all threads that are blocked
@@ -41,8 +44,8 @@ int _sem::semClose(_sem *handle)
 
 
 int _sem::semWait(_sem* id) {
-//    if (id == nullptr)
-//        return -1; // invalid id
+    if (id == nullptr)
+        return -1; // invalid id
 
     id->val--;
 
@@ -69,8 +72,8 @@ int _sem::semWait(_sem* id) {
 
 int _sem::semSignal(sem_t id)
 {
-//    if (id == nullptr) // id is nullptr
-//        return -1;
+    if (id == nullptr) // id is nullptr
+        return -1;
 
     id->val++;
     // remove first if exists

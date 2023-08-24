@@ -192,13 +192,13 @@ void enterUserMode()
     asm volatile("ecall");
 }
 
-void enterSysytemMode()
-{
-    size_t code = 0x0000000000000026UL;
-    asm volatile("ld a0, %0" : : "m" (code));
-
-    asm volatile("ecall");
-}
+//void enterSysytemMode()
+//{
+//    size_t code = 0x0000000000000026UL;
+//    asm volatile("ld a0, %0" : : "m" (code));
+//
+//    asm volatile("ecall");
+//}
 
 int time_sleep(time_t t) {
     return 0;
@@ -216,7 +216,14 @@ char getc() {
 //
 //    return val
 
-    enterSysytemMode();
+    // enterSysytemMode();
+    // ne postoji enterSystemMode() funkcija kako bi se izbegao security breach
+    // nego je ovde implementiran kod za nju direktno
+
+    size_t code = 0x0000000000000026UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+
+    asm volatile("ecall");
 
     char val = __getc();
 
