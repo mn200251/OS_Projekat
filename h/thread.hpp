@@ -27,6 +27,26 @@ struct _thread
     int semWaitVal;
     _sem* semaphore;
 
+    ///////////////
+    // fork()
+    int forkRetVal;
+    static void threadFork();
+
+    static int id;
+    int myId;
+
+    struct Elem {
+        _thread *data;
+        Elem *next;
+    };
+    static Elem* head;
+    static Elem* tail;
+
+    static void addLast(_thread* t);
+    static _thread* search(int searchId);
+    static int threadKill(int threadId);
+    //////////////////
+
     static _thread* running;
 
     static int threadCreate (_thread** handle, void(*start_routine)(void*), void* arg, void* stack_space);

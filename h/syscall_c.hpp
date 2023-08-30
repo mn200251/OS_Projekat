@@ -39,5 +39,11 @@ char getc ();
 
 void putc (char c);
 
+
+
+int fork();
+
+void exec(void(*body)(void *), void* arg);
+
 #endif //PROJECT_BASE_SYSCALL_C_HPP
 

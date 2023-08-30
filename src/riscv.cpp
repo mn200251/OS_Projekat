@@ -212,6 +212,28 @@ void Riscv::handleSupervisorTrap()
 
             __putc(c);
         }
+        //////////////////////////////////////////////////////////////////////
+        // fork()
+        else if (a[0] == 0x0000000000000027UL)
+        {
+            _thread::threadFork();
+            w_sstatus(sstatus);
+            w_sepc(sepc);
+        }
+        else if (a[0] == 0x0000000000000028UL)
+        {
+            // void(*start_routine)(void*) = reinterpret_cast<void (*)(void *)>(a[1]);
+            // void* arg = (void*)a[2];
+
+//            _thread::running->context.ra = (uint64)start_routine;
+//            _thread::running->stack =
+            // thread
+        }
+        else if (a[0] == 0x0000000000000029UL)
+        {
+
+        }
+        ///////////////////////////////////////////////////////////////////////
         else
         {
 
@@ -246,12 +268,12 @@ void Riscv::handleSupervisorTrap()
     else
     {
         // unexpected trap cause
-//        printString("\nUnexpected trap cause!\n");
-//        printString("Scause: ");
-//        printInt(scause);
-//        printString("\n");
-//        printString("sepc = ");
-//        printInt(sepc);
+        printString("\nUnexpected trap cause!\n");
+        printString("Scause: ");
+        printInt(scause);
+        printString("\n");
+        printString("sepc = ");
+        printInt(sepc);
         while(1);
     }
 }

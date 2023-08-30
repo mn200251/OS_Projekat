@@ -1,7 +1,6 @@
 #include "../h/MemoryAllocator.hpp"
 #include "../h/riscv.hpp"
 #include "../h/syscall_c.hpp"
-#include "../h/workers.hpp"
 #include "../test/printing.hpp"
 #include "../h/scheduler.hpp"
 #include "../h/syscall_c.hpp"
@@ -32,29 +31,59 @@ void test2(void*)
 
 _thread* globalThread1 = nullptr;
 _thread* globalThread2 = nullptr;
-_thread* globalThread3 = nullptr;
+// _thread* globalThread3 = nullptr;
 _sem* empty;
 _sem* full;
 
 int buffer = 0;
 
-void fun1(void*)
-{
 
+void pong(void*);
+
+void ping(void* arg)
+{
+    size_t num = (size_t)arg;
+    printString("Ping: ");
+    printInt(num);
+    printString("\n");
+    if(num > 30)
+        return;
+    exec(pong, reinterpret_cast<void *>((size_t) arg + 1));
 }
 
+void pong(void* arg)
+{
+    size_t num = (size_t)arg;
+    printString("Pong: ");
+    printInt(num);
+    printString("\n");
+    if(num > 30)
+        return;
+    exec(ping, reinterpret_cast<void *>((size_t) arg + 1));
+}
+
+size_t id = 1;
 void consumer(void* n)
 {
     size_t num = (size_t)n;
+
+    int forkRetVal = fork();
+    printString("\nforkRetVal: ");
+    printInt(forkRetVal);
+    printString("\n");
+
+    num = id;
+    id++;
+
     while(true)
     {
         int retVal = sem_wait(full);
         if (retVal == -1) break;
-        printString("retVal: ");
-        printInt(retVal);
-        printString("\n");
+//        printString("retVal: ");
+//        printInt(retVal);
+//        printString("\n");
         int val = buffer;
-        printString("Consumer ");
+        printString("Consumer ID: ");
         printInt(num);
         printString(" Value: ");
         printInt(val);
@@ -67,13 +96,17 @@ void consumer(void* n)
 void producer(void* n)
 {
     size_t num = (size_t)n;
+
+    num = id;
+    id++;
+
     int i = 1;
     while(true)
     {
         sem_wait(empty);
         buffer = i;
         i += 1 * 2 - 1;
-        printString("Producer ");
+        printString("Producer ID: ");
         printInt(num);
         printString(" Value: ");
         printInt(buffer);
@@ -100,39 +133,42 @@ void prosliMain()
     sem_open(&full, 0);
     thread_create(&globalThread1, producer, nullptr);
     thread_create(&globalThread2, consumer, (void*)1);
-    thread_create(&globalThread3, consumer, (void*)2);
+    // thread_create(&globalThread3, consumer, (void*)2);
 
     thread_join(globalThread1);
+    thread_join(globalThread2);
 
-    thread_t handle2 = nullptr;
-    thread_t handle3 = nullptr;
-    thread_t handle4 = nullptr;
-    thread_t handle5 = nullptr;
-
-    thread_create(&handle2, workerBodyD, nullptr);
-    thread_create(&handle3, workerBodyB, nullptr);
-    thread_create(&handle4, workerBodyA, nullptr);
-    thread_create(&handle5, workerBodyC, nullptr);
-
-    thread_join(handle4);
-    printString("Prosao 1. join!\n");
-    thread_join(handle5);
-    printString("Prosao 2. join!\n");
-    thread_join(handle2);
-    printString("Prosao 3. join!\n");
-    thread_join(handle3);
-    printString("Prosao 4. join!\n");
-
-    printString("Finished!\n");
+//    thread_t handle2 = nullptr;
+//    thread_t handle3 = nullptr;
+//    thread_t handle4 = nullptr;
+//    thread_t handle5 = nullptr;
+//
+//    thread_create(&handle2, workerBodyD, nullptr);
+//    thread_create(&handle3, workerBodyB, nullptr);
+//    thread_create(&handle4, workerBodyA, nullptr);
+//    thread_create(&handle5, workerBodyC, nullptr);
+//
+//    thread_join(handle4);
+//    printString("Prosao 1. join!\n");
+//    thread_join(handle5);
+//    printString("Prosao 2. join!\n");
+//    thread_join(handle2);
+//    printString("Prosao 3. join!\n");
+//    thread_join(handle3);
+//    printString("Prosao 4. join!\n");
+//
+//    printString("Finished!\n");
 }
 
 void mainWrapper(void*)
 {
-    userMain();
+    // exec(ping, reinterpret_cast<void *>(1));
+    prosliMain();
+    // userMain();
 }
 
 
-void main(void*)
+void main()
 {
     MemoryAllocator::initialise();
 

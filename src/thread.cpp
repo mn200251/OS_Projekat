@@ -12,8 +12,14 @@
 
 thread_t _thread::running = nullptr;
 
+/////////////////////////////
+int _thread::id = 0;
+_thread::Elem* _thread::head = nullptr;
+_thread::Elem* _thread::tail = nullptr;
+/////////////////////////////
 
-int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* arg, void* stack_space) {
+int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* arg, void* stack_space)
+{
 
     size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(_thread));
     *handle = (_thread*) MemoryAllocator::mem_alloc(blockNum);
@@ -54,6 +60,13 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
 //    printString("\nnew thread: ");
 //    printInt((uint64) *handle);
 //    printString("\n");
+
+
+    /////////////////////////////////
+    (*handle)->myId = _thread::id++;
+    _thread::addLast(*handle);
+
+    /////////////////////////////////
 
     return 0;
 }
@@ -98,5 +111,98 @@ void _thread::threadDispatch ()
             contextSwitchThreadEnded(&_thread::running->context);
     }
 }
+
+void _thread::threadFork()
+{
+    //_thread* newHandle;
+
+    size_t blockNum2 = MemoryAllocator::convert2Blocks(sizeof(_thread*));
+    _thread* newHandle = static_cast<_thread *>(MemoryAllocator::mem_alloc(blockNum2));
+
+    size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(uint64) * DEFAULT_STACK_SIZE);
+    void* stack_space = MemoryAllocator::mem_alloc(blockNum);
+
+    threadCreate(&newHandle, _thread::running->body, _thread::running->arg, stack_space);
+
+    newHandle->context.ra = _thread::running->context.ra;
+    newHandle->context.sp = (uint64)newHandle->stack + _thread::running->context.sp - (uint64)_thread::running->stack;
+
+    // copy stack
+    uint64* startAddr1 = (uint64*)_thread::running->stack;
+    uint64* startAddr2 = (uint64*)newHandle->stack;
+
+    size_t i = 0;
+    while (i < DEFAULT_STACK_SIZE)
+    {
+        *(startAddr2+i) = *(startAddr1+i);
+        i++;
+    }
+
+    _thread::running->forkRetVal = 1; // 1 - thread parent
+    newHandle->forkRetVal = 0; // 0 - child
+
+    // Scheduler::put(newHandle);
+
+    _thread* old = _thread::running;
+    _thread::running = newHandle;
+    Scheduler::put(old);
+    contextSwitch(&old->context, &_thread::running->context);
+
+}
+
+void _thread::addLast(_thread *t)
+{
+    if (t == nullptr)
+        return;
+
+    size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(Elem));
+    Elem *elem = (Elem*)MemoryAllocator::mem_alloc(blockNum);
+
+    elem->data = t;
+    elem->next = nullptr;
+
+    if (_thread::tail)
+    {
+        _thread::tail->next = elem;
+        _thread::tail = elem;
+    }
+    else
+    {
+        _thread::head = _thread::tail = elem;
+    }
+}
+
+_thread *_thread::search(int searchId)
+{
+    Elem* temp = _thread::head;
+
+    while(temp)
+    {
+        if (temp->data->myId == searchId)
+            return temp->data;
+
+        temp = temp->next;
+    }
+
+    return nullptr;
+}
+
+int _thread::threadKill(int threadId)
+{
+    _thread* targetThread = search(threadId);
+
+    if (targetThread == nullptr) // thread doesnt exist
+        return -1;
+
+    if (targetThread->finished) // thread already finished
+        return -2;
+
+
+
+    return 0;
+}
+
+
+
 
 
