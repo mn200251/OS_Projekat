@@ -217,8 +217,8 @@ void Riscv::handleSupervisorTrap()
         else if (a[0] == 0x0000000000000027UL)
         {
             _thread::threadFork();
-            w_sstatus(sstatus);
-            w_sepc(sepc);
+//            w_sstatus(sstatus);
+//            w_sepc(sepc);
         }
         else if (a[0] == 0x0000000000000028UL)
         {

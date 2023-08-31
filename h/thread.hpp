@@ -45,6 +45,8 @@ struct _thread
     static void addLast(_thread* t);
     static _thread* search(int searchId);
     static int threadKill(int threadId);
+
+    unsigned resourceWant;
     //////////////////
 
     static _thread* running;

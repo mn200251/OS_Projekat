@@ -114,17 +114,16 @@ void _thread::threadDispatch ()
 
 void _thread::threadFork()
 {
-    //_thread* newHandle;
-
     size_t blockNum2 = MemoryAllocator::convert2Blocks(sizeof(_thread*));
-    _thread* newHandle = static_cast<_thread *>(MemoryAllocator::mem_alloc(blockNum2));
+    _thread* newHandle = (_thread *)(MemoryAllocator::mem_alloc(blockNum2));
 
     size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(uint64) * DEFAULT_STACK_SIZE);
     void* stack_space = MemoryAllocator::mem_alloc(blockNum);
 
     threadCreate(&newHandle, _thread::running->body, _thread::running->arg, stack_space);
 
-    newHandle->context.ra = _thread::running->context.ra;
+    asm volatile ("csrr a0, sepc");
+    asm volatile("sd a0, %0" : "=m" (newHandle->context.ra));
     newHandle->context.sp = (uint64)newHandle->stack + _thread::running->context.sp - (uint64)_thread::running->stack;
 
     // copy stack
@@ -137,16 +136,17 @@ void _thread::threadFork()
         *(startAddr2+i) = *(startAddr1+i);
         i++;
     }
+    //
 
     _thread::running->forkRetVal = 1; // 1 - thread parent
     newHandle->forkRetVal = 0; // 0 - child
 
-    // Scheduler::put(newHandle);
+    Scheduler::put(newHandle);
 
-    _thread* old = _thread::running;
-    _thread::running = newHandle;
-    Scheduler::put(old);
-    contextSwitch(&old->context, &_thread::running->context);
+//    _thread* old = _thread::running;
+//    _thread::running = newHandle;
+//    Scheduler::put(old);
+//    contextSwitch(&old->context, &_thread::running->context);
 
 }
 
@@ -191,7 +191,7 @@ int _thread::threadKill(int threadId)
 {
     _thread* targetThread = search(threadId);
 
-    if (targetThread == nullptr) // thread doesnt exist
+    if (targetThread == nullptr) // thread doesn't exist
         return -1;
 
     if (targetThread->finished) // thread already finished

@@ -31,7 +31,10 @@ void test2(void*)
 
 _thread* globalThread1 = nullptr;
 _thread* globalThread2 = nullptr;
-// _thread* globalThread3 = nullptr;
+//_thread* globalThread3 = nullptr;
+//_thread* globalThread4 = nullptr;
+//_thread* globalThread5 = nullptr;
+//_thread* globalThread6 = nullptr;
 _sem* empty;
 _sem* full;
 
@@ -67,8 +70,9 @@ void consumer(void* n)
 {
     size_t num = (size_t)n;
 
+    printString("\n\nPre fork-a\n");
     int forkRetVal = fork();
-    printString("\nforkRetVal: ");
+    printString("forkRetVal: ");
     printInt(forkRetVal);
     printString("\n");
 
@@ -77,11 +81,9 @@ void consumer(void* n)
 
     while(true)
     {
-        int retVal = sem_wait(full);
-        if (retVal == -1) break;
-//        printString("retVal: ");
-//        printInt(retVal);
-//        printString("\n");
+        if (sem_wait(full) < 0)
+            return;
+
         int val = buffer;
         printString("Consumer ID: ");
         printInt(num);
@@ -103,7 +105,9 @@ void producer(void* n)
     int i = 1;
     while(true)
     {
-        sem_wait(empty);
+        if (sem_wait(empty) < 0)
+            return;
+
         buffer = i;
         i += 1 * 2 - 1;
         printString("Producer ID: ");
@@ -133,7 +137,10 @@ void prosliMain()
     sem_open(&full, 0);
     thread_create(&globalThread1, producer, nullptr);
     thread_create(&globalThread2, consumer, (void*)1);
-    // thread_create(&globalThread3, consumer, (void*)2);
+//    thread_create(&globalThread3, consumer, (void*)2);
+//    thread_create(&globalThread3, consumer, (void*)3);
+//    thread_create(&globalThread3, consumer, (void*)4);
+//    thread_create(&globalThread3, producer, (void*)5);
 
     thread_join(globalThread1);
     thread_join(globalThread2);
@@ -160,11 +167,92 @@ void prosliMain()
 //    printString("Finished!\n");
 }
 
+
+struct matStruct{
+    int** mat;
+    int m;
+    int n;
+    int targetN;
+    int* retLocation;
+};
+
+void collumnSum(void* arg)
+{
+    matStruct* data = (matStruct*)arg;
+    int s = 0;
+
+    for(int i = 0; i < data->m; i++)
+    {
+        s += data->mat[i][data->targetN];
+    }
+
+    *data->retLocation = s;
+    delete data;
+}
+
+
+void modifMatrica()
+{
+    printString("\nm = ");
+    int m = (int)getc() - 48;
+    printString("\nn = ");
+    int n = (int)getc() - 48;
+    printString("\n");
+
+    int** mat = (int**)mem_alloc(sizeof(int*) * (m + 1));
+
+    for(int i = 0; i < m + 1; i++)
+        mat[i] = (int*)mem_alloc(sizeof(int) * (n));
+
+    for(int i = 0; i < m; i++)
+        for(int j = 0; j < n; j++)
+            mat[i][j] = (int)getc() - 48;
+
+    printString("\nMatrica: \n");
+    for(int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printInt(mat[i][j]);
+            printString(" ");
+        }
+        printString("\n");
+    }
+
+    _thread** handles = (_thread**)mem_alloc(sizeof(_thread*) * n);
+
+    for (int i = 0; i < n; i++)
+    {
+        matStruct* arg = (matStruct*) mem_alloc(sizeof(matStruct));
+        arg->mat = mat;
+        arg->m = m;
+        arg->n = n;
+        arg->targetN = i;
+        arg->retLocation = &mat[m][i];
+        handles[i] = (_thread*) mem_alloc(sizeof(_thread));
+        thread_create(&handles[i], collumnSum, arg);
+    }
+
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        thread_join(handles[i]);
+        delete handles[i];
+        sum += mat[m][i];
+    }
+
+    printString("sum = ");
+    printInt(sum);
+    printString("\n");
+}
+
+
 void mainWrapper(void*)
 {
     // exec(ping, reinterpret_cast<void *>(1));
-    prosliMain();
+    // prosliMain();
     // userMain();
+    modifMatrica();
 }
 
 
