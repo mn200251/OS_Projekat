@@ -11,6 +11,7 @@ class Scheduler
 {
 public:
     static List<_thread> readyThreadQueue;
+    static int threadNum;
 
 public:
     static _thread* get();
@@ -18,6 +19,8 @@ public:
     static void put(_thread *ccb);
 
 };
+
+
 
 #endif //PROJECT_BASE_SCHEDULER_HPP
 

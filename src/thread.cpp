@@ -66,6 +66,8 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
     (*handle)->myId = _thread::id++;
     _thread::addLast(*handle);
 
+    (*handle)->blockedOn = nullptr;
+
     /////////////////////////////////
 
     return 0;
@@ -76,6 +78,13 @@ void _thread::threadWrapper()
 {
     Riscv::popSppSpie();
 
+    _thread::running->body(_thread::running->arg);
+
+    thread_exit();
+}
+
+void _thread::threadWrapperExec()
+{
     _thread::running->body(_thread::running->arg);
 
     thread_exit();
@@ -114,7 +123,7 @@ void _thread::threadDispatch ()
 
 void _thread::threadFork()
 {
-    size_t blockNum2 = MemoryAllocator::convert2Blocks(sizeof(_thread*));
+    size_t blockNum2 = MemoryAllocator::convert2Blocks(sizeof(_thread));
     _thread* newHandle = (_thread *)(MemoryAllocator::mem_alloc(blockNum2));
 
     size_t blockNum = MemoryAllocator::convert2Blocks(sizeof(uint64) * DEFAULT_STACK_SIZE);
@@ -122,33 +131,67 @@ void _thread::threadFork()
 
     threadCreate(&newHandle, _thread::running->body, _thread::running->arg, stack_space);
 
+//    printString("\nsepc = ");
+//    printInt(Riscv::r_sepc());
+//    printString("\n");
     asm volatile ("csrr a0, sepc");
     asm volatile("sd a0, %0" : "=m" (newHandle->context.ra));
-    newHandle->context.sp = (uint64)newHandle->stack + _thread::running->context.sp - (uint64)_thread::running->stack;
+//    printString("\ncontext.ra = ");
+//    printInt(newHandle->context.ra);
+//    printString("\n");
+
+    void* volatile SP;
+    asm volatile("csrr %0, sscratch" : "=r" (SP));
+//    newHandle->context.sp = (uint64)newHandle->stack + _thread::running->context.sp - (uint64)_thread::running->stack;
+
+//    printString("\ncontext.sp1 = ");
+//    printInt(newHandle->context.sp);
+//    printString("\n");
+
+      // newHandle->context.sp = (uint64)newHandle->stack + *(uint64*)SP - (uint64)_thread::running->stack;
+
+
+//
+//    printString("\ncontext.sp2 = ");
+//    printInt(newHandle->context.sp);
+//    printString("\n");
 
     // copy stack
-    uint64* startAddr1 = (uint64*)_thread::running->stack;
-    uint64* startAddr2 = (uint64*)newHandle->stack;
+    uint64* startAddrOld = _thread::running->stack;
+    uint64* startAddrNew = newHandle->stack;
 
     size_t i = 0;
     while (i < DEFAULT_STACK_SIZE)
     {
-        *(startAddr2+i) = *(startAddr1+i);
+        *(startAddrNew+i) = *(startAddrOld+i);
         i++;
     }
     //
 
-    _thread::running->forkRetVal = 1; // 1 - thread parent
+    _thread::running->forkRetVal = newHandle->myId; // 1 - thread parent
     newHandle->forkRetVal = 0; // 0 - child
 
     Scheduler::put(newHandle);
 
+//    newHandle->context.sp = (uint64)newHandle->stack + _thread::running->context.sp - (uint64)_thread::running->stack;
 //    _thread* old = _thread::running;
 //    _thread::running = newHandle;
 //    Scheduler::put(old);
 //    contextSwitch(&old->context, &_thread::running->context);
-
+//    asm volatile("sret");
 }
+
+
+void _thread::threadExec()
+{
+    MemoryAllocator::mem_free(_thread::running->stack);
+
+    size_t blockNum2 = MemoryAllocator::convert2Blocks(sizeof(uint64) * DEFAULT_STACK_SIZE);
+    _thread::running->stack = (uint64*)MemoryAllocator::mem_alloc(blockNum2);
+
+    _thread::running->context.sp = (uint64) &(_thread::running->stack[DEFAULT_STACK_SIZE]);
+}
+
 
 void _thread::addLast(_thread *t)
 {
@@ -189,19 +232,64 @@ _thread *_thread::search(int searchId)
 
 int _thread::threadKill(int threadId)
 {
+    // current thread kills its self
+    if (_thread::running->myId == threadId)
+    {
+        _thread::running->finished = true;
+        _thread::threadDispatch();
+    }
+
     _thread* targetThread = search(threadId);
 
-    if (targetThread == nullptr) // thread doesn't exist
+    // thread with that id doesn't exist
+    if (targetThread == nullptr)
         return -1;
 
-    if (targetThread->finished) // thread already finished
+    // thread already finished
+    if (targetThread->finished)
         return -2;
 
+    // thread blocked on semaphore
+    if (targetThread->blockedOn != nullptr)
+    {
+        // sem val is -3 --> 3 threads waiting
+        int numThreads = 0 - targetThread->blockedOn->val;
+
+        // ne zovemo direktno semafor signal i wait da ne bi nit izgubila procesor
+        // i promenila kontekst -> zato moramo rucno da inkrementiramo semafor val
+        for (int i = 0; i < numThreads; i++)
+        {
+            _thread* curr = targetThread->blockedOn->removeFirst();
+            if(curr->myId == threadId)
+                curr->finished = true;
+            else
+                targetThread->blockedOn->addLast(curr);
+        }
+        // target thread is removed so we increment val by 1
+        targetThread->blockedOn->val++;
+        return 0;
+    }
+    // thread is in scheduler
+    else
+    {
+        int threadNumber = Scheduler::threadNum;
+
+        for (int i = 0; i < threadNumber; i++)
+        {
+            _thread* curr = Scheduler::get();
+            if (curr->myId == threadId)
+                curr->finished = true;
+            else
+                Scheduler::put(curr);
+        }
+    }
+
+    // dealloc the targetThread
 
 
+    // error
     return 0;
 }
-
 
 
 

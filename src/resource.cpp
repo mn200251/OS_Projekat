@@ -8,7 +8,7 @@
 resource *resource::createResource(unsigned value) {
     resource* newResource = (resource*) mem_alloc(sizeof(resource));
     newResource->val = value;
-    sem_open(newResource->semaphore,0);
+    sem_open(&newResource->semaphore,0);
 
     return newResource;
 }
@@ -17,18 +17,17 @@ resource *resource::createResource(unsigned value) {
 void resource::aquireResource(unsigned amount)
 {
     // ako ima prvog onda cekaj
-    if ((*this->semaphore)->peekFirst())
+    if (this->semaphore->peekFirst())
     {
         _thread::running->resourceWant = amount;
-        sem_wait(*this->semaphore);
+        sem_wait(this->semaphore);
     }
-
     // ako nije dovoljno resursa blokiraj se
     else if (this->val < amount)
     {
         _thread::running->resourceWant = amount - this->val;
         this->val = 0;
-        sem_wait(*this->semaphore);
+        sem_wait(this->semaphore);
     }
     // jedina je nit i ima dovoljno resoursa
     else
@@ -39,9 +38,9 @@ void resource::releaseResource(unsigned amount)
 {
     this->val += amount;
 
-    while ((*this->semaphore)->peekFirst() && this->val > 0)
+    while (this->semaphore->peekFirst() && this->val > 0)
     {
-        _thread* firstThread = (*this->semaphore)->peekFirst();
+        _thread* firstThread = this->semaphore->peekFirst();
         if (this->val < firstThread->resourceWant) // reducing by available amount
         {
             _thread::running->resourceWant = firstThread->resourceWant - this->val;
@@ -51,7 +50,7 @@ void resource::releaseResource(unsigned amount)
         {
             this->val -= firstThread->resourceWant;
             firstThread->resourceWant = 0;
-            sem_signal(*this->semaphore);
+            sem_signal(this->semaphore);
         }
     }
 }

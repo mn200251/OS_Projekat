@@ -10,7 +10,7 @@
 struct resource
 {
     unsigned val;
-    sem_t* semaphore;
+    _sem* semaphore;
 
     static resource* createResource(unsigned value);
     void aquireResource(unsigned amount);

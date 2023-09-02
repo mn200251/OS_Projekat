@@ -220,18 +220,32 @@ void Riscv::handleSupervisorTrap()
 //            w_sstatus(sstatus);
 //            w_sepc(sepc);
         }
+        // exec
         else if (a[0] == 0x0000000000000028UL)
         {
-            // void(*start_routine)(void*) = reinterpret_cast<void (*)(void *)>(a[1]);
-            // void* arg = (void*)a[2];
+            void(*start_routine)(void*) = reinterpret_cast<void (*)(void *)>(a[1]);
+            void* arg = (void*)a[2];
 
-//            _thread::running->context.ra = (uint64)start_routine;
-//            _thread::running->stack =
-            // thread
+            // delete and make new stack
+            _thread::threadExec();
+
+            _thread::running->body = start_routine;
+            _thread::running->arg = arg;
+
+            _thread::running->context.ra = (uint64)_thread::threadWrapper;
+            contextSwitchThreadEnded(&_thread::running->context);
         }
+        // thread kill
         else if (a[0] == 0x0000000000000029UL)
         {
+            int threadId = (int)a[1];
 
+            uint64 retVal = _thread::threadKill(threadId);
+
+            asm volatile("mv %0, a0" : "=r" (retVal));
+
+            // put the return value on the stack
+            asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
         }
         ///////////////////////////////////////////////////////////////////////
         else

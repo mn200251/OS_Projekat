@@ -53,7 +53,8 @@ int _sem::semWait(_sem* id) {
 
     if (id->val < 0)
     {
-//        printString("\nSem Wait - Waiting on sem!\n");
+        // printString("\nSem Wait - Waiting on sem!\n");
+        _thread::running->blockedOn = id;
         id->addLast(_thread::running);
     }
     else
@@ -81,6 +82,7 @@ int _sem::semSignal(sem_t id)
     {
 //        printString("\nSem signal!\n");
         id->peekFirst()->semWaitVal = 0;
+        id->peekFirst()->blockedOn = nullptr;
         Scheduler::put(id->removeFirst());
     }
 

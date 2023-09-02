@@ -5,11 +5,22 @@
 #include "../h/scheduler.hpp"
 #include "../h/syscall_c.hpp"
 
+#include "../h/resource.hpp"
+
 void userMain();
 
 void test(void*)
 {
-    printString("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
+    int i = 0;
+    while(true)
+    {
+        printString("\ntest - ");
+        printInt(i);
+        printString("\n");
+        if (i % 10 == 0)
+            thread_dispatch();
+        i++;
+    }
 }
 
 void test2(void*)
@@ -17,6 +28,7 @@ void test2(void*)
     int i = 0;
     while(i < 100)
     {
+        printString("\ntest2 - ");
         printInt(i);
         printString("\n");
         if (i % 10 == 0)
@@ -116,7 +128,7 @@ void producer(void* n)
         printInt(buffer);
         printString("\n");
 
-        if (i > 200)
+        if (i > 20)
         {
             printString("CLOSING SEMAPHORE FULL!!! ");
             sem_close(full);
@@ -247,12 +259,123 @@ void modifMatrica()
 }
 
 
+
+_thread* threadKillSem;
+_sem* killSem;
+
+void threadKillSemFunction(void*)
+{
+    printString("threadKillFunction - Started waiting!\n");
+    sem_wait(killSem);
+    printString("threadKillFunction - Finished waiting!\n");
+}
+
+
+
+void modifKill()
+{
+    _thread* a1;
+    _thread* a2;
+
+    thread_create(&a1, test, nullptr);
+    thread_create(&a2, test2, nullptr);
+
+    int i = 0;
+    while (i < 3)
+    {
+        thread_dispatch();
+        i++;
+    }
+    int killRet;
+    killRet = thread_kill(a1->myId);
+
+    printString("\na1 killRet = ");
+    printInt(killRet);
+
+    killRet = thread_kill(a2->myId);
+    printString("\na2 killRet = ");
+    printInt(killRet);
+
+    printString("\nKilled a1 and a2!\n");
+
+    killRet = thread_kill(7);
+    printString("\nthread not found killRet = ");
+    printInt(killRet);
+    printString("\n");
+
+
+    sem_open(&killSem, 0);
+    thread_create(&threadKillSem, threadKillSemFunction, nullptr);
+    thread_dispatch();
+    killRet = thread_kill(threadKillSem->myId);
+
+    printString("\nthread on semaphore killRet = ");
+    printInt(killRet);
+    printString("\n");
+
+    thread_kill(_thread::running->myId);
+
+    printString("Error: Killed self!\n");
+}
+
+resource* myResource;
+void resourceGiver(void*)
+{
+    while (true)
+    {
+        myResource->releaseResource(3);
+        printString("Released 3 resource! Current balance = ");
+        printInt(myResource->val);
+        printString("\n");
+        thread_dispatch();
+    }
+}
+
+void resourceTaker(void*)
+{
+    while (true)
+    {
+        myResource->aquireResource(5);
+        printString("Aquired 5 resource! Current balance = ");
+        printInt(myResource->val);
+        printString("\n");
+        thread_dispatch();
+    }
+}
+
+void modifResource()
+{
+    _thread* giver;
+    _thread* taker;
+
+    myResource = resource::createResource(10);
+
+    thread_create(&giver, resourceGiver, nullptr);
+    thread_create(&taker, resourceTaker, nullptr);
+
+    printString("Resource test started!\n");
+    thread_dispatch();
+
+    int i = 0;
+    while(i < 10)
+    {
+        thread_dispatch();
+        i++;
+    }
+
+    thread_kill(giver->myId);
+    thread_kill(taker->myId);
+}
+
+
 void mainWrapper(void*)
 {
-    // exec(ping, reinterpret_cast<void *>(1));
+    //exec(ping, reinterpret_cast<void *>(1));
     // prosliMain();
     // userMain();
-    modifMatrica();
+    // modifMatrica();
+    // modifKill();
+    modifResource();
 }
 
 

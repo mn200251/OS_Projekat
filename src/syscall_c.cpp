@@ -240,7 +240,6 @@ void putc(char c) {
     asm volatile("ecall");
 }
 
-
 int fork()
 {
     size_t code = 0x0000000000000027UL;
@@ -251,30 +250,38 @@ int fork()
     return _thread::running->forkRetVal;
 }
 
-void exec(void(*body)(void *), void* arg)
+void execv1(void(*body)(void *), void* arg)
 {
-//    size_t code = 0x0000000000000028UL;
-//    asm volatile("ld a0, %0" : : "m" (code));
-//    asm volatile("ld a1, %0" : : "m" (body));
-//    asm volatile("ld a2, %0" : : "m" (arg));
-//
-//    asm volatile("ecall");
-
-    // _thread old = *_thread::running;
-
     _thread* newHandle;
     thread_create(&newHandle, body, arg);
     thread_join(newHandle);
     thread_exit();
 }
 
-int kill(int threadId)
+void exec(void(*body)(void *), void* arg)
+{
+    size_t code = 0x0000000000000028UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+    asm volatile("ld a1, %0" : : "m" (body));
+    asm volatile("ld a2, %0" : : "m" (arg));
+
+    asm volatile("ecall");
+}
+
+
+int thread_kill(int threadId)
 {
     size_t code = 0x0000000000000029UL;
     asm volatile("ld a0, %0" : : "m" (code));
     asm volatile("ld a1, %0" : : "m" (threadId));
 
-    return 0;
+    asm volatile("ecall");
+
+    int val;
+
+    asm volatile("sd a0, %0" : "=m" (val));
+
+    return val;
 }
 
 

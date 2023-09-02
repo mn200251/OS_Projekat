@@ -1,4 +1,4 @@
-GAS LISTING /tmp/cctbxyfX.s 			page 1
+GAS LISTING /tmp/ccLhiWAN.s 			page 1
 
 
    1              		.file	"MemoryAllocator.cpp"
@@ -58,7 +58,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
   20:src/MemoryAllocator.cpp **** 
   21:src/MemoryAllocator.cpp ****     MemoryAllocator::memEnd = (void*) ((size_t)HEAP_END_ADDR - trimSize);
   34              		.loc 1 21 5 is_stmt 1
-GAS LISTING /tmp/cctbxyfX.s 			page 2
+GAS LISTING /tmp/ccLhiWAN.s 			page 2
 
 
   35              		.loc 1 21 62 is_stmt 0
@@ -118,7 +118,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
   37:src/MemoryAllocator.cpp **** 
   38:src/MemoryAllocator.cpp **** void *MemoryAllocator::mem_alloc(size_t size)
   39:src/MemoryAllocator.cpp **** {
-GAS LISTING /tmp/cctbxyfX.s 			page 3
+GAS LISTING /tmp/ccLhiWAN.s 			page 3
 
 
   76              		.loc 1 39 1 is_stmt 1
@@ -178,7 +178,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
   61:src/MemoryAllocator.cpp ****                 {
   62:src/MemoryAllocator.cpp ****                     MemoryAllocator::head = MemoryAllocator::head->next;
   63:src/MemoryAllocator.cpp ****                 }
-GAS LISTING /tmp/cctbxyfX.s 			page 4
+GAS LISTING /tmp/ccLhiWAN.s 			page 4
 
 
   64:src/MemoryAllocator.cpp **** 
@@ -238,7 +238,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  111:src/MemoryAllocator.cpp ****     return nullptr;
  115              		.loc 1 111 12 is_stmt 0
  116 00a4 13050000 		li	a0,0
-GAS LISTING /tmp/cctbxyfX.s 			page 5
+GAS LISTING /tmp/ccLhiWAN.s 			page 5
 
 
  117              	.LVL8:
@@ -298,7 +298,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  154              		.loc 1 84 85
  155 00dc 93976700 		slli	a5,a5,6
   84:src/MemoryAllocator.cpp ****             allocatedMem->blockNum = blockNum;
-GAS LISTING /tmp/cctbxyfX.s 			page 6
+GAS LISTING /tmp/ccLhiWAN.s 			page 6
 
 
  156              		.loc 1 84 71
@@ -358,7 +358,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
   73:src/MemoryAllocator.cpp ****                 }
  197              		.loc 1 73 21 is_stmt 1
   73:src/MemoryAllocator.cpp ****                 }
-GAS LISTING /tmp/cctbxyfX.s 			page 7
+GAS LISTING /tmp/ccLhiWAN.s 			page 7
 
 
  198              		.loc 1 73 38 is_stmt 0
@@ -418,7 +418,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  138:src/MemoryAllocator.cpp ****     if (curr) newSeg->next = curr->next;
  139:src/MemoryAllocator.cpp ****     else newSeg->next = MemoryAllocator::head;
  140:src/MemoryAllocator.cpp ****     if (newSeg->next) newSeg->next->prev = newSeg;
-GAS LISTING /tmp/cctbxyfX.s 			page 8
+GAS LISTING /tmp/ccLhiWAN.s 			page 8
 
 
  141:src/MemoryAllocator.cpp ****     if (curr) curr->next = newSeg;
@@ -478,7 +478,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  171:src/MemoryAllocator.cpp ****         return 1;
  172:src/MemoryAllocator.cpp ****     }
  173:src/MemoryAllocator.cpp ****     else
-GAS LISTING /tmp/cctbxyfX.s 			page 9
+GAS LISTING /tmp/ccLhiWAN.s 			page 9
 
 
  174:src/MemoryAllocator.cpp ****     {
@@ -538,7 +538,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  165:src/MemoryAllocator.cpp ****     if (curr->next && ((size_t)curr + curr->size * MEM_BLOCK_SIZE == (size_t)(curr->next)))
  288              		.loc 1 165 23
  289 0188 13050000 		li	a0,0
-GAS LISTING /tmp/cctbxyfX.s 			page 10
+GAS LISTING /tmp/ccLhiWAN.s 			page 10
 
 
  290              	.LVL20:
@@ -598,7 +598,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  334              		.loc 1 126 9 is_stmt 0
  335 01bc 97060000 		ld	a3,.LANCHOR0+16
  335      83B60600 
-GAS LISTING /tmp/cctbxyfX.s 			page 11
+GAS LISTING /tmp/ccLhiWAN.s 			page 11
 
 
  126:src/MemoryAllocator.cpp ****     {
@@ -658,7 +658,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  374 01fc 83B70400 		ld	a5,0(s1)
  138:src/MemoryAllocator.cpp ****     else newSeg->next = MemoryAllocator::head;
  375              		.loc 1 138 28 discriminator 1
-GAS LISTING /tmp/cctbxyfX.s 			page 12
+GAS LISTING /tmp/ccLhiWAN.s 			page 12
 
 
  376 0200 233CF7FE 		sd	a5,-8(a4)
@@ -718,7 +718,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  413              		.cfi_restore 9
  414              	.LVL32:
  415 023c 13010102 		addi	sp,sp,32
-GAS LISTING /tmp/cctbxyfX.s 			page 13
+GAS LISTING /tmp/ccLhiWAN.s 			page 13
 
 
  416              		.cfi_def_cfa_offset 0
@@ -778,7 +778,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  460 026c 13058500 		addi	a0,a0,8
  461              	.LVL37:
  183:src/MemoryAllocator.cpp ****     size_t blockNum = 0;
-GAS LISTING /tmp/cctbxyfX.s 			page 14
+GAS LISTING /tmp/ccLhiWAN.s 			page 14
 
 
  462              		.loc 1 183 5 is_stmt 1
@@ -838,7 +838,7 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  506              	_ZN15MemoryAllocator8memStartE:
  507 0000 00000000 		.zero	8
  507      00000000 
-GAS LISTING /tmp/cctbxyfX.s 			page 15
+GAS LISTING /tmp/ccLhiWAN.s 			page 15
 
 
  510              	_ZN15MemoryAllocator6memEndE:
@@ -852,413 +852,413 @@ GAS LISTING /tmp/cctbxyfX.s 			page 1
  518              		.file 2 "src/../h/../test/../h/../lib/hw.h"
  519              		.file 3 "src/../h/MemoryAllocator.hpp"
  520              		.file 4 "src/../h/../test/../h/syscall_c.hpp"
-GAS LISTING /tmp/cctbxyfX.s 			page 16
+GAS LISTING /tmp/ccLhiWAN.s 			page 16
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 MemoryAllocator.cpp
-     /tmp/cctbxyfX.s:9      .text:0000000000000000 _ZN15MemoryAllocator10initialiseEv
-     /tmp/cctbxyfX.s:13     .text:0000000000000000 .L0 
-     /tmp/cctbxyfX.s:14     .text:0000000000000000 .L0 
-     /tmp/cctbxyfX.s:15     .text:0000000000000004 .L0 
-     /tmp/cctbxyfX.s:17     .text:0000000000000008 .L0 
-     /tmp/cctbxyfX.s:19     .text:000000000000000c .L0 
-     /tmp/cctbxyfX.s:21     .text:000000000000000c .L0 
-     /tmp/cctbxyfX.s:22     .text:000000000000000c .L0 
-     /tmp/cctbxyfX.s:27     .text:0000000000000020 .L0 
-     /tmp/cctbxyfX.s:30     .text:000000000000002c .L0 
-     /tmp/cctbxyfX.s:31     .text:000000000000002c .L0 
-     /tmp/cctbxyfX.s:35     .text:0000000000000038 .L0 
-     /tmp/cctbxyfX.s:36     .text:0000000000000038 .L0 
-     /tmp/cctbxyfX.s:39     .text:000000000000003c .L0 
-     /tmp/cctbxyfX.s:41     .text:0000000000000040 .L0 
-     /tmp/cctbxyfX.s:42     .text:0000000000000040 .L0 
-     /tmp/cctbxyfX.s:44     .text:0000000000000044 .L0 
-     /tmp/cctbxyfX.s:45     .text:0000000000000044 .L0 
-     /tmp/cctbxyfX.s:48     .text:0000000000000048 .L0 
-     /tmp/cctbxyfX.s:49     .text:0000000000000048 .L0 
-     /tmp/cctbxyfX.s:51     .text:000000000000004c .L0 
-     /tmp/cctbxyfX.s:53     .text:0000000000000050 .L0 
-     /tmp/cctbxyfX.s:54     .text:0000000000000050 .L0 
-     /tmp/cctbxyfX.s:58     .text:000000000000005c .L0 
-     /tmp/cctbxyfX.s:60     .text:0000000000000060 .L0 
-     /tmp/cctbxyfX.s:62     .text:0000000000000064 .L0 
-     /tmp/cctbxyfX.s:63     .text:0000000000000068 .L0 
-     /tmp/cctbxyfX.s:64     .text:0000000000000068 .L0 
-     /tmp/cctbxyfX.s:66     .text:000000000000006c .L0 
-     /tmp/cctbxyfX.s:68     .text:0000000000000070 .L0 
-     /tmp/cctbxyfX.s:74     .text:0000000000000070 _ZN15MemoryAllocator9mem_allocEm
-     /tmp/cctbxyfX.s:77     .text:0000000000000070 .L0 
-     /tmp/cctbxyfX.s:79     .text:0000000000000070 .L0 
-     /tmp/cctbxyfX.s:80     .text:0000000000000074 .L0 
-     /tmp/cctbxyfX.s:82     .text:0000000000000078 .L0 
-     /tmp/cctbxyfX.s:84     .text:000000000000007c .L0 
-     /tmp/cctbxyfX.s:86     .text:000000000000007c .L0 
-     /tmp/cctbxyfX.s:90     .text:0000000000000084 .L0 
-     /tmp/cctbxyfX.s:91     .text:0000000000000084 .L0 
-     /tmp/cctbxyfX.s:92     .text:0000000000000084 .L0 
-     /tmp/cctbxyfX.s:98     .text:0000000000000090 .L0 
-     /tmp/cctbxyfX.s:99     .text:0000000000000090 .L0 
-     /tmp/cctbxyfX.s:103    .text:0000000000000094 .L0 
-     /tmp/cctbxyfX.s:104    .text:0000000000000094 .L0 
-     /tmp/cctbxyfX.s:106    .text:0000000000000098 .L0 
-     /tmp/cctbxyfX.s:109    .text:000000000000009c .L0 
-     /tmp/cctbxyfX.s:110    .text:000000000000009c .L0 
-     /tmp/cctbxyfX.s:113    .text:00000000000000a0 .L0 
-     /tmp/cctbxyfX.s:116    .text:00000000000000a4 .L0 
-     /tmp/cctbxyfX.s:125    .text:00000000000000ac .L0 
-     /tmp/cctbxyfX.s:126    .text:00000000000000ac .L0 
-     /tmp/cctbxyfX.s:129    .text:00000000000000b4 .L0 
-     /tmp/cctbxyfX.s:131    .text:00000000000000b8 .L0 
-     /tmp/cctbxyfX.s:134    .text:00000000000000bc .L0 
-     /tmp/cctbxyfX.s:135    .text:00000000000000bc .L0 
-GAS LISTING /tmp/cctbxyfX.s 			page 17
+     /tmp/ccLhiWAN.s:9      .text:0000000000000000 _ZN15MemoryAllocator10initialiseEv
+     /tmp/ccLhiWAN.s:13     .text:0000000000000000 .L0 
+     /tmp/ccLhiWAN.s:14     .text:0000000000000000 .L0 
+     /tmp/ccLhiWAN.s:15     .text:0000000000000004 .L0 
+     /tmp/ccLhiWAN.s:17     .text:0000000000000008 .L0 
+     /tmp/ccLhiWAN.s:19     .text:000000000000000c .L0 
+     /tmp/ccLhiWAN.s:21     .text:000000000000000c .L0 
+     /tmp/ccLhiWAN.s:22     .text:000000000000000c .L0 
+     /tmp/ccLhiWAN.s:27     .text:0000000000000020 .L0 
+     /tmp/ccLhiWAN.s:30     .text:000000000000002c .L0 
+     /tmp/ccLhiWAN.s:31     .text:000000000000002c .L0 
+     /tmp/ccLhiWAN.s:35     .text:0000000000000038 .L0 
+     /tmp/ccLhiWAN.s:36     .text:0000000000000038 .L0 
+     /tmp/ccLhiWAN.s:39     .text:000000000000003c .L0 
+     /tmp/ccLhiWAN.s:41     .text:0000000000000040 .L0 
+     /tmp/ccLhiWAN.s:42     .text:0000000000000040 .L0 
+     /tmp/ccLhiWAN.s:44     .text:0000000000000044 .L0 
+     /tmp/ccLhiWAN.s:45     .text:0000000000000044 .L0 
+     /tmp/ccLhiWAN.s:48     .text:0000000000000048 .L0 
+     /tmp/ccLhiWAN.s:49     .text:0000000000000048 .L0 
+     /tmp/ccLhiWAN.s:51     .text:000000000000004c .L0 
+     /tmp/ccLhiWAN.s:53     .text:0000000000000050 .L0 
+     /tmp/ccLhiWAN.s:54     .text:0000000000000050 .L0 
+     /tmp/ccLhiWAN.s:58     .text:000000000000005c .L0 
+     /tmp/ccLhiWAN.s:60     .text:0000000000000060 .L0 
+     /tmp/ccLhiWAN.s:62     .text:0000000000000064 .L0 
+     /tmp/ccLhiWAN.s:63     .text:0000000000000068 .L0 
+     /tmp/ccLhiWAN.s:64     .text:0000000000000068 .L0 
+     /tmp/ccLhiWAN.s:66     .text:000000000000006c .L0 
+     /tmp/ccLhiWAN.s:68     .text:0000000000000070 .L0 
+     /tmp/ccLhiWAN.s:74     .text:0000000000000070 _ZN15MemoryAllocator9mem_allocEm
+     /tmp/ccLhiWAN.s:77     .text:0000000000000070 .L0 
+     /tmp/ccLhiWAN.s:79     .text:0000000000000070 .L0 
+     /tmp/ccLhiWAN.s:80     .text:0000000000000074 .L0 
+     /tmp/ccLhiWAN.s:82     .text:0000000000000078 .L0 
+     /tmp/ccLhiWAN.s:84     .text:000000000000007c .L0 
+     /tmp/ccLhiWAN.s:86     .text:000000000000007c .L0 
+     /tmp/ccLhiWAN.s:90     .text:0000000000000084 .L0 
+     /tmp/ccLhiWAN.s:91     .text:0000000000000084 .L0 
+     /tmp/ccLhiWAN.s:92     .text:0000000000000084 .L0 
+     /tmp/ccLhiWAN.s:98     .text:0000000000000090 .L0 
+     /tmp/ccLhiWAN.s:99     .text:0000000000000090 .L0 
+     /tmp/ccLhiWAN.s:103    .text:0000000000000094 .L0 
+     /tmp/ccLhiWAN.s:104    .text:0000000000000094 .L0 
+     /tmp/ccLhiWAN.s:106    .text:0000000000000098 .L0 
+     /tmp/ccLhiWAN.s:109    .text:000000000000009c .L0 
+     /tmp/ccLhiWAN.s:110    .text:000000000000009c .L0 
+     /tmp/ccLhiWAN.s:113    .text:00000000000000a0 .L0 
+     /tmp/ccLhiWAN.s:116    .text:00000000000000a4 .L0 
+     /tmp/ccLhiWAN.s:125    .text:00000000000000ac .L0 
+     /tmp/ccLhiWAN.s:126    .text:00000000000000ac .L0 
+     /tmp/ccLhiWAN.s:129    .text:00000000000000b4 .L0 
+     /tmp/ccLhiWAN.s:131    .text:00000000000000b8 .L0 
+     /tmp/ccLhiWAN.s:134    .text:00000000000000bc .L0 
+     /tmp/ccLhiWAN.s:135    .text:00000000000000bc .L0 
+GAS LISTING /tmp/ccLhiWAN.s 			page 17
 
 
-     /tmp/cctbxyfX.s:137    .text:00000000000000c0 .L0 
-     /tmp/cctbxyfX.s:139    .text:00000000000000c4 .L0 
-     /tmp/cctbxyfX.s:141    .text:00000000000000c8 .L0 
-     /tmp/cctbxyfX.s:143    .text:00000000000000cc .L0 
-     /tmp/cctbxyfX.s:144    .text:00000000000000cc .L0 
-     /tmp/cctbxyfX.s:146    .text:00000000000000d0 .L0 
-     /tmp/cctbxyfX.s:147    .text:00000000000000d0 .L0 
-     /tmp/cctbxyfX.s:149    .text:00000000000000d4 .L0 
-     /tmp/cctbxyfX.s:152    .text:00000000000000d8 .L0 
-     /tmp/cctbxyfX.s:153    .text:00000000000000d8 .L0 
-     /tmp/cctbxyfX.s:155    .text:00000000000000dc .L0 
-     /tmp/cctbxyfX.s:157    .text:00000000000000e0 .L0 
-     /tmp/cctbxyfX.s:160    .text:00000000000000e4 .L0 
-     /tmp/cctbxyfX.s:161    .text:00000000000000e4 .L0 
-     /tmp/cctbxyfX.s:163    .text:00000000000000e8 .L0 
-     /tmp/cctbxyfX.s:164    .text:00000000000000e8 .L0 
-     /tmp/cctbxyfX.s:171    .text:00000000000000ec .L0 
-     /tmp/cctbxyfX.s:172    .text:00000000000000ec .L0 
-     /tmp/cctbxyfX.s:173    .text:00000000000000f0 .L0 
-     /tmp/cctbxyfX.s:174    .text:00000000000000f0 .L0 
-     /tmp/cctbxyfX.s:175    .text:00000000000000f0 .L0 
-     /tmp/cctbxyfX.s:177    .text:00000000000000f4 .L0 
-     /tmp/cctbxyfX.s:181    .text:00000000000000f8 .L0 
-     /tmp/cctbxyfX.s:186    .text:00000000000000f8 .L0 
-     /tmp/cctbxyfX.s:187    .text:00000000000000f8 .L0 
-     /tmp/cctbxyfX.s:189    .text:00000000000000fc .L0 
-     /tmp/cctbxyfX.s:193    .text:0000000000000108 .L0 
-     /tmp/cctbxyfX.s:194    .text:0000000000000108 .L0 
-     /tmp/cctbxyfX.s:196    .text:000000000000010c .L0 
-     /tmp/cctbxyfX.s:198    .text:0000000000000110 .L0 
-     /tmp/cctbxyfX.s:199    .text:0000000000000110 .L0 
-     /tmp/cctbxyfX.s:203    .text:0000000000000118 .L0 
-     /tmp/cctbxyfX.s:205    .text:000000000000011c .L0 
-     /tmp/cctbxyfX.s:206    .text:000000000000011c .L0 
-     /tmp/cctbxyfX.s:214    .text:0000000000000124 .L0 
-     /tmp/cctbxyfX.s:217    .text:000000000000012c .L0 
-     /tmp/cctbxyfX.s:223    .text:000000000000012c _ZN15MemoryAllocator9tryToJoinEP7FreeMem
-     /tmp/cctbxyfX.s:226    .text:000000000000012c .L0 
-     /tmp/cctbxyfX.s:228    .text:000000000000012c .L0 
-     /tmp/cctbxyfX.s:229    .text:0000000000000130 .L0 
-     /tmp/cctbxyfX.s:231    .text:0000000000000134 .L0 
-     /tmp/cctbxyfX.s:233    .text:0000000000000138 .L0 
-     /tmp/cctbxyfX.s:235    .text:0000000000000138 .L0 
-     /tmp/cctbxyfX.s:237    .text:000000000000013c .L0 
-     /tmp/cctbxyfX.s:238    .text:000000000000013c .L0 
-     /tmp/cctbxyfX.s:240    .text:0000000000000140 .L0 
-     /tmp/cctbxyfX.s:242    .text:0000000000000144 .L0 
-     /tmp/cctbxyfX.s:244    .text:0000000000000148 .L0 
-     /tmp/cctbxyfX.s:246    .text:000000000000014c .L0 
-     /tmp/cctbxyfX.s:248    .text:0000000000000150 .L0 
-     /tmp/cctbxyfX.s:250    .text:0000000000000154 .L0 
-     /tmp/cctbxyfX.s:254    .text:0000000000000158 .L0 
-     /tmp/cctbxyfX.s:255    .text:000000000000015c .L0 
-     /tmp/cctbxyfX.s:256    .text:000000000000015c .L0 
-     /tmp/cctbxyfX.s:257    .text:000000000000015c .L0 
-     /tmp/cctbxyfX.s:259    .text:0000000000000160 .L0 
-     /tmp/cctbxyfX.s:263    .text:0000000000000164 .L0 
-GAS LISTING /tmp/cctbxyfX.s 			page 18
+     /tmp/ccLhiWAN.s:137    .text:00000000000000c0 .L0 
+     /tmp/ccLhiWAN.s:139    .text:00000000000000c4 .L0 
+     /tmp/ccLhiWAN.s:141    .text:00000000000000c8 .L0 
+     /tmp/ccLhiWAN.s:143    .text:00000000000000cc .L0 
+     /tmp/ccLhiWAN.s:144    .text:00000000000000cc .L0 
+     /tmp/ccLhiWAN.s:146    .text:00000000000000d0 .L0 
+     /tmp/ccLhiWAN.s:147    .text:00000000000000d0 .L0 
+     /tmp/ccLhiWAN.s:149    .text:00000000000000d4 .L0 
+     /tmp/ccLhiWAN.s:152    .text:00000000000000d8 .L0 
+     /tmp/ccLhiWAN.s:153    .text:00000000000000d8 .L0 
+     /tmp/ccLhiWAN.s:155    .text:00000000000000dc .L0 
+     /tmp/ccLhiWAN.s:157    .text:00000000000000e0 .L0 
+     /tmp/ccLhiWAN.s:160    .text:00000000000000e4 .L0 
+     /tmp/ccLhiWAN.s:161    .text:00000000000000e4 .L0 
+     /tmp/ccLhiWAN.s:163    .text:00000000000000e8 .L0 
+     /tmp/ccLhiWAN.s:164    .text:00000000000000e8 .L0 
+     /tmp/ccLhiWAN.s:171    .text:00000000000000ec .L0 
+     /tmp/ccLhiWAN.s:172    .text:00000000000000ec .L0 
+     /tmp/ccLhiWAN.s:173    .text:00000000000000f0 .L0 
+     /tmp/ccLhiWAN.s:174    .text:00000000000000f0 .L0 
+     /tmp/ccLhiWAN.s:175    .text:00000000000000f0 .L0 
+     /tmp/ccLhiWAN.s:177    .text:00000000000000f4 .L0 
+     /tmp/ccLhiWAN.s:181    .text:00000000000000f8 .L0 
+     /tmp/ccLhiWAN.s:186    .text:00000000000000f8 .L0 
+     /tmp/ccLhiWAN.s:187    .text:00000000000000f8 .L0 
+     /tmp/ccLhiWAN.s:189    .text:00000000000000fc .L0 
+     /tmp/ccLhiWAN.s:193    .text:0000000000000108 .L0 
+     /tmp/ccLhiWAN.s:194    .text:0000000000000108 .L0 
+     /tmp/ccLhiWAN.s:196    .text:000000000000010c .L0 
+     /tmp/ccLhiWAN.s:198    .text:0000000000000110 .L0 
+     /tmp/ccLhiWAN.s:199    .text:0000000000000110 .L0 
+     /tmp/ccLhiWAN.s:203    .text:0000000000000118 .L0 
+     /tmp/ccLhiWAN.s:205    .text:000000000000011c .L0 
+     /tmp/ccLhiWAN.s:206    .text:000000000000011c .L0 
+     /tmp/ccLhiWAN.s:214    .text:0000000000000124 .L0 
+     /tmp/ccLhiWAN.s:217    .text:000000000000012c .L0 
+     /tmp/ccLhiWAN.s:223    .text:000000000000012c _ZN15MemoryAllocator9tryToJoinEP7FreeMem
+     /tmp/ccLhiWAN.s:226    .text:000000000000012c .L0 
+     /tmp/ccLhiWAN.s:228    .text:000000000000012c .L0 
+     /tmp/ccLhiWAN.s:229    .text:0000000000000130 .L0 
+     /tmp/ccLhiWAN.s:231    .text:0000000000000134 .L0 
+     /tmp/ccLhiWAN.s:233    .text:0000000000000138 .L0 
+     /tmp/ccLhiWAN.s:235    .text:0000000000000138 .L0 
+     /tmp/ccLhiWAN.s:237    .text:000000000000013c .L0 
+     /tmp/ccLhiWAN.s:238    .text:000000000000013c .L0 
+     /tmp/ccLhiWAN.s:240    .text:0000000000000140 .L0 
+     /tmp/ccLhiWAN.s:242    .text:0000000000000144 .L0 
+     /tmp/ccLhiWAN.s:244    .text:0000000000000148 .L0 
+     /tmp/ccLhiWAN.s:246    .text:000000000000014c .L0 
+     /tmp/ccLhiWAN.s:248    .text:0000000000000150 .L0 
+     /tmp/ccLhiWAN.s:250    .text:0000000000000154 .L0 
+     /tmp/ccLhiWAN.s:254    .text:0000000000000158 .L0 
+     /tmp/ccLhiWAN.s:255    .text:000000000000015c .L0 
+     /tmp/ccLhiWAN.s:256    .text:000000000000015c .L0 
+     /tmp/ccLhiWAN.s:257    .text:000000000000015c .L0 
+     /tmp/ccLhiWAN.s:259    .text:0000000000000160 .L0 
+     /tmp/ccLhiWAN.s:263    .text:0000000000000164 .L0 
+GAS LISTING /tmp/ccLhiWAN.s 			page 18
 
 
-     /tmp/cctbxyfX.s:265    .text:0000000000000164 .L0 
-     /tmp/cctbxyfX.s:266    .text:0000000000000164 .L0 
-     /tmp/cctbxyfX.s:268    .text:0000000000000168 .L0 
-     /tmp/cctbxyfX.s:271    .text:0000000000000170 .L0 
-     /tmp/cctbxyfX.s:272    .text:0000000000000170 .L0 
-     /tmp/cctbxyfX.s:274    .text:0000000000000174 .L0 
-     /tmp/cctbxyfX.s:276    .text:0000000000000178 .L0 
-     /tmp/cctbxyfX.s:278    .text:000000000000017c .L0 
-     /tmp/cctbxyfX.s:279    .text:000000000000017c .L0 
-     /tmp/cctbxyfX.s:282    .text:0000000000000180 .L0 
-     /tmp/cctbxyfX.s:283    .text:0000000000000180 .L0 
-     /tmp/cctbxyfX.s:289    .text:0000000000000188 .L0 
-     /tmp/cctbxyfX.s:295    .text:0000000000000190 .L0 
-     /tmp/cctbxyfX.s:298    .text:0000000000000198 .L0 
-     /tmp/cctbxyfX.s:304    .text:0000000000000198 _ZN15MemoryAllocator8mem_freeEPv
-     /tmp/cctbxyfX.s:307    .text:0000000000000198 .L0 
-     /tmp/cctbxyfX.s:309    .text:0000000000000198 .L0 
-     /tmp/cctbxyfX.s:310    .text:0000000000000198 .L0 
-     /tmp/cctbxyfX.s:312    .text:000000000000019c .L0 
-     /tmp/cctbxyfX.s:313    .text:00000000000001a0 .L0 
-     /tmp/cctbxyfX.s:317    .text:00000000000001ac .L0 
-     /tmp/cctbxyfX.s:318    .text:00000000000001ac .L0 
-     /tmp/cctbxyfX.s:319    .text:00000000000001ac .L0 
-     /tmp/cctbxyfX.s:321    .text:00000000000001b0 .L0 
-     /tmp/cctbxyfX.s:324    .text:00000000000001b4 .L0 
-     /tmp/cctbxyfX.s:325    .text:00000000000001b4 .L0 
-     /tmp/cctbxyfX.s:328    .text:00000000000001b8 .L0 
-     /tmp/cctbxyfX.s:329    .text:00000000000001b8 .L0 
-     /tmp/cctbxyfX.s:332    .text:00000000000001bc .L0 
-     /tmp/cctbxyfX.s:333    .text:00000000000001bc .L0 
-     /tmp/cctbxyfX.s:334    .text:00000000000001bc .L0 
-     /tmp/cctbxyfX.s:335    .text:00000000000001bc .L0 
-     /tmp/cctbxyfX.s:337    .text:00000000000001c4 .L0 
-     /tmp/cctbxyfX.s:339    .text:00000000000001c8 .L0 
-     /tmp/cctbxyfX.s:341    .text:00000000000001cc .L0 
-     /tmp/cctbxyfX.s:345    .text:00000000000001d0 .L0 
-     /tmp/cctbxyfX.s:347    .text:00000000000001d4 .L0 
-     /tmp/cctbxyfX.s:350    .text:00000000000001d8 .L0 
-     /tmp/cctbxyfX.s:352    .text:00000000000001dc .L0 
-     /tmp/cctbxyfX.s:357    .text:00000000000001e4 .L0 
-     /tmp/cctbxyfX.s:364    .text:00000000000001f0 .L0 
-     /tmp/cctbxyfX.s:365    .text:00000000000001f0 .L0 
-     /tmp/cctbxyfX.s:366    .text:00000000000001f0 .L0 
-     /tmp/cctbxyfX.s:368    .text:00000000000001f4 .L0 
-     /tmp/cctbxyfX.s:369    .text:00000000000001f4 .L0 
-     /tmp/cctbxyfX.s:371    .text:00000000000001f8 .L0 
-     /tmp/cctbxyfX.s:373    .text:00000000000001fc .L0 
-     /tmp/cctbxyfX.s:374    .text:00000000000001fc .L0 
-     /tmp/cctbxyfX.s:376    .text:0000000000000200 .L0 
-     /tmp/cctbxyfX.s:379    .text:0000000000000204 .L0 
-     /tmp/cctbxyfX.s:380    .text:0000000000000204 .L0 
-     /tmp/cctbxyfX.s:382    .text:0000000000000208 .L0 
-     /tmp/cctbxyfX.s:384    .text:000000000000020c .L0 
-     /tmp/cctbxyfX.s:385    .text:000000000000020c .L0 
-     /tmp/cctbxyfX.s:388    .text:0000000000000210 .L0 
-     /tmp/cctbxyfX.s:390    .text:0000000000000214 .L0 
-     /tmp/cctbxyfX.s:391    .text:0000000000000214 .L0 
-GAS LISTING /tmp/cctbxyfX.s 			page 19
+     /tmp/ccLhiWAN.s:265    .text:0000000000000164 .L0 
+     /tmp/ccLhiWAN.s:266    .text:0000000000000164 .L0 
+     /tmp/ccLhiWAN.s:268    .text:0000000000000168 .L0 
+     /tmp/ccLhiWAN.s:271    .text:0000000000000170 .L0 
+     /tmp/ccLhiWAN.s:272    .text:0000000000000170 .L0 
+     /tmp/ccLhiWAN.s:274    .text:0000000000000174 .L0 
+     /tmp/ccLhiWAN.s:276    .text:0000000000000178 .L0 
+     /tmp/ccLhiWAN.s:278    .text:000000000000017c .L0 
+     /tmp/ccLhiWAN.s:279    .text:000000000000017c .L0 
+     /tmp/ccLhiWAN.s:282    .text:0000000000000180 .L0 
+     /tmp/ccLhiWAN.s:283    .text:0000000000000180 .L0 
+     /tmp/ccLhiWAN.s:289    .text:0000000000000188 .L0 
+     /tmp/ccLhiWAN.s:295    .text:0000000000000190 .L0 
+     /tmp/ccLhiWAN.s:298    .text:0000000000000198 .L0 
+     /tmp/ccLhiWAN.s:304    .text:0000000000000198 _ZN15MemoryAllocator8mem_freeEPv
+     /tmp/ccLhiWAN.s:307    .text:0000000000000198 .L0 
+     /tmp/ccLhiWAN.s:309    .text:0000000000000198 .L0 
+     /tmp/ccLhiWAN.s:310    .text:0000000000000198 .L0 
+     /tmp/ccLhiWAN.s:312    .text:000000000000019c .L0 
+     /tmp/ccLhiWAN.s:313    .text:00000000000001a0 .L0 
+     /tmp/ccLhiWAN.s:317    .text:00000000000001ac .L0 
+     /tmp/ccLhiWAN.s:318    .text:00000000000001ac .L0 
+     /tmp/ccLhiWAN.s:319    .text:00000000000001ac .L0 
+     /tmp/ccLhiWAN.s:321    .text:00000000000001b0 .L0 
+     /tmp/ccLhiWAN.s:324    .text:00000000000001b4 .L0 
+     /tmp/ccLhiWAN.s:325    .text:00000000000001b4 .L0 
+     /tmp/ccLhiWAN.s:328    .text:00000000000001b8 .L0 
+     /tmp/ccLhiWAN.s:329    .text:00000000000001b8 .L0 
+     /tmp/ccLhiWAN.s:332    .text:00000000000001bc .L0 
+     /tmp/ccLhiWAN.s:333    .text:00000000000001bc .L0 
+     /tmp/ccLhiWAN.s:334    .text:00000000000001bc .L0 
+     /tmp/ccLhiWAN.s:335    .text:00000000000001bc .L0 
+     /tmp/ccLhiWAN.s:337    .text:00000000000001c4 .L0 
+     /tmp/ccLhiWAN.s:339    .text:00000000000001c8 .L0 
+     /tmp/ccLhiWAN.s:341    .text:00000000000001cc .L0 
+     /tmp/ccLhiWAN.s:345    .text:00000000000001d0 .L0 
+     /tmp/ccLhiWAN.s:347    .text:00000000000001d4 .L0 
+     /tmp/ccLhiWAN.s:350    .text:00000000000001d8 .L0 
+     /tmp/ccLhiWAN.s:352    .text:00000000000001dc .L0 
+     /tmp/ccLhiWAN.s:357    .text:00000000000001e4 .L0 
+     /tmp/ccLhiWAN.s:364    .text:00000000000001f0 .L0 
+     /tmp/ccLhiWAN.s:365    .text:00000000000001f0 .L0 
+     /tmp/ccLhiWAN.s:366    .text:00000000000001f0 .L0 
+     /tmp/ccLhiWAN.s:368    .text:00000000000001f4 .L0 
+     /tmp/ccLhiWAN.s:369    .text:00000000000001f4 .L0 
+     /tmp/ccLhiWAN.s:371    .text:00000000000001f8 .L0 
+     /tmp/ccLhiWAN.s:373    .text:00000000000001fc .L0 
+     /tmp/ccLhiWAN.s:374    .text:00000000000001fc .L0 
+     /tmp/ccLhiWAN.s:376    .text:0000000000000200 .L0 
+     /tmp/ccLhiWAN.s:379    .text:0000000000000204 .L0 
+     /tmp/ccLhiWAN.s:380    .text:0000000000000204 .L0 
+     /tmp/ccLhiWAN.s:382    .text:0000000000000208 .L0 
+     /tmp/ccLhiWAN.s:384    .text:000000000000020c .L0 
+     /tmp/ccLhiWAN.s:385    .text:000000000000020c .L0 
+     /tmp/ccLhiWAN.s:388    .text:0000000000000210 .L0 
+     /tmp/ccLhiWAN.s:390    .text:0000000000000214 .L0 
+     /tmp/ccLhiWAN.s:391    .text:0000000000000214 .L0 
+GAS LISTING /tmp/ccLhiWAN.s 			page 19
 
 
-     /tmp/cctbxyfX.s:394    .text:0000000000000218 .L0 
-     /tmp/cctbxyfX.s:395    .text:0000000000000218 .L0 
-     /tmp/cctbxyfX.s:398    .text:0000000000000220 .L0 
-     /tmp/cctbxyfX.s:399    .text:0000000000000220 .L0 
-     /tmp/cctbxyfX.s:403    .text:000000000000022c .L0 
-     /tmp/cctbxyfX.s:404    .text:000000000000022c .L0 
-     /tmp/cctbxyfX.s:406    .text:0000000000000230 .L0 
-     /tmp/cctbxyfX.s:407    .text:0000000000000234 .L0 
-     /tmp/cctbxyfX.s:408    .text:0000000000000234 .L0 
-     /tmp/cctbxyfX.s:410    .text:0000000000000238 .L0 
-     /tmp/cctbxyfX.s:411    .text:0000000000000238 .L0 
-     /tmp/cctbxyfX.s:413    .text:000000000000023c .L0 
-     /tmp/cctbxyfX.s:416    .text:0000000000000240 .L0 
-     /tmp/cctbxyfX.s:420    .text:0000000000000244 .L0 
-     /tmp/cctbxyfX.s:422    .text:0000000000000244 .L0 
-     /tmp/cctbxyfX.s:423    .text:0000000000000244 .L0 
-     /tmp/cctbxyfX.s:427    .text:000000000000024c .L0 
-     /tmp/cctbxyfX.s:428    .text:000000000000024c .L0 
-     /tmp/cctbxyfX.s:432    .text:0000000000000258 .L0 
-     /tmp/cctbxyfX.s:433    .text:0000000000000258 .L0 
-     /tmp/cctbxyfX.s:434    .text:0000000000000258 .L0 
-     /tmp/cctbxyfX.s:435    .text:0000000000000258 .L0 
-     /tmp/cctbxyfX.s:437    .text:0000000000000258 .L0 
-     /tmp/cctbxyfX.s:440    .text:000000000000025c .L0 
-     /tmp/cctbxyfX.s:441    .text:0000000000000260 .L0 
-     /tmp/cctbxyfX.s:447    .text:0000000000000260 _ZN15MemoryAllocator14convert2BlocksEm
-     /tmp/cctbxyfX.s:450    .text:0000000000000260 .L0 
-     /tmp/cctbxyfX.s:452    .text:0000000000000260 .L0 
-     /tmp/cctbxyfX.s:453    .text:0000000000000264 .L0 
-     /tmp/cctbxyfX.s:455    .text:0000000000000268 .L0 
-     /tmp/cctbxyfX.s:457    .text:000000000000026c .L0 
-     /tmp/cctbxyfX.s:459    .text:000000000000026c .L0 
-     /tmp/cctbxyfX.s:460    .text:000000000000026c .L0 
-     /tmp/cctbxyfX.s:463    .text:0000000000000270 .L0 
-     /tmp/cctbxyfX.s:464    .text:0000000000000270 .L0 
-     /tmp/cctbxyfX.s:465    .text:0000000000000270 .L0 
-     /tmp/cctbxyfX.s:466    .text:0000000000000270 .L0 
-     /tmp/cctbxyfX.s:468    .text:0000000000000274 .L0 
-     /tmp/cctbxyfX.s:470    .text:0000000000000278 .L0 
-     /tmp/cctbxyfX.s:471    .text:0000000000000278 .L0 
-     /tmp/cctbxyfX.s:474    .text:000000000000027c .L0 
-     /tmp/cctbxyfX.s:478    .text:0000000000000280 .L0 
-     /tmp/cctbxyfX.s:479    .text:0000000000000284 .L0 
-     /tmp/cctbxyfX.s:480    .text:0000000000000284 .L0 
-     /tmp/cctbxyfX.s:481    .text:0000000000000284 .L0 
-     /tmp/cctbxyfX.s:483    .text:0000000000000288 .L0 
-     /tmp/cctbxyfX.s:487    .text:000000000000028c .L0 
-     /tmp/cctbxyfX.s:489    .text:000000000000028c .L0 
-     /tmp/cctbxyfX.s:490    .text:000000000000028c .L0 
-     /tmp/cctbxyfX.s:493    .text:0000000000000290 .L0 
-     /tmp/cctbxyfX.s:494    .text:0000000000000290 .L0 
-     /tmp/cctbxyfX.s:495    .text:0000000000000294 .L0 
-     /tmp/cctbxyfX.s:514    .bss:0000000000000010 _ZN15MemoryAllocator4headE
-     /tmp/cctbxyfX.s:510    .bss:0000000000000008 _ZN15MemoryAllocator6memEndE
-     /tmp/cctbxyfX.s:506    .bss:0000000000000000 _ZN15MemoryAllocator8memStartE
-     /tmp/cctbxyfX.s:503    .bss:0000000000000000 .LANCHOR0
-     /tmp/cctbxyfX.s:521    .text:0000000000000294 .L0 
-GAS LISTING /tmp/cctbxyfX.s 			page 20
+     /tmp/ccLhiWAN.s:394    .text:0000000000000218 .L0 
+     /tmp/ccLhiWAN.s:395    .text:0000000000000218 .L0 
+     /tmp/ccLhiWAN.s:398    .text:0000000000000220 .L0 
+     /tmp/ccLhiWAN.s:399    .text:0000000000000220 .L0 
+     /tmp/ccLhiWAN.s:403    .text:000000000000022c .L0 
+     /tmp/ccLhiWAN.s:404    .text:000000000000022c .L0 
+     /tmp/ccLhiWAN.s:406    .text:0000000000000230 .L0 
+     /tmp/ccLhiWAN.s:407    .text:0000000000000234 .L0 
+     /tmp/ccLhiWAN.s:408    .text:0000000000000234 .L0 
+     /tmp/ccLhiWAN.s:410    .text:0000000000000238 .L0 
+     /tmp/ccLhiWAN.s:411    .text:0000000000000238 .L0 
+     /tmp/ccLhiWAN.s:413    .text:000000000000023c .L0 
+     /tmp/ccLhiWAN.s:416    .text:0000000000000240 .L0 
+     /tmp/ccLhiWAN.s:420    .text:0000000000000244 .L0 
+     /tmp/ccLhiWAN.s:422    .text:0000000000000244 .L0 
+     /tmp/ccLhiWAN.s:423    .text:0000000000000244 .L0 
+     /tmp/ccLhiWAN.s:427    .text:000000000000024c .L0 
+     /tmp/ccLhiWAN.s:428    .text:000000000000024c .L0 
+     /tmp/ccLhiWAN.s:432    .text:0000000000000258 .L0 
+     /tmp/ccLhiWAN.s:433    .text:0000000000000258 .L0 
+     /tmp/ccLhiWAN.s:434    .text:0000000000000258 .L0 
+     /tmp/ccLhiWAN.s:435    .text:0000000000000258 .L0 
+     /tmp/ccLhiWAN.s:437    .text:0000000000000258 .L0 
+     /tmp/ccLhiWAN.s:440    .text:000000000000025c .L0 
+     /tmp/ccLhiWAN.s:441    .text:0000000000000260 .L0 
+     /tmp/ccLhiWAN.s:447    .text:0000000000000260 _ZN15MemoryAllocator14convert2BlocksEm
+     /tmp/ccLhiWAN.s:450    .text:0000000000000260 .L0 
+     /tmp/ccLhiWAN.s:452    .text:0000000000000260 .L0 
+     /tmp/ccLhiWAN.s:453    .text:0000000000000264 .L0 
+     /tmp/ccLhiWAN.s:455    .text:0000000000000268 .L0 
+     /tmp/ccLhiWAN.s:457    .text:000000000000026c .L0 
+     /tmp/ccLhiWAN.s:459    .text:000000000000026c .L0 
+     /tmp/ccLhiWAN.s:460    .text:000000000000026c .L0 
+     /tmp/ccLhiWAN.s:463    .text:0000000000000270 .L0 
+     /tmp/ccLhiWAN.s:464    .text:0000000000000270 .L0 
+     /tmp/ccLhiWAN.s:465    .text:0000000000000270 .L0 
+     /tmp/ccLhiWAN.s:466    .text:0000000000000270 .L0 
+     /tmp/ccLhiWAN.s:468    .text:0000000000000274 .L0 
+     /tmp/ccLhiWAN.s:470    .text:0000000000000278 .L0 
+     /tmp/ccLhiWAN.s:471    .text:0000000000000278 .L0 
+     /tmp/ccLhiWAN.s:474    .text:000000000000027c .L0 
+     /tmp/ccLhiWAN.s:478    .text:0000000000000280 .L0 
+     /tmp/ccLhiWAN.s:479    .text:0000000000000284 .L0 
+     /tmp/ccLhiWAN.s:480    .text:0000000000000284 .L0 
+     /tmp/ccLhiWAN.s:481    .text:0000000000000284 .L0 
+     /tmp/ccLhiWAN.s:483    .text:0000000000000288 .L0 
+     /tmp/ccLhiWAN.s:487    .text:000000000000028c .L0 
+     /tmp/ccLhiWAN.s:489    .text:000000000000028c .L0 
+     /tmp/ccLhiWAN.s:490    .text:000000000000028c .L0 
+     /tmp/ccLhiWAN.s:493    .text:0000000000000290 .L0 
+     /tmp/ccLhiWAN.s:494    .text:0000000000000290 .L0 
+     /tmp/ccLhiWAN.s:495    .text:0000000000000294 .L0 
+     /tmp/ccLhiWAN.s:514    .bss:0000000000000010 _ZN15MemoryAllocator4headE
+     /tmp/ccLhiWAN.s:510    .bss:0000000000000008 _ZN15MemoryAllocator6memEndE
+     /tmp/ccLhiWAN.s:506    .bss:0000000000000000 _ZN15MemoryAllocator8memStartE
+     /tmp/ccLhiWAN.s:503    .bss:0000000000000000 .LANCHOR0
+     /tmp/ccLhiWAN.s:521    .text:0000000000000294 .L0 
+GAS LISTING /tmp/ccLhiWAN.s 			page 20
 
 
-     /tmp/cctbxyfX.s:22     .text:000000000000000c .L0 
-     /tmp/cctbxyfX.s:27     .text:0000000000000020 .L0 
-     /tmp/cctbxyfX.s:31     .text:000000000000002c .L0 
-     /tmp/cctbxyfX.s:92     .text:0000000000000084 .L0 
-     /tmp/cctbxyfX.s:189    .text:00000000000000fc .L0 
-     /tmp/cctbxyfX.s:335    .text:00000000000001bc .L0 
-     /tmp/cctbxyfX.s:428    .text:000000000000024c .L0 
-     /tmp/cctbxyfX.s:209    .text:0000000000000124 .L11
-     /tmp/cctbxyfX.s:167    .text:00000000000000ec .L3
-     /tmp/cctbxyfX.s:120    .text:00000000000000ac .L13
-     /tmp/cctbxyfX.s:96     .text:0000000000000090 .L10
-     /tmp/cctbxyfX.s:150    .text:00000000000000d8 .L6
-     /tmp/cctbxyfX.s:180    .text:00000000000000f8 .L14
-     /tmp/cctbxyfX.s:191    .text:0000000000000108 .L8
-     /tmp/cctbxyfX.s:132    .text:00000000000000bc .L7
-     /tmp/cctbxyfX.s:201    .text:0000000000000118 .L9
-     /tmp/cctbxyfX.s:287    .text:0000000000000188 .L18
-     /tmp/cctbxyfX.s:293    .text:0000000000000190 .L19
-     /tmp/cctbxyfX.s:262    .text:0000000000000164 .L22
-     /tmp/cctbxyfX.s:280    .text:0000000000000180 .L17
-     /tmp/cctbxyfX.s:252    .text:0000000000000158 .L16
-     /tmp/cctbxyfX.s:431    .text:0000000000000258 .L32
-     /tmp/cctbxyfX.s:355    .text:00000000000001e4 .L33
-     /tmp/cctbxyfX.s:359    .text:00000000000001ec .L34
-     /tmp/cctbxyfX.s:362    .text:00000000000001f0 .L25
-     /tmp/cctbxyfX.s:343    .text:00000000000001d0 .L26
-     /tmp/cctbxyfX.s:419    .text:0000000000000244 .L27
-     /tmp/cctbxyfX.s:386    .text:0000000000000210 .L29
-     /tmp/cctbxyfX.s:425    .text:000000000000024c .L30
-     /tmp/cctbxyfX.s:377    .text:0000000000000204 .L28
-     /tmp/cctbxyfX.s:392    .text:0000000000000218 .L31
-     /tmp/cctbxyfX.s:486    .text:000000000000028c .L40
-     /tmp/cctbxyfX.s:476    .text:0000000000000280 .L39
-     /tmp/cctbxyfX.s:1017   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
-     /tmp/cctbxyfX.s:1975   .debug_str:00000000000002be .LASF44
-     /tmp/cctbxyfX.s:1985   .debug_str:00000000000003b0 .LASF45
-     /tmp/cctbxyfX.s:1923   .debug_str:00000000000000e1 .LASF46
-     /tmp/cctbxyfX.s:5      .text:0000000000000000 .Ltext0
-     /tmp/cctbxyfX.s:517    .text:0000000000000294 .Letext0
-     /tmp/cctbxyfX.s:1887   .debug_line:0000000000000000 .Ldebug_line0
-     /tmp/cctbxyfX.s:1945   .debug_str:00000000000001cc .LASF0
-     /tmp/cctbxyfX.s:1951   .debug_str:00000000000001ef .LASF1
-     /tmp/cctbxyfX.s:1939   .debug_str:0000000000000184 .LASF2
-     /tmp/cctbxyfX.s:1931   .debug_str:000000000000012d .LASF4
-     /tmp/cctbxyfX.s:1967   .debug_str:000000000000027c .LASF3
-     /tmp/cctbxyfX.s:1895   .debug_str:0000000000000020 .LASF5
-     /tmp/cctbxyfX.s:1955   .debug_str:000000000000020d .LASF6
-     /tmp/cctbxyfX.s:1943   .debug_str:00000000000001b9 .LASF7
-     /tmp/cctbxyfX.s:1979   .debug_str:0000000000000391 .LASF8
-     /tmp/cctbxyfX.s:1927   .debug_str:0000000000000104 .LASF9
-     /tmp/cctbxyfX.s:1959   .debug_str:0000000000000249 .LASF10
-     /tmp/cctbxyfX.s:1977   .debug_str:0000000000000382 .LASF11
-     /tmp/cctbxyfX.s:1897   .debug_str:0000000000000027 .LASF12
-     /tmp/cctbxyfX.s:1893   .debug_str:0000000000000010 .LASF13
-     /tmp/cctbxyfX.s:1903   .debug_str:0000000000000067 .LASF14
-     /tmp/cctbxyfX.s:1965   .debug_str:0000000000000266 .LASF15
-     /tmp/cctbxyfX.s:1905   .debug_str:0000000000000073 .LASF16
-GAS LISTING /tmp/cctbxyfX.s 			page 21
+     /tmp/ccLhiWAN.s:22     .text:000000000000000c .L0 
+     /tmp/ccLhiWAN.s:27     .text:0000000000000020 .L0 
+     /tmp/ccLhiWAN.s:31     .text:000000000000002c .L0 
+     /tmp/ccLhiWAN.s:92     .text:0000000000000084 .L0 
+     /tmp/ccLhiWAN.s:189    .text:00000000000000fc .L0 
+     /tmp/ccLhiWAN.s:335    .text:00000000000001bc .L0 
+     /tmp/ccLhiWAN.s:428    .text:000000000000024c .L0 
+     /tmp/ccLhiWAN.s:209    .text:0000000000000124 .L11
+     /tmp/ccLhiWAN.s:167    .text:00000000000000ec .L3
+     /tmp/ccLhiWAN.s:120    .text:00000000000000ac .L13
+     /tmp/ccLhiWAN.s:96     .text:0000000000000090 .L10
+     /tmp/ccLhiWAN.s:150    .text:00000000000000d8 .L6
+     /tmp/ccLhiWAN.s:180    .text:00000000000000f8 .L14
+     /tmp/ccLhiWAN.s:191    .text:0000000000000108 .L8
+     /tmp/ccLhiWAN.s:132    .text:00000000000000bc .L7
+     /tmp/ccLhiWAN.s:201    .text:0000000000000118 .L9
+     /tmp/ccLhiWAN.s:287    .text:0000000000000188 .L18
+     /tmp/ccLhiWAN.s:293    .text:0000000000000190 .L19
+     /tmp/ccLhiWAN.s:262    .text:0000000000000164 .L22
+     /tmp/ccLhiWAN.s:280    .text:0000000000000180 .L17
+     /tmp/ccLhiWAN.s:252    .text:0000000000000158 .L16
+     /tmp/ccLhiWAN.s:431    .text:0000000000000258 .L32
+     /tmp/ccLhiWAN.s:355    .text:00000000000001e4 .L33
+     /tmp/ccLhiWAN.s:359    .text:00000000000001ec .L34
+     /tmp/ccLhiWAN.s:362    .text:00000000000001f0 .L25
+     /tmp/ccLhiWAN.s:343    .text:00000000000001d0 .L26
+     /tmp/ccLhiWAN.s:419    .text:0000000000000244 .L27
+     /tmp/ccLhiWAN.s:386    .text:0000000000000210 .L29
+     /tmp/ccLhiWAN.s:425    .text:000000000000024c .L30
+     /tmp/ccLhiWAN.s:377    .text:0000000000000204 .L28
+     /tmp/ccLhiWAN.s:392    .text:0000000000000218 .L31
+     /tmp/ccLhiWAN.s:486    .text:000000000000028c .L40
+     /tmp/ccLhiWAN.s:476    .text:0000000000000280 .L39
+     /tmp/ccLhiWAN.s:1017   .debug_abbrev:0000000000000000 .Ldebug_abbrev0
+     /tmp/ccLhiWAN.s:1975   .debug_str:00000000000002be .LASF44
+     /tmp/ccLhiWAN.s:1985   .debug_str:00000000000003b0 .LASF45
+     /tmp/ccLhiWAN.s:1923   .debug_str:00000000000000e1 .LASF46
+     /tmp/ccLhiWAN.s:5      .text:0000000000000000 .Ltext0
+     /tmp/ccLhiWAN.s:517    .text:0000000000000294 .Letext0
+     /tmp/ccLhiWAN.s:1887   .debug_line:0000000000000000 .Ldebug_line0
+     /tmp/ccLhiWAN.s:1945   .debug_str:00000000000001cc .LASF0
+     /tmp/ccLhiWAN.s:1951   .debug_str:00000000000001ef .LASF1
+     /tmp/ccLhiWAN.s:1939   .debug_str:0000000000000184 .LASF2
+     /tmp/ccLhiWAN.s:1931   .debug_str:000000000000012d .LASF4
+     /tmp/ccLhiWAN.s:1967   .debug_str:000000000000027c .LASF3
+     /tmp/ccLhiWAN.s:1895   .debug_str:0000000000000020 .LASF5
+     /tmp/ccLhiWAN.s:1955   .debug_str:000000000000020d .LASF6
+     /tmp/ccLhiWAN.s:1943   .debug_str:00000000000001b9 .LASF7
+     /tmp/ccLhiWAN.s:1979   .debug_str:0000000000000391 .LASF8
+     /tmp/ccLhiWAN.s:1927   .debug_str:0000000000000104 .LASF9
+     /tmp/ccLhiWAN.s:1959   .debug_str:0000000000000249 .LASF10
+     /tmp/ccLhiWAN.s:1977   .debug_str:0000000000000382 .LASF11
+     /tmp/ccLhiWAN.s:1897   .debug_str:0000000000000027 .LASF12
+     /tmp/ccLhiWAN.s:1893   .debug_str:0000000000000010 .LASF13
+     /tmp/ccLhiWAN.s:1903   .debug_str:0000000000000067 .LASF14
+     /tmp/ccLhiWAN.s:1965   .debug_str:0000000000000266 .LASF15
+     /tmp/ccLhiWAN.s:1905   .debug_str:0000000000000073 .LASF16
+GAS LISTING /tmp/ccLhiWAN.s 			page 21
 
 
-     /tmp/cctbxyfX.s:1919   .debug_str:00000000000000d4 .LASF17
-     /tmp/cctbxyfX.s:1921   .debug_str:00000000000000d9 .LASF21
-     /tmp/cctbxyfX.s:1987   .debug_str:00000000000003c8 .LASF18
-     /tmp/cctbxyfX.s:1983   .debug_str:00000000000003ab .LASF19
-     /tmp/cctbxyfX.s:1973   .debug_str:00000000000002b9 .LASF20
-     /tmp/cctbxyfX.s:1899   .debug_str:0000000000000037 .LASF22
-     /tmp/cctbxyfX.s:1917   .debug_str:00000000000000cb .LASF23
-     /tmp/cctbxyfX.s:1937   .debug_str:0000000000000174 .LASF47
-     /tmp/cctbxyfX.s:1891   .debug_str:0000000000000007 .LASF24
-     /tmp/cctbxyfX.s:1889   .debug_str:0000000000000000 .LASF25
-     /tmp/cctbxyfX.s:1911   .debug_str:00000000000000b3 .LASF26
-     /tmp/cctbxyfX.s:1915   .debug_str:00000000000000c1 .LASF31
-     /tmp/cctbxyfX.s:1957   .debug_str:0000000000000220 .LASF33
-     /tmp/cctbxyfX.s:1953   .debug_str:0000000000000202 .LASF48
-     /tmp/cctbxyfX.s:1901   .debug_str:0000000000000044 .LASF49
-     /tmp/cctbxyfX.s:1969   .debug_str:000000000000028e .LASF27
-     /tmp/cctbxyfX.s:1971   .debug_str:0000000000000298 .LASF29
-     /tmp/cctbxyfX.s:1963   .debug_str:000000000000025d .LASF28
-     /tmp/cctbxyfX.s:1933   .debug_str:0000000000000134 .LASF30
-     /tmp/cctbxyfX.s:1947   .debug_str:00000000000001d9 .LASF32
-     /tmp/cctbxyfX.s:1941   .debug_str:0000000000000192 .LASF34
-     /tmp/cctbxyfX.s:1935   .debug_str:0000000000000155 .LASF35
-     /tmp/cctbxyfX.s:1909   .debug_str:0000000000000096 .LASF36
-     /tmp/cctbxyfX.s:1929   .debug_str:0000000000000112 .LASF37
-     /tmp/cctbxyfX.s:448    .text:0000000000000260 .LFB20
-     /tmp/cctbxyfX.s:496    .text:0000000000000294 .LFE20
-     /tmp/cctbxyfX.s:1530   .debug_loc:0000000000000000 .LLST12
-     /tmp/cctbxyfX.s:1981   .debug_str:00000000000003a1 .LASF38
-     /tmp/cctbxyfX.s:1550   .debug_loc:000000000000004e .LLST13
-     /tmp/cctbxyfX.s:1579   .debug_loc:00000000000000b4 .LLST14
-     /tmp/cctbxyfX.s:224    .text:000000000000012c .LFB19
-     /tmp/cctbxyfX.s:299    .text:0000000000000198 .LFE19
-     /tmp/cctbxyfX.s:1961   .debug_str:0000000000000258 .LASF39
-     /tmp/cctbxyfX.s:1600   .debug_loc:0000000000000112 .LLST5
-     /tmp/cctbxyfX.s:305    .text:0000000000000198 .LFB18
-     /tmp/cctbxyfX.s:442    .text:0000000000000260 .LFE18
-     /tmp/cctbxyfX.s:1647   .debug_loc:00000000000001c6 .LLST6
-     /tmp/cctbxyfX.s:1907   .debug_str:0000000000000089 .LASF40
-     /tmp/cctbxyfX.s:1680   .debug_loc:000000000000024e .LLST7
-     /tmp/cctbxyfX.s:1700   .debug_loc:000000000000029c .LLST8
-     /tmp/cctbxyfX.s:1925   .debug_str:00000000000000ff .LASF41
-     /tmp/cctbxyfX.s:1711   .debug_loc:00000000000002d2 .LLST9
-     /tmp/cctbxyfX.s:1731   .debug_loc:0000000000000320 .LLST10
-     /tmp/cctbxyfX.s:1949   .debug_str:00000000000001e8 .LASF42
-     /tmp/cctbxyfX.s:1760   .debug_loc:00000000000003a4 .LLST11
-     /tmp/cctbxyfX.s:396    .text:0000000000000220 .LVL30
-     /tmp/cctbxyfX.s:401    .text:000000000000022c .LVL31
-     /tmp/cctbxyfX.s:75     .text:0000000000000070 .LFB17
-     /tmp/cctbxyfX.s:218    .text:000000000000012c .LFE17
-     /tmp/cctbxyfX.s:1780   .debug_loc:00000000000003f2 .LLST1
-     /tmp/cctbxyfX.s:1813   .debug_loc:000000000000047a .LLST2
-     /tmp/cctbxyfX.s:1828   .debug_loc:00000000000004c3 .LLST3
-     /tmp/cctbxyfX.s:1879   .debug_ranges:0000000000000000 .Ldebug_ranges0
-     /tmp/cctbxyfX.s:1847   .debug_loc:000000000000051f .LLST4
-     /tmp/cctbxyfX.s:10     .text:0000000000000000 .LFB16
-     /tmp/cctbxyfX.s:69     .text:0000000000000070 .LFE16
-     /tmp/cctbxyfX.s:1913   .debug_str:00000000000000b8 .LASF43
-GAS LISTING /tmp/cctbxyfX.s 			page 22
+     /tmp/ccLhiWAN.s:1919   .debug_str:00000000000000d4 .LASF17
+     /tmp/ccLhiWAN.s:1921   .debug_str:00000000000000d9 .LASF21
+     /tmp/ccLhiWAN.s:1987   .debug_str:00000000000003c8 .LASF18
+     /tmp/ccLhiWAN.s:1983   .debug_str:00000000000003ab .LASF19
+     /tmp/ccLhiWAN.s:1973   .debug_str:00000000000002b9 .LASF20
+     /tmp/ccLhiWAN.s:1899   .debug_str:0000000000000037 .LASF22
+     /tmp/ccLhiWAN.s:1917   .debug_str:00000000000000cb .LASF23
+     /tmp/ccLhiWAN.s:1937   .debug_str:0000000000000174 .LASF47
+     /tmp/ccLhiWAN.s:1891   .debug_str:0000000000000007 .LASF24
+     /tmp/ccLhiWAN.s:1889   .debug_str:0000000000000000 .LASF25
+     /tmp/ccLhiWAN.s:1911   .debug_str:00000000000000b3 .LASF26
+     /tmp/ccLhiWAN.s:1915   .debug_str:00000000000000c1 .LASF31
+     /tmp/ccLhiWAN.s:1957   .debug_str:0000000000000220 .LASF33
+     /tmp/ccLhiWAN.s:1953   .debug_str:0000000000000202 .LASF48
+     /tmp/ccLhiWAN.s:1901   .debug_str:0000000000000044 .LASF49
+     /tmp/ccLhiWAN.s:1969   .debug_str:000000000000028e .LASF27
+     /tmp/ccLhiWAN.s:1971   .debug_str:0000000000000298 .LASF29
+     /tmp/ccLhiWAN.s:1963   .debug_str:000000000000025d .LASF28
+     /tmp/ccLhiWAN.s:1933   .debug_str:0000000000000134 .LASF30
+     /tmp/ccLhiWAN.s:1947   .debug_str:00000000000001d9 .LASF32
+     /tmp/ccLhiWAN.s:1941   .debug_str:0000000000000192 .LASF34
+     /tmp/ccLhiWAN.s:1935   .debug_str:0000000000000155 .LASF35
+     /tmp/ccLhiWAN.s:1909   .debug_str:0000000000000096 .LASF36
+     /tmp/ccLhiWAN.s:1929   .debug_str:0000000000000112 .LASF37
+     /tmp/ccLhiWAN.s:448    .text:0000000000000260 .LFB20
+     /tmp/ccLhiWAN.s:496    .text:0000000000000294 .LFE20
+     /tmp/ccLhiWAN.s:1530   .debug_loc:0000000000000000 .LLST12
+     /tmp/ccLhiWAN.s:1981   .debug_str:00000000000003a1 .LASF38
+     /tmp/ccLhiWAN.s:1550   .debug_loc:000000000000004e .LLST13
+     /tmp/ccLhiWAN.s:1579   .debug_loc:00000000000000b4 .LLST14
+     /tmp/ccLhiWAN.s:224    .text:000000000000012c .LFB19
+     /tmp/ccLhiWAN.s:299    .text:0000000000000198 .LFE19
+     /tmp/ccLhiWAN.s:1961   .debug_str:0000000000000258 .LASF39
+     /tmp/ccLhiWAN.s:1600   .debug_loc:0000000000000112 .LLST5
+     /tmp/ccLhiWAN.s:305    .text:0000000000000198 .LFB18
+     /tmp/ccLhiWAN.s:442    .text:0000000000000260 .LFE18
+     /tmp/ccLhiWAN.s:1647   .debug_loc:00000000000001c6 .LLST6
+     /tmp/ccLhiWAN.s:1907   .debug_str:0000000000000089 .LASF40
+     /tmp/ccLhiWAN.s:1680   .debug_loc:000000000000024e .LLST7
+     /tmp/ccLhiWAN.s:1700   .debug_loc:000000000000029c .LLST8
+     /tmp/ccLhiWAN.s:1925   .debug_str:00000000000000ff .LASF41
+     /tmp/ccLhiWAN.s:1711   .debug_loc:00000000000002d2 .LLST9
+     /tmp/ccLhiWAN.s:1731   .debug_loc:0000000000000320 .LLST10
+     /tmp/ccLhiWAN.s:1949   .debug_str:00000000000001e8 .LASF42
+     /tmp/ccLhiWAN.s:1760   .debug_loc:00000000000003a4 .LLST11
+     /tmp/ccLhiWAN.s:396    .text:0000000000000220 .LVL30
+     /tmp/ccLhiWAN.s:401    .text:000000000000022c .LVL31
+     /tmp/ccLhiWAN.s:75     .text:0000000000000070 .LFB17
+     /tmp/ccLhiWAN.s:218    .text:000000000000012c .LFE17
+     /tmp/ccLhiWAN.s:1780   .debug_loc:00000000000003f2 .LLST1
+     /tmp/ccLhiWAN.s:1813   .debug_loc:000000000000047a .LLST2
+     /tmp/ccLhiWAN.s:1828   .debug_loc:00000000000004c3 .LLST3
+     /tmp/ccLhiWAN.s:1879   .debug_ranges:0000000000000000 .Ldebug_ranges0
+     /tmp/ccLhiWAN.s:1847   .debug_loc:000000000000051f .LLST4
+     /tmp/ccLhiWAN.s:10     .text:0000000000000000 .LFB16
+     /tmp/ccLhiWAN.s:69     .text:0000000000000070 .LFE16
+     /tmp/ccLhiWAN.s:1913   .debug_str:00000000000000b8 .LASF43
+GAS LISTING /tmp/ccLhiWAN.s 			page 22
 
 
-     /tmp/cctbxyfX.s:1854   .debug_loc:0000000000000542 .LLST0
-     /tmp/cctbxyfX.s:451    .text:0000000000000260 .LVL36
-     /tmp/cctbxyfX.s:461    .text:0000000000000270 .LVL37
-     /tmp/cctbxyfX.s:472    .text:000000000000027c .LVL38
-     /tmp/cctbxyfX.s:485    .text:000000000000028c .LVL40
-     /tmp/cctbxyfX.s:491    .text:0000000000000290 .LVL41
-     /tmp/cctbxyfX.s:475    .text:0000000000000280 .LVL39
-     /tmp/cctbxyfX.s:227    .text:000000000000012c .LVL15
-     /tmp/cctbxyfX.s:251    .text:0000000000000158 .LVL16
-     /tmp/cctbxyfX.s:261    .text:0000000000000164 .LVL17
-     /tmp/cctbxyfX.s:284    .text:0000000000000184 .LVL18
-     /tmp/cctbxyfX.s:286    .text:0000000000000188 .LVL19
-     /tmp/cctbxyfX.s:290    .text:000000000000018c .LVL20
-     /tmp/cctbxyfX.s:292    .text:0000000000000190 .LVL21
-     /tmp/cctbxyfX.s:296    .text:0000000000000194 .LVL22
-     /tmp/cctbxyfX.s:308    .text:0000000000000198 .LVL23
-     /tmp/cctbxyfX.s:326    .text:00000000000001b8 .LVL24
-     /tmp/cctbxyfX.s:418    .text:0000000000000244 .LVL33
-     /tmp/cctbxyfX.s:430    .text:0000000000000258 .LVL34
-     /tmp/cctbxyfX.s:438    .text:000000000000025c .LVL35
-     /tmp/cctbxyfX.s:330    .text:00000000000001bc .LVL25
-     /tmp/cctbxyfX.s:342    .text:00000000000001d0 .LVL26
-     /tmp/cctbxyfX.s:348    .text:00000000000001d8 .LVL27
-     /tmp/cctbxyfX.s:354    .text:00000000000001e4 .LVL28
-     /tmp/cctbxyfX.s:361    .text:00000000000001f0 .LVL29
-     /tmp/cctbxyfX.s:414    .text:000000000000023c .LVL32
-     /tmp/cctbxyfX.s:78     .text:0000000000000070 .LVL3
-     /tmp/cctbxyfX.s:95     .text:0000000000000090 .LVL6
-     /tmp/cctbxyfX.s:165    .text:00000000000000ec .LVL11
-     /tmp/cctbxyfX.s:179    .text:00000000000000f8 .LVL12
-     /tmp/cctbxyfX.s:208    .text:0000000000000124 .LVL13
-     /tmp/cctbxyfX.s:215    .text:0000000000000128 .LVL14
-     /tmp/cctbxyfX.s:89     .text:0000000000000084 .LVL4
-     /tmp/cctbxyfX.s:93     .text:000000000000008c .LVL5
-     /tmp/cctbxyfX.s:117    .text:00000000000000a8 .LVL8
-     /tmp/cctbxyfX.s:119    .text:00000000000000ac .LVL9
-     /tmp/cctbxyfX.s:158    .text:00000000000000e4 .LVL10
-     /tmp/cctbxyfX.s:33     .text:0000000000000038 .LVL0
-     /tmp/cctbxyfX.s:37     .text:000000000000003c .LVL1
-     /tmp/cctbxyfX.s:522    .debug_info:0000000000000000 .Ldebug_info0
-     /tmp/cctbxyfX.s:123    .text:00000000000000ac .LBB4
-     /tmp/cctbxyfX.s:168    .text:00000000000000ec .LBE4
-     /tmp/cctbxyfX.s:184    .text:00000000000000f8 .LBB5
-     /tmp/cctbxyfX.s:210    .text:0000000000000124 .LBE5
+     /tmp/ccLhiWAN.s:1854   .debug_loc:0000000000000542 .LLST0
+     /tmp/ccLhiWAN.s:451    .text:0000000000000260 .LVL36
+     /tmp/ccLhiWAN.s:461    .text:0000000000000270 .LVL37
+     /tmp/ccLhiWAN.s:472    .text:000000000000027c .LVL38
+     /tmp/ccLhiWAN.s:485    .text:000000000000028c .LVL40
+     /tmp/ccLhiWAN.s:491    .text:0000000000000290 .LVL41
+     /tmp/ccLhiWAN.s:475    .text:0000000000000280 .LVL39
+     /tmp/ccLhiWAN.s:227    .text:000000000000012c .LVL15
+     /tmp/ccLhiWAN.s:251    .text:0000000000000158 .LVL16
+     /tmp/ccLhiWAN.s:261    .text:0000000000000164 .LVL17
+     /tmp/ccLhiWAN.s:284    .text:0000000000000184 .LVL18
+     /tmp/ccLhiWAN.s:286    .text:0000000000000188 .LVL19
+     /tmp/ccLhiWAN.s:290    .text:000000000000018c .LVL20
+     /tmp/ccLhiWAN.s:292    .text:0000000000000190 .LVL21
+     /tmp/ccLhiWAN.s:296    .text:0000000000000194 .LVL22
+     /tmp/ccLhiWAN.s:308    .text:0000000000000198 .LVL23
+     /tmp/ccLhiWAN.s:326    .text:00000000000001b8 .LVL24
+     /tmp/ccLhiWAN.s:418    .text:0000000000000244 .LVL33
+     /tmp/ccLhiWAN.s:430    .text:0000000000000258 .LVL34
+     /tmp/ccLhiWAN.s:438    .text:000000000000025c .LVL35
+     /tmp/ccLhiWAN.s:330    .text:00000000000001bc .LVL25
+     /tmp/ccLhiWAN.s:342    .text:00000000000001d0 .LVL26
+     /tmp/ccLhiWAN.s:348    .text:00000000000001d8 .LVL27
+     /tmp/ccLhiWAN.s:354    .text:00000000000001e4 .LVL28
+     /tmp/ccLhiWAN.s:361    .text:00000000000001f0 .LVL29
+     /tmp/ccLhiWAN.s:414    .text:000000000000023c .LVL32
+     /tmp/ccLhiWAN.s:78     .text:0000000000000070 .LVL3
+     /tmp/ccLhiWAN.s:95     .text:0000000000000090 .LVL6
+     /tmp/ccLhiWAN.s:165    .text:00000000000000ec .LVL11
+     /tmp/ccLhiWAN.s:179    .text:00000000000000f8 .LVL12
+     /tmp/ccLhiWAN.s:208    .text:0000000000000124 .LVL13
+     /tmp/ccLhiWAN.s:215    .text:0000000000000128 .LVL14
+     /tmp/ccLhiWAN.s:89     .text:0000000000000084 .LVL4
+     /tmp/ccLhiWAN.s:93     .text:000000000000008c .LVL5
+     /tmp/ccLhiWAN.s:117    .text:00000000000000a8 .LVL8
+     /tmp/ccLhiWAN.s:119    .text:00000000000000ac .LVL9
+     /tmp/ccLhiWAN.s:158    .text:00000000000000e4 .LVL10
+     /tmp/ccLhiWAN.s:33     .text:0000000000000038 .LVL0
+     /tmp/ccLhiWAN.s:37     .text:000000000000003c .LVL1
+     /tmp/ccLhiWAN.s:522    .debug_info:0000000000000000 .Ldebug_info0
+     /tmp/ccLhiWAN.s:123    .text:00000000000000ac .LBB4
+     /tmp/ccLhiWAN.s:168    .text:00000000000000ec .LBE4
+     /tmp/ccLhiWAN.s:184    .text:00000000000000f8 .LBB5
+     /tmp/ccLhiWAN.s:210    .text:0000000000000124 .LBE5
 
 UNDEFINED SYMBOLS
 HEAP_START_ADDR

@@ -32,8 +32,14 @@ struct _thread
     int forkRetVal;
     static void threadFork();
 
+    // exec
+    static void threadExec();
+    static void threadWrapperExec();
+
+    // kill
     static int id;
     int myId;
+    _sem* blockedOn;
 
     struct Elem {
         _thread *data;
@@ -46,6 +52,7 @@ struct _thread
     static _thread* search(int searchId);
     static int threadKill(int threadId);
 
+    // resource
     unsigned resourceWant;
     //////////////////
 

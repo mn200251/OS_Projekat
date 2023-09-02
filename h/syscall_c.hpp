@@ -39,11 +39,14 @@ char getc ();
 
 void putc (char c);
 
-
-
+// modifikacije
 int fork();
 
+void execv1(void(*body)(void *), void* arg);
+
 void exec(void(*body)(void *), void* arg);
+
+int thread_kill(int threadId);
 
 #endif //PROJECT_BASE_SYSCALL_C_HPP
 
