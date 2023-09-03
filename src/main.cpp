@@ -335,8 +335,8 @@ void resourceTaker(void*)
 {
     while (true)
     {
-        myResource->aquireResource(5);
-        printString("Aquired 5 resource! Current balance = ");
+        myResource->aquireResource(8);
+        printString("Aquired 8 resource! Current balance = ");
         printInt(myResource->val);
         printString("\n");
         thread_dispatch();
@@ -357,7 +357,7 @@ void modifResource()
     thread_dispatch();
 
     int i = 0;
-    while(i < 10)
+    while(i < 15)
     {
         thread_dispatch();
         i++;

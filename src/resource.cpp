@@ -5,7 +5,8 @@
 #include "../h/resource.hpp"
 
 
-resource *resource::createResource(unsigned value) {
+resource *resource::createResource(unsigned value)
+{
     resource* newResource = (resource*) mem_alloc(sizeof(resource));
     newResource->val = value;
     sem_open(&newResource->semaphore,0);
@@ -41,12 +42,15 @@ void resource::releaseResource(unsigned amount)
     while (this->semaphore->peekFirst() && this->val > 0)
     {
         _thread* firstThread = this->semaphore->peekFirst();
-        if (this->val < firstThread->resourceWant) // reducing by available amount
+
+        // reducing by available amount
+        if (this->val < firstThread->resourceWant)
         {
-            _thread::running->resourceWant = firstThread->resourceWant - this->val;
+            firstThread->resourceWant = firstThread->resourceWant - this->val;
             this->val = 0;
         }
-        else // releasing thread
+        // releasing thread
+        else
         {
             this->val -= firstThread->resourceWant;
             firstThread->resourceWant = 0;
