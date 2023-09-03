@@ -368,6 +368,73 @@ void modifResource()
 }
 
 
+_sem* allocatedSem;
+void pingWorkerFun1(void*)
+{
+    int i = 10;
+    while (true)
+    {
+        sem_wait(allocatedSem);
+        int* arr = (int*)mem_alloc(sizeof(int) * i);
+        arr[0] = 2;
+        i *= 2;
+        mem_free(arr);
+        if (i > 300)
+            return;
+    }
+}
+
+void pingWorkerFun2(void*)
+{
+    int i = 10;
+    while (true)
+    {
+        sem_signal(allocatedSem);
+        if (i % 2 == 0) {
+            i++;
+            thread_dispatch();
+        }
+        else
+        {
+            thread_dispatch();
+            int* arr = (int*)mem_alloc(sizeof(int) * i);
+            arr[0] = 2;
+            i++;
+            mem_free(arr);
+            if (i > 30)
+                return;
+        }
+    }
+}
+
+
+void modifSpaceAllocated()
+{
+    _thread* pingWorker1;
+    _thread* pingWorker2;
+
+    thread_create(&pingWorker1, pingWorkerFun1, nullptr);
+    thread_create(&pingWorker2, pingWorkerFun2, nullptr);
+
+    sem_open(&allocatedSem, 0);
+
+
+    for(int i = 0; i < 10; i++)
+    {
+        thread_dispatch();
+        ping(pingWorker1->myId);
+        ping(pingWorker2->myId);
+    }
+
+    thread_dispatch();
+    ping(_thread::running->myId);
+    thread_dispatch();
+
+    thread_kill(pingWorker1->myId);
+    thread_kill(pingWorker2->myId);
+
+}
+
 void mainWrapper(void*)
 {
     //exec(ping, reinterpret_cast<void *>(1));
@@ -375,7 +442,8 @@ void mainWrapper(void*)
     // userMain();
     // modifMatrica();
     // modifKill();
-    modifResource();
+    // modifResource();
+    modifSpaceAllocated();
 }
 
 

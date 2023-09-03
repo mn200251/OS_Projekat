@@ -99,6 +99,13 @@ void *MemoryAllocator::mem_alloc(size_t size)
             printString("\n");
             */
 
+            //////////////
+
+            if (_thread::running)
+                _thread::running->spaceAllocated += blockNum;
+
+            //////////////
+
             return ptr;
         }
         curr = curr->next;

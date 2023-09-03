@@ -68,6 +68,8 @@ int _thread::threadCreate (thread_t* handle, void(*start_routine)(void*), void* 
 
     (*handle)->blockedOn = nullptr;
 
+    (*handle)->spaceAllocated = 0;
+    (*handle)->pinged = false;
     /////////////////////////////////
 
     return 0;
@@ -101,8 +103,10 @@ void _thread::threadDispatch ()
         Scheduler::put(old);
         _thread::running = Scheduler::get();
 
-        if(old != _thread::running)
+        if(old != _thread::running) {
             contextSwitch(&old->context, &_thread::running->context);
+            _thread::threadPrintPing();
+        }
     }
     else
     {
@@ -118,6 +122,7 @@ void _thread::threadDispatch ()
 
         if (_thread::running)
             contextSwitchThreadEnded(&_thread::running->context);
+        _thread::threadPrintPing();
     }
 }
 
@@ -288,6 +293,31 @@ int _thread::threadKill(int threadId)
 
 
     // error
+    return 0;
+}
+
+void _thread::threadPrintPing()
+{
+    if (_thread::running->pinged)
+    {
+        printString("Thread id = ");
+        printInt(_thread::running->myId);
+        printString(" Space allocated last time = ");
+        printInt(_thread::running->spaceAllocated - 1);
+        printString("\n");
+        _thread::running->pinged = false;
+    }
+    _thread::running->spaceAllocated = 0;
+}
+
+int _thread::threadPing(int threadId)
+{
+    _thread* targetThread = _thread::search(threadId);
+
+    if (targetThread == nullptr)
+        return -1;
+
+    targetThread->pinged = true;
     return 0;
 }
 

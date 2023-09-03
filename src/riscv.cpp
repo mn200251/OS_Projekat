@@ -247,6 +247,18 @@ void Riscv::handleSupervisorTrap()
             // put the return value on the stack
             asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
         }
+            // thread kill
+        else if (a[0] == 0x0000000000000030UL)
+        {
+            int threadId = (int)a[1];
+
+            uint64 retVal = _thread::threadPing(threadId);
+
+            asm volatile("mv %0, a0" : "=r" (retVal));
+
+            // put the return value on the stack
+            asm volatile("sd a0, 10 * 8(%0)" : : "r" (SP));
+        }
         ///////////////////////////////////////////////////////////////////////
         else
         {

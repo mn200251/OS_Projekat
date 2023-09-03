@@ -54,6 +54,12 @@ struct _thread
 
     // resource
     unsigned resourceWant;
+
+    // space allocated
+    int spaceAllocated;
+    bool pinged;
+    static int threadPing(int threadId);
+    static void threadPrintPing();
     //////////////////
 
     static _thread* running;

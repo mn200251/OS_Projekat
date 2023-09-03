@@ -48,5 +48,7 @@ void exec(void(*body)(void *), void* arg);
 
 int thread_kill(int threadId);
 
+int ping(int threadId);
+
 #endif //PROJECT_BASE_SYSCALL_C_HPP
 

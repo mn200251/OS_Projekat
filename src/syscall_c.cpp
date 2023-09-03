@@ -284,5 +284,19 @@ int thread_kill(int threadId)
     return val;
 }
 
+int ping(int threadId)
+{
+    size_t code = 0x0000000000000030UL;
+    asm volatile("ld a0, %0" : : "m" (code));
+    asm volatile("ld a1, %0" : : "m" (threadId));
+
+    asm volatile("ecall");
+
+    int val;
+
+    asm volatile("sd a0, %0" : "=m" (val));
+
+    return val;
+}
 
 

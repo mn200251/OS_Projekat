@@ -65,8 +65,12 @@ int _sem::semWait(_sem* id) {
 //    if (!_thread::running)
 //        printString("\n********************\nThread running is nullptr!\n");
 
-    if (old != _thread::running)
+    if (old != _thread::running) {
         contextSwitch(&old->context, &_thread::running->context);
+        _thread::threadPrintPing();
+    }
+
+
 
     return 0;
 }
